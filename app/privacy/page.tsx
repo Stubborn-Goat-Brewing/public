@@ -153,7 +153,7 @@ export default function PrivacyPolicy() {
           <br />
           Email: legal@stubborngoatbrewing.com
           <br />
-          Phone: (484) 261-9710
+          Phone: 610-679-9017
         </p>
 
         <div className="mt-8">

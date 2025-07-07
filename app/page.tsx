@@ -4,6 +4,7 @@ import { MapPin, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InstagramFeed } from "@/components/instagram-feed"
 import { PopupButton } from "@/components/popup-button"
+import { HoursCard } from "@/components/hours-card"
 
 export default function Home() {
   return (
@@ -35,6 +36,12 @@ export default function Home() {
             <Link href="#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
               Get Connected
             </Link>
+            <Link href="#visit" className="text-sm font-medium hover:underline underline-offset-4">
+              Visit Us
+            </Link>
+            <Link href="#hours" className="text-sm font-medium hover:underline underline-offset-4">
+              Hours
+            </Link>
             <Link href="#contact" className="text-sm font-medium hover:underline underline-offset-4">
               Contact
             </Link>
@@ -45,7 +52,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="relative h-[80vh]">
+          <div className="relative min-h-[80vh]">
             <Image
               src="/images/brewery-hero.png"
               alt="Brewery interior with copper tanks and wooden barrels"
@@ -53,8 +60,8 @@ export default function Home() {
               priority
               className="object-cover"
             />
-            <div className="container relative z-20 flex h-full flex-col items-center justify-center py-16 text-center text-white">
-              <div className="flex flex-col items-center max-w-4xl mx-auto">
+            <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white">
+              <div className="flex flex-col items-center max-w-4xl mx-auto pt-16 pb-16">
                 <Image
                   src="/images/full-logo.png"
                   alt="Stubborn Goat Brewing"
@@ -180,8 +187,60 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Visit Us Section */}
+        <section id="visit" className="py-16 md:py-24">
+          <div className="container">
+            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Visit Us</h2>
+            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-12">
+              Come experience the warmth of our community-focused brewery in West Grove, PA.
+            </p>
+
+            <div className="flex flex-col items-center justify-center">
+              <div className="w-full max-w-2xl">
+                <div className="space-y-6">
+                  <address className="not-italic text-muted-foreground text-center">
+                    <p className="flex items-center justify-center gap-2 text-lg">
+                      <MapPin className="h-5 w-5" />
+                      122 Rosehill Ave, West Grove, PA 19390
+                    </p>
+                  </address>
+
+                  <div className="h-[300px] overflow-hidden rounded-lg">
+                    <iframe
+                      title="Stubborn Goat Brewing Location"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5116035870707!2d-75.8293238!3d39.8224868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6579e4a5e4a8d%3A0x618460a2c2e8a04a!2s122%20Rosehill%20Ave%2C%20West%20Grove%2C%20PA%2019390!5e0!3m2!1sen!2sus!4v1712508081!5m2!1sen!2sus"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Hours Section */}
+        <section id="hours" className="bg-muted py-16 md:py-24">
+          <div className="container">
+            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+              Hours of Operation
+            </h2>
+            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-12">
+              We're open and ready to welcome you! Check out our current hours below.
+            </p>
+
+            <div className="flex justify-center">
+              <HoursCard />
+            </div>
+          </div>
+        </section>
+
         {/* Contact Section */}
-        <section id="contact" className="bg-muted py-4 md:py-8">
+        <section id="contact" className="py-4 md:py-8">
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
             <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
@@ -194,8 +253,8 @@ export default function Home() {
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:4842619710" className="mt-4 text-lg font-medium hover:underline">
-                      (484) 261-9710
+                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
+                      610-679-9017
                     </a>
                   </div>
                   <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
@@ -208,36 +267,6 @@ export default function Home() {
                     >
                       tribe@stubborngoatbrewing.com
                     </a>
-                  </div>
-                </div>
-
-                <div id="visit" className="w-full max-w-2xl mt-8">
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold">Visit Us</h3>
-                    <address className="not-italic text-muted-foreground">
-                      <p className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" />
-                        122 Rosehill Ave, West Grove, PA 19390
-                      </p>
-                    </address>
-
-                    <div className="h-[300px] overflow-hidden rounded-lg mt-4">
-                      <iframe
-                        title="Stubborn Goat Brewing Location"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5116035870707!2d-75.8293238!3d39.8224868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6579e4a5e4a8d%3A0x618460a2c2e8a04a!2s122%20Rosehill%20Ave%2C%20West%20Grove%2C%20PA%2019390!5e0!3m2!1sen!2sus!4v1712508081!5m2!1sen!2sus"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                      ></iframe>
-                    </div>
-
-                    <div className="mt-6">
-                      <h3 className="text-xl font-bold">Hours</h3>
-                      <p className="mt-2 text-muted-foreground">Coming Soon!</p>
-                    </div>
                   </div>
                 </div>
               </div>
