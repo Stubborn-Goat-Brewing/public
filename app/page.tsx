@@ -22,14 +22,6 @@ export default function Home() {
             <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
           </Link>
           <nav className="flex items-center gap-4 sm:gap-6">
-            <Link
-              href="https://shop.stubborngoatbrewing.com"
-              className="text-sm font-medium hover:underline underline-offset-4"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Shop
-            </Link>
             <Link href="#about" className="text-sm font-medium hover:underline underline-offset-4">
               About
             </Link>
@@ -75,19 +67,9 @@ export default function Home() {
                 <p className="mt-4 max-w-[700px] text-lg text-white/90">
                   Where Community, Flavor, and Fun Come Together
                 </p>
-                <div className="mt-6 flex flex-col gap-4 sm:flex-row">
+                <div className="mt-6 flex justify-center">
                   <Button asChild size="lg">
                     <Link href="#visit">Visit Us</Link>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-[#2c5530] bg-[#2c5530] text-white hover:bg-[#2c5530] hover:border-[#2c5530] hover:text-white"
-                    asChild
-                  >
-                    <Link href="https://shop.stubborngoatbrewing.com" target="_blank" rel="noopener noreferrer">
-                      Shop Merch
-                    </Link>
                   </Button>
                 </div>
               </div>
