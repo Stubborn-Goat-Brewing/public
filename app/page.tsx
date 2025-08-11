@@ -34,6 +34,14 @@ export default function Home() {
             <Link href="#hours" className="text-sm font-medium hover:underline underline-offset-4">
               Hours
             </Link>
+            <Link
+              href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium hover:underline underline-offset-4"
+            >
+              Gift Cards
+            </Link>
             <Link href="#contact" className="text-sm font-medium hover:underline underline-offset-4">
               Contact
             </Link>
