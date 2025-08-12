@@ -89,7 +89,7 @@ export default function Home() {
         <section id="about" className="py-16 md:py-24">
           <div className="container">
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Community Focused Brewing</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Community Focused</h2>
               <p className="mt-4 text-muted-foreground">
                 At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
                 plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to connect
@@ -182,7 +182,7 @@ export default function Home() {
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Visit Us</h2>
             <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-12">
-              Come experience the warmth of our community-focused brewery in West Grove, PA.
+              Come spend some time with us in West Grove, PA.
             </p>
 
             <div className="flex flex-col items-center justify-center">

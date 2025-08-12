@@ -12,13 +12,13 @@ export function HoursCard() {
   const currentDay = getCurrentDay()
 
   const hours = [
-    { day: "Sunday", time: "11am - 9pm" },
+    { day: "Sunday", time: "12pm - 9pm" }, // Updated opening time from 11am to 12pm
     { day: "Monday", time: "Closed" },
     { day: "Tuesday", time: "4pm - 10pm" },
     { day: "Wednesday", time: "4pm - 10pm" },
     { day: "Thursday", time: "4pm - 10pm" },
-    { day: "Friday", time: "11am - 11pm" },
-    { day: "Saturday", time: "11am - 11pm" },
+    { day: "Friday", time: "12pm - 11pm" }, // Updated opening time from 11am to 12pm
+    { day: "Saturday", time: "12pm - 11pm" }, // Updated opening time from 11am to 12pm
   ]
 
   return (
