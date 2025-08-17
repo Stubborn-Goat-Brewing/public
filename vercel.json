@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/instagram",
+      "destination": "https://www.instagram.com/StubbornGoatBrewing"
+    }
+  ]
+}
