@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { InstagramFeed } from "@/components/instagram-feed"
 import { PopupButton } from "@/components/popup-button"
 import { HoursCard } from "@/components/hours-card"
+import { TapList } from "@/components/tap-list"
 
 export default function Home() {
   return (
@@ -24,6 +25,9 @@ export default function Home() {
           <nav className="flex items-center gap-4 sm:gap-6">
             <Link href="#about" className="text-sm font-medium hover:underline underline-offset-4">
               About
+            </Link>
+            <Link href="#tap-list" className="text-sm font-medium hover:underline underline-offset-4">
+              Tap List
             </Link>
             <Link href="#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
               Get Connected
@@ -101,8 +105,13 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Tap List Section */}
+        <section id="tap-list" className="bg-muted py-12 md:py-16">
+          <TapList />
+        </section>
+
         {/* Get Connected Section */}
-        <section id="get-connected" className="bg-muted py-16 md:py-24">
+        <section id="get-connected" className="bg-muted py-12 md:py-16">
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get Connected</h2>
             <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
@@ -178,10 +187,10 @@ export default function Home() {
         </section>
 
         {/* Visit Us Section */}
-        <section id="visit" className="py-16 md:py-24">
+        <section id="visit" className="py-8 md:py-12">
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Visit Us</h2>
-            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-12">
+            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
               Come spend some time with us in West Grove, PA.
             </p>
 
@@ -214,12 +223,12 @@ export default function Home() {
         </section>
 
         {/* Hours Section */}
-        <section id="hours" className="bg-muted py-16 md:py-24">
+        <section id="hours" className="bg-muted py-8 md:py-12">
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
               Hours of Operation
             </h2>
-            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-12">
+            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
               We're open and ready to welcome you! Check out our current hours below.
             </p>
 
@@ -230,7 +239,7 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-4 md:py-8">
+        <section id="contact" className="py-8 md:py-12">
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
             <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
