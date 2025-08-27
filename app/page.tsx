@@ -1,20 +1,25 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone } from "lucide-react"
+import { MapPin, Phone, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InstagramFeed } from "@/components/instagram-feed"
 import { PopupButton } from "@/components/popup-button"
 import { HoursCard } from "@/components/hours-card"
 import { TapList } from "@/components/tap-list"
+import { useState } from "react"
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/images/goat-head.png"
+              src="/images/goat-head-new.png"
               alt="Stubborn Goat Brewing Logo"
               width={40}
               height={40}
@@ -22,10 +27,8 @@ export default function Home() {
             />
             <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
           </Link>
-          <nav className="flex items-center gap-4 sm:gap-6">
-            <Link href="#about" className="text-sm font-medium hover:underline underline-offset-4">
-              About
-            </Link>
+
+          <nav className="hidden md:flex items-center gap-4 sm:gap-6">
             <Link href="#tap-list" className="text-sm font-medium hover:underline underline-offset-4">
               Tap List
             </Link>
@@ -50,7 +53,68 @@ export default function Home() {
               Contact
             </Link>
           </nav>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t bg-background/95 backdrop-blur">
+            <nav className="container py-4 flex flex-col space-y-4">
+              <Link
+                href="#tap-list"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Tap List
+              </Link>
+              <Link
+                href="#get-connected"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Get Connected
+              </Link>
+              <Link
+                href="#visit"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Visit Us
+              </Link>
+              <Link
+                href="#hours"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Hours
+              </Link>
+              <Link
+                href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Gift Cards
+              </Link>
+              <Link
+                href="#contact"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
       <main className="flex-1">
         {/* Hero Section */}
@@ -77,7 +141,11 @@ export default function Home() {
                   Welcome to Stubborn Goat Brewing
                 </h1>
                 <p className="mt-4 max-w-[700px] text-lg text-white/90">
-                  Where Community, Flavor, and Fun Come Together
+                  At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
+                  plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to
+                  connect over local brews, PA-made wine and spirits, delicious food, creative mocktails, and an
+                  always-fresh lineup of live music and events. Whether you're here for a pint, a plate, or a laid-back
+                  outing with the kids, there's something for everyone at The Goat.
                 </p>
                 <div className="mt-6 flex justify-center">
                   <Button asChild size="lg">
@@ -90,20 +158,6 @@ export default function Home() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-16 md:py-24">
-          <div className="container">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Community Focused</h2>
-              <p className="mt-4 text-muted-foreground">
-                At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
-                plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to connect
-                over local brews, PA-made wine and spirits, delicious food, creative mocktails, and an always-fresh
-                lineup of live music and events. Whether you're here for a pint, a plate, or a laid-back outing with the
-                kids, there's something for everyone at The Goat.
-              </p>
-            </div>
-          </div>
-        </section>
 
         {/* Tap List Section */}
         <section id="tap-list" className="bg-muted py-12 md:py-16">
@@ -194,7 +248,7 @@ export default function Home() {
               Come spend some time with us in West Grove, PA.
             </p>
 
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex justify-center">
               <div className="w-full max-w-2xl">
                 <div className="space-y-6">
                   <address className="not-italic text-muted-foreground text-center">
@@ -278,7 +332,7 @@ export default function Home() {
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2">
               <Image
-                src="/images/goat-head.png"
+                src="/images/goat-head-new.png"
                 alt="Stubborn Goat Brewing Logo"
                 width={40}
                 height={40}
