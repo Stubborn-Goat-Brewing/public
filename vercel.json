@@ -4,6 +4,10 @@
     {
       "source": "/instagram",
       "destination": "https://www.instagram.com/StubbornGoatBrewing"
+    },
+    {
+      "source": "/ontap",
+      "destination": "/#tap-list"
     }
   ]
 }

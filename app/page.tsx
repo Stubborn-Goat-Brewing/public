@@ -41,6 +41,9 @@ export default function Home() {
             <Link href="#hours" className="text-sm font-medium hover:underline underline-offset-4">
               Hours
             </Link>
+            <Link href="#contact" className="text-sm font-medium hover:underline underline-offset-4">
+              Contact
+            </Link>
             <Link
               href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
               target="_blank"
@@ -48,9 +51,6 @@ export default function Home() {
               className="text-sm font-medium hover:underline underline-offset-4"
             >
               Gift Cards
-            </Link>
-            <Link href="#contact" className="text-sm font-medium hover:underline underline-offset-4">
-              Contact
             </Link>
           </nav>
 
@@ -97,6 +97,13 @@ export default function Home() {
                 Hours
               </Link>
               <Link
+                href="#contact"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <Link
                 href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -104,13 +111,6 @@ export default function Home() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Gift Cards
-              </Link>
-              <Link
-                href="#contact"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
               </Link>
             </nav>
           </div>
