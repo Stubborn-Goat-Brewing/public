@@ -12,13 +12,13 @@ export function HoursCard() {
   const currentDay = getCurrentDay()
 
   const hours = [
-    { day: "Sunday", time: "12pm - 9pm" }, // Updated opening time from 11am to 12pm
+    { day: "Sunday", time: "12pm - 9pm" },
     { day: "Monday", time: "Closed" },
     { day: "Tuesday", time: "4pm - 10pm" },
     { day: "Wednesday", time: "4pm - 10pm" },
     { day: "Thursday", time: "4pm - 10pm" },
-    { day: "Friday", time: "12pm - 11pm" }, // Updated opening time from 11am to 12pm
-    { day: "Saturday", time: "12pm - 11pm" }, // Updated opening time from 11am to 12pm
+    { day: "Friday", time: "12pm - 11pm" },
+    { day: "Saturday", time: "12pm - 11pm" },
   ]
 
   return (
@@ -33,7 +33,7 @@ export function HoursCard() {
               key={item.day}
               className={`flex justify-between py-2 px-6 rounded-md transition-colors min-w-0 ${
                 item.day === currentDay
-                  ? "bg-primary/10 border border-primary/30 font-semibold text-primary"
+                  ? "bg-amber-100 border border-amber-300 font-semibold text-amber-900"
                   : "text-muted-foreground hover:bg-muted/50"
               }`}
             >

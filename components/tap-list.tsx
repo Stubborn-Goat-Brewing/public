@@ -58,6 +58,30 @@ const currentBeers: Beer[] = [
     abv: 4.9,
     description: "Traditional style kolsch made with pils, wheat, vienna, and munich malts.",
   },
+  {
+    name: "Cold IPA",
+    style: "Cold IPA",
+    abv: 4.5,
+    description: "Clean and dry IPA, double dry-hopped with Nectaron.",
+  },
+  {
+    name: "Grove Refresher Watermelon Sour",
+    style: "Sour Ale",
+    abv: 5.5,
+    description: 'The first in our new "refresher" sour series. Light sour, slightly fruity, great flavor.',
+  },
+  {
+    name: "Dunkel",
+    style: "Dunkel",
+    abv: 5.0,
+    description: "Dark, smooth, malty, delicious. Served on Nitro.",
+  },
+  {
+    name: "Oktoberfest",
+    style: "Festbier",
+    abv: 5.5,
+    description: "Traditional Festbier.",
+  },
 ]
 
 export function TapList() {
@@ -66,7 +90,6 @@ export function TapList() {
       <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
         Current Beers on Tap
       </h2>
-      
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {currentBeers.map((beer, index) => (
@@ -88,9 +111,7 @@ export function TapList() {
         ))}
       </div>
 
-      <div className="mt-8 text-center">
-        
-      </div>
+      <div className="mt-8 text-center"></div>
     </div>
   )
 }
