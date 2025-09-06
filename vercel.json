@@ -7,7 +7,7 @@
     },
     {
       "source": "/ontap",
-      "destination": "/#tap-list"
+      "destination": "/menu#draft-beer"
     }
   ]
 }
