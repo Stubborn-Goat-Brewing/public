@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { InstagramFeed } from "@/components/instagram-feed"
 import { PopupButton } from "@/components/popup-button"
 import { HoursCard } from "@/components/hours-card"
-import { TapList } from "@/components/tap-list"
 import { useState } from "react"
 
 export default function Home() {
@@ -29,8 +28,8 @@ export default function Home() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-4 sm:gap-6">
-            <Link href="#tap-list" className="text-sm font-medium hover:underline underline-offset-4">
-              Tap List
+            <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
+              Menu
             </Link>
             <Link href="#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
               Get Connected
@@ -69,11 +68,11 @@ export default function Home() {
           <div className="md:hidden border-t bg-background/95 backdrop-blur">
             <nav className="container py-4 flex flex-col space-y-4">
               <Link
-                href="#tap-list"
+                href="/menu"
                 className="text-sm font-medium hover:underline underline-offset-4"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Tap List
+                Menu
               </Link>
               <Link
                 href="#get-connected"
@@ -158,11 +157,6 @@ export default function Home() {
         </section>
 
         {/* About Section */}
-
-        {/* Tap List Section */}
-        <section id="tap-list" className="bg-muted py-12 md:py-16">
-          <TapList />
-        </section>
 
         {/* Get Connected Section */}
         <section id="get-connected" className="bg-muted py-12 md:py-16">
@@ -306,8 +300,8 @@ export default function Home() {
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
-                      610-679-9017
+                    <a href="tel:4842619710" className="mt-4 text-lg font-medium hover:underline">
+                      (484) 261-9710
                     </a>
                   </div>
                   <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
