@@ -31,6 +31,9 @@ export default function Home() {
             <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
               Menu
             </Link>
+            <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
+              Events
+            </Link>
             <Link href="#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
               Get Connected
             </Link>
@@ -73,6 +76,13 @@ export default function Home() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Menu
+              </Link>
+              <Link
+                href="/events"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Events
               </Link>
               <Link
                 href="#get-connected"
