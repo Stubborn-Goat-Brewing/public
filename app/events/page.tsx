@@ -199,12 +199,29 @@ function ListView({ events, onEventClick }: { events: Event[]; onEventClick: (ev
 
 function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick: (event: Event) => void }) {
   const today = new Date()
-  const currentMonth = today.getMonth()
-  const currentYear = today.getFullYear()
+  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
+  const [viewingYear, setViewingYear] = useState(today.getFullYear())
 
-  // Get first day of month and number of days
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1)
-  const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0)
+  const goToPreviousMonth = () => {
+    if (viewingMonth === 0) {
+      setViewingMonth(11)
+      setViewingYear(viewingYear - 1)
+    } else {
+      setViewingMonth(viewingMonth - 1)
+    }
+  }
+
+  const goToNextMonth = () => {
+    if (viewingMonth === 11) {
+      setViewingMonth(0)
+      setViewingYear(viewingYear + 1)
+    } else {
+      setViewingMonth(viewingMonth + 1)
+    }
+  }
+
+  const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
+  const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
   const firstDayWeekday = firstDayOfMonth.getDay() // 0 = Sunday
   const daysInMonth = lastDayOfMonth.getDate()
 
@@ -225,7 +242,7 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   const eventsByDate = events.reduce(
     (acc, event) => {
       const eventDate = new Date(event.date)
-      if (eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear) {
+      if (eventDate.getMonth() === viewingMonth && eventDate.getFullYear() === viewingYear) {
         const day = eventDate.getDate()
         if (!acc[day]) acc[day] = []
         acc[day].push(event)
@@ -257,13 +274,13 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">
-          {monthNames[currentMonth]} {currentYear}
+          {monthNames[viewingMonth]} {viewingYear}
         </h2>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled>
+          <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="sm" disabled>
+          <Button variant="outline" size="sm" onClick={goToNextMonth}>
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -287,7 +304,7 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
               <div
                 key={index}
                 className={`min-h-[120px] p-2 border-r border-b last:border-r-0 ${
-                  day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()
+                  day === today.getDate() && viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
                     ? "bg-primary/5"
                     : ""
                 }`}
@@ -297,8 +314,8 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
                     <div
                       className={`text-sm font-medium mb-1 ${
                         day === today.getDate() &&
-                        currentMonth === today.getMonth() &&
-                        currentYear === today.getFullYear()
+                        viewingMonth === today.getMonth() &&
+                        viewingYear === today.getFullYear()
                           ? "text-primary"
                           : ""
                       }`}
