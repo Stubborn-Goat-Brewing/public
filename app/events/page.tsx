@@ -388,6 +388,236 @@ function EventsLoading() {
   )
 }
 
+function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEventClick: (event: Event) => void }) {
+  const today = new Date()
+  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
+  const [viewingYear, setViewingYear] = useState(today.getFullYear())
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
+
+  const goToPreviousMonth = () => {
+    setSelectedDay(null)
+    if (viewingMonth === 0) {
+      setViewingMonth(11)
+      setViewingYear(viewingYear - 1)
+    } else {
+      setViewingMonth(viewingMonth - 1)
+    }
+  }
+
+  const goToNextMonth = () => {
+    setSelectedDay(null)
+    if (viewingMonth === 11) {
+      setViewingMonth(0)
+      setViewingYear(viewingYear + 1)
+    } else {
+      setViewingMonth(viewingMonth + 1)
+    }
+  }
+
+  const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
+  const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
+  const firstDayWeekday = firstDayOfMonth.getDay()
+  const daysInMonth = lastDayOfMonth.getDate()
+
+  const calendarDays = []
+  for (let i = 0; i < firstDayWeekday; i++) {
+    calendarDays.push(null)
+  }
+  for (let day = 1; day <= daysInMonth; day++) {
+    calendarDays.push(day)
+  }
+
+  const eventsByDate = events.reduce(
+    (acc, event) => {
+      const eventDate = new Date(event.date)
+      if (eventDate.getMonth() === viewingMonth && eventDate.getFullYear() === viewingYear) {
+        const day = eventDate.getDate()
+        if (!acc[day]) acc[day] = []
+        acc[day].push(event)
+      }
+      return acc
+    },
+    {} as Record<number, Event[]>,
+  )
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
+  const dayNames = ["S", "M", "T", "W", "T", "F", "S"]
+
+  const filteredEvents = selectedDay
+    ? events.filter((event) => {
+        const eventDate = new Date(event.date)
+        return (
+          eventDate.getMonth() === viewingMonth &&
+          eventDate.getFullYear() === viewingYear &&
+          eventDate.getDate() === selectedDay
+        )
+      })
+    : events.filter((event) => {
+        const eventDate = new Date(event.date)
+        return eventDate.getMonth() === viewingMonth && eventDate.getFullYear() === viewingYear
+      })
+
+  return (
+    <div className="space-y-4">
+      {/* Compact Calendar Header */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-bold">
+          {monthNames[viewingMonth]} {viewingYear}
+        </h2>
+        <div className="flex gap-1">
+          <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button variant="outline" size="sm" onClick={goToNextMonth}>
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Compact Calendar Grid */}
+      <Card>
+        <CardContent className="p-2">
+          {/* Day headers */}
+          <div className="grid grid-cols-7 mb-2">
+            {dayNames.map((day) => (
+              <div key={day} className="p-2 text-center text-xs font-medium text-muted-foreground">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          {/* Calendar days */}
+          <div className="grid grid-cols-7 gap-1">
+            {calendarDays.map((day, index) => (
+              <div
+                key={index}
+                className={`aspect-square p-1 text-center relative cursor-pointer hover:bg-muted/50 rounded-md transition-colors ${
+                  day === today.getDate() && viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
+                    ? "bg-primary/10"
+                    : ""
+                } ${selectedDay === day ? "ring-2 ring-primary bg-primary/5" : ""}`}
+                onClick={() => day && setSelectedDay(selectedDay === day ? null : day)}
+              >
+                {day && (
+                  <>
+                    <div
+                      className={`text-sm font-medium ${
+                        day === today.getDate() &&
+                        viewingMonth === today.getMonth() &&
+                        viewingYear === today.getFullYear()
+                          ? "text-primary"
+                          : ""
+                      }`}
+                    >
+                      {day}
+                    </div>
+                    {eventsByDate[day] && (
+                      <div className="absolute bottom-0 left-0 right-0 px-0.5">
+                        <div className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30">
+                          {eventsByDate[day][0].name}
+                        </div>
+                        {eventsByDate[day].length > 1 && (
+                          <div className="text-xs text-muted-foreground text-center mt-0.5">
+                            +{eventsByDate[day].length - 1}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {selectedDay && (
+        <div className="flex items-center justify-between bg-primary/5 rounded-lg p-3 border border-primary/20">
+          <div className="text-sm font-medium">
+            Showing events for {monthNames[viewingMonth]} {selectedDay}, {viewingYear}
+          </div>
+          <Button variant="outline" size="sm" onClick={() => setSelectedDay(null)}>
+            Show All Events
+          </Button>
+        </div>
+      )}
+
+      {/* Events list for selected month/day */}
+      <div className="space-y-3">
+        {filteredEvents
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+          .map((event, index) => (
+            <Card
+              key={index}
+              className="cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => onEventClick(event)}
+            >
+              <CardContent className="p-3">
+                <div className="flex items-start gap-3">
+                  {/* Date highlight */}
+                  <div className="flex-shrink-0 text-center">
+                    <div className="bg-primary/10 text-primary rounded-lg p-2 border border-primary/20">
+                      <div className="text-xs font-medium">
+                        {new Date(event.date).toLocaleDateString("en-US", { month: "short" })}
+                      </div>
+                      <div className="text-lg font-bold">{new Date(event.date).getDate()}</div>
+                      <div className="text-xs">
+                        {new Date(event.date).toLocaleDateString("en-US", { weekday: "short" })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Event details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="font-semibold text-base leading-tight">{event.name}</h3>
+                      <div className="flex-shrink-0 px-2 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
+                        {getEventTypeLabel(event.type)}
+                      </div>
+                    </div>
+
+                    {event.startTime && (
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
+                        <Clock className="h-3 w-3" />
+                        {formatTime(event.startTime)}
+                        {event.endTime && ` - ${formatTime(event.endTime)}`}
+                      </div>
+                    )}
+
+                    {event.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+
+        {selectedDay && filteredEvents.length === 0 && (
+          <div className="text-center py-8">
+            <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+            <p className="text-muted-foreground">No events scheduled for this day</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function EventsCalendar({ events }: { events: Event[] }) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -418,11 +648,11 @@ function EventsCalendar({ events }: { events: Event[] }) {
 
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <CalendarView events={events} onEventClick={handleEventClick} />
       </div>
-      <div className="md:hidden">
-        <ListView events={events} onEventClick={handleEventClick} />
+      <div className="lg:hidden">
+        <CompactCalendarView events={events} onEventClick={handleEventClick} />
       </div>
 
       <EventDialog event={selectedEvent} isOpen={isDialogOpen} onClose={handleCloseDialog} />

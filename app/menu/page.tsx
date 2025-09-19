@@ -234,16 +234,9 @@ const drinkSections: MenuSection[] = [
 
 const currentBeers: Beer[] = [
   {
-    name: "Goat Light",
-    style: "Light Lager",
-    abv: 4.7,
-    description:
-      "Light lager delivers delicate malt notes, a subtle touch of saaz hops, and a clean, crisp finish that keeps you coming back for more.",
-  },
-  {
     name: "Counting Sheep IPA",
     style: "Hazy IPA",
-    abv: 6.9,
+    abv: 6.5,
     description:
       "Hazy IPA brewed with raw wheat & malted oats. Heavily hopped with citra & mosaic. Dank citrusy aroma.",
   },
@@ -306,6 +299,20 @@ const currentBeers: Beer[] = [
     style: "Festbier",
     abv: 5.5,
     description: "Traditional Festbier.",
+  },
+  {
+    name: "Iron Hoof",
+    style: "Brown Ale",
+    abv: 4.8,
+    description:
+      "An ale as dark and bold as the name implies. Iron Hoof is a rich brown ale with an uncompromising spirit. Its deep, robust character is forged from a blend of dark roasted malts, which lend a smooth, full-bodied taste.",
+  },
+  {
+    name: "Lemon Poppy Crumble",
+    style: "Pale Ale",
+    abv: 5.4,
+    description:
+      "A truly unique collaboration with our friends at Drip Cafe, this Pale Ale captures the essence of a fresh-baked lemon poppy muffin. Brewed with actual Drip Cafe muffins, it pours with a hazy, golden hue. The aroma is a delightful mix of zesty lemon and sweet, bready notes.",
   },
 ]
 
