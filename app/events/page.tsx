@@ -16,6 +16,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  Trophy,
+  UtensilsCrossed,
+  Wine,
+  Users,
+  Lock,
+  XCircle,
+  Heart,
+  DollarSign,
 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -40,6 +48,23 @@ function getEventTypeIcon(type: string) {
       return <Grid3X3 className="h-4 w-4 text-primary" />
     case "craft":
       return <Hammer className="h-4 w-4 text-primary" />
+    case "sports":
+      return <Trophy className="h-4 w-4 text-primary" />
+    case "food special":
+      return <UtensilsCrossed className="h-4 w-4 text-primary" />
+    case "drink special":
+      return <Wine className="h-4 w-4 text-primary" />
+    case "community event":
+      return <Users className="h-4 w-4 text-primary" />
+    case "private event (closed to public)":
+      return <Lock className="h-4 w-4 text-primary" />
+    case "closed":
+      return <XCircle className="h-4 w-4 text-primary" />
+    case "dine and donate":
+      return <Heart className="h-4 w-4 text-primary" />
+    case "fundraiser":
+      return <DollarSign className="h-4 w-4 text-primary" />
+    case "general":
     default:
       return <Star className="h-4 w-4 text-primary" />
   }
@@ -256,6 +281,11 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
     {} as Record<number, Event[]>,
   )
 
+  console.log("[v0] CalendarView - Total events:", events.length)
+  console.log("[v0] CalendarView - Viewing month/year:", viewingMonth, viewingYear)
+  console.log("[v0] CalendarView - Events by date:", eventsByDate)
+  console.log("[v0] CalendarView - Days with events:", Object.keys(eventsByDate))
+
   const monthNames = [
     "January",
     "February",
@@ -328,7 +358,7 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
                     </div>
                     {eventsByDate[day] && (
                       <div className="space-y-1">
-                        {eventsByDate[day].slice(0, 2).map((event, eventIndex) => (
+                        {eventsByDate[day].slice(0, 3).map((event, eventIndex) => (
                           <div
                             key={eventIndex}
                             className="text-xs p-1 rounded bg-primary/10 text-primary border border-primary/20 cursor-pointer hover:bg-primary/20 transition-colors"
@@ -343,12 +373,12 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
                             )}
                           </div>
                         ))}
-                        {eventsByDate[day].length > 2 && (
+                        {eventsByDate[day].length > 3 && (
                           <div
                             className="text-xs text-muted-foreground cursor-pointer hover:text-primary"
-                            onClick={() => onEventClick(eventsByDate[day][2])}
+                            onClick={() => onEventClick(eventsByDate[day][3])}
                           >
-                            +{eventsByDate[day].length - 2} more
+                            +{eventsByDate[day].length - 3} more
                           </div>
                         )}
                       </div>
@@ -531,12 +561,24 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
                     </div>
                     {eventsByDate[day] && (
                       <div className="absolute bottom-0 left-0 right-0 px-0.5">
-                        <div className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30">
-                          {eventsByDate[day][0].name}
+                        <div className="space-y-0.5">
+                          {eventsByDate[day].slice(0, 2).map((event, eventIndex) => (
+                            <div
+                              key={eventIndex}
+                              className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30 flex items-center gap-1"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                onEventClick(event)
+                              }}
+                            >
+                              {getEventTypeIcon(event.type)}
+                              <span className="truncate">{event.name}</span>
+                            </div>
+                          ))}
                         </div>
-                        {eventsByDate[day].length > 1 && (
+                        {eventsByDate[day].length > 2 && (
                           <div className="text-xs text-muted-foreground text-center mt-0.5">
-                            +{eventsByDate[day].length - 1}
+                            +{eventsByDate[day].length - 2}
                           </div>
                         )}
                       </div>
