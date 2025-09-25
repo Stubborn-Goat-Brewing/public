@@ -19,10 +19,6 @@
     {
       "source": "/ontap",
       "destination": "/menu#draft-beer"
-    },
-    {
-      "source": "/data/events",
-      "destination": "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgHW4jQMjiplT-FGy6marGZzS5oprFqYfiD-gIfwi302o2vgv_jCkwpMgvdzozTwZ21sYNKONhknALunDqTIuKBNgSVaVsEnYibdU5BxyrZ4RxjpsIQCMXsYldkWzycCSJzLO34M-4OPnvS0EcbqpD4PQg1tK4rw5yVI6-8vwvkzo6THeZw7_LHnejJXfpG2Pr8cUjhHe0eaNOYcMmo9s7TXxT17rI6rMcapqgWg71-uKzjF0vxSvfoi-CKvVkszILxEpRIF_VrsS0XJfk85TArBA0QwQ&lib=MCNg_bI2-DN5XRda7mQ1BT6R2Clw53wNZ"
     }
   ]
 }

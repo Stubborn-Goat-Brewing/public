@@ -65,7 +65,17 @@ export async function GET() {
 
     console.log("[v0] Processed events count:", processedEvents.length)
 
-    return NextResponse.json({ events: processedEvents })
+    return NextResponse.json(
+      { events: processedEvents },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+          "Surrogate-Control": "no-store",
+        },
+      },
+    )
   } catch (error) {
     console.error("[v0] Error fetching events:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

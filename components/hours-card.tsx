@@ -17,7 +17,7 @@ export function HoursCard() {
     { day: "Tuesday", time: "4pm - 10pm" },
     { day: "Wednesday", time: "4pm - 10pm" },
     { day: "Thursday", time: "4pm - 10pm" },
-    { day: "Friday", time: "12pm - 11pm" },
+    { day: "Friday", time: "3pm - 11pm" }, // Updated Friday opening time from 12pm to 3pm
     { day: "Saturday", time: "12pm - 11pm" },
   ]
 

@@ -1,8 +1,11 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import { useState } from "react"
 
 interface MenuItem {
   name: string
@@ -289,12 +292,6 @@ const currentBeers: Beer[] = [
     description: 'The first in our new "refresher" sour series. Light sour, slightly fruity, great flavor.',
   },
   {
-    name: "Dunkel",
-    style: "Dunkel",
-    abv: 5.0,
-    description: "Dark, smooth, malty, delicious. Served on Nitro.",
-  },
-  {
     name: "Oktoberfest",
     style: "Festbier",
     abv: 5.5,
@@ -305,7 +302,7 @@ const currentBeers: Beer[] = [
     style: "Brown Ale",
     abv: 4.8,
     description:
-      "An ale as dark and bold as the name implies. Iron Hoof is a rich brown ale with an uncompromising spirit. Its deep, robust character is forged from a blend of dark roasted malts, which lend a smooth, full-bodied taste.",
+      "An ale as dark and bold as the name implies. Iron Hoof is a rich brown ale with an uncompromising spirit. Its deep, robust character is forged from a blend of dark roasted malts, which lend a smooth, full-bodied taste. Served on Nitro.",
   },
   {
     name: "Lemon Poppy Crumble",
@@ -334,6 +331,8 @@ const friesWithPrices = [
 ]
 
 export default function MenuPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -349,13 +348,104 @@ export default function MenuPage() {
             />
             <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
           </Link>
-          <Button variant="ghost" asChild>
-            <Link href="/" className="flex items-center gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
+
+          <nav className="hidden md:flex items-center gap-4 sm:gap-6">
+            <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
+              Menu
             </Link>
+            <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
+              Events
+            </Link>
+            <Link href="/#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
+              Get Connected
+            </Link>
+            <Link href="/#visit" className="text-sm font-medium hover:underline underline-offset-4">
+              Visit Us
+            </Link>
+            <Link href="/#hours" className="text-sm font-medium hover:underline underline-offset-4">
+              Hours
+            </Link>
+            <Link href="/#contact" className="text-sm font-medium hover:underline underline-offset-4">
+              Contact
+            </Link>
+            <Link
+              href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium hover:underline underline-offset-4"
+            >
+              Gift Cards
+            </Link>
+          </nav>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t bg-background/95 backdrop-blur">
+            <nav className="container py-4 flex flex-col space-y-4">
+              <Link
+                href="/menu"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Menu
+              </Link>
+              <Link
+                href="/events"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Events
+              </Link>
+              <Link
+                href="/#get-connected"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Get Connected
+              </Link>
+              <Link
+                href="/#visit"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Visit Us
+              </Link>
+              <Link
+                href="/#hours"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Hours
+              </Link>
+              <Link
+                href="/#contact"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <Link
+                href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium hover:underline underline-offset-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Gift Cards
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main className="container py-8">

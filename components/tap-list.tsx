@@ -71,12 +71,6 @@ const currentBeers: Beer[] = [
     description: 'The first in our new "refresher" sour series. Light sour, slightly fruity, great flavor.',
   },
   {
-    name: "Dunkel",
-    style: "Dunkel",
-    abv: 5.0,
-    description: "Dark, smooth, malty, delicious. Served on Nitro.",
-  },
-  {
     name: "Oktoberfest",
     style: "Festbier",
     abv: 5.5,
