@@ -231,6 +231,9 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   const [viewingMonth, setViewingMonth] = useState(today.getMonth())
   const [viewingYear, setViewingYear] = useState(today.getFullYear())
 
+  console.log("[v0] CalendarView - Today:", today.getDate(), "Month:", today.getMonth(), "Year:", today.getFullYear())
+  console.log("[v0] CalendarView - Viewing:", viewingMonth, viewingYear)
+
   const goToPreviousMonth = () => {
     if (viewingMonth === 0) {
       setViewingMonth(11)
@@ -253,6 +256,8 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
   const firstDayWeekday = firstDayOfMonth.getDay() // 0 = Sunday
   const daysInMonth = lastDayOfMonth.getDate()
+
+  console.log("[v0] CalendarView - First day weekday:", firstDayWeekday, "Days in month:", daysInMonth)
 
   // Create calendar grid
   const calendarDays = []
@@ -280,11 +285,6 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
     },
     {} as Record<number, Event[]>,
   )
-
-  console.log("[v0] CalendarView - Total events:", events.length)
-  console.log("[v0] CalendarView - Viewing month/year:", viewingMonth, viewingYear)
-  console.log("[v0] CalendarView - Events by date:", eventsByDate)
-  console.log("[v0] CalendarView - Days with events:", Object.keys(eventsByDate))
 
   const monthNames = [
     "January",
@@ -334,59 +334,59 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
 
           {/* Calendar days */}
           <div className="grid grid-cols-7">
-            {calendarDays.map((day, index) => (
-              <div
-                key={index}
-                className={`min-h-[120px] p-2 border-r border-b last:border-r-0 ${
-                  day === today.getDate() && viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
-                    ? "bg-primary/5"
-                    : ""
-                }`}
-              >
-                {day && (
-                  <>
-                    <div
-                      className={`text-sm font-medium mb-1 ${
-                        day === today.getDate() &&
-                        viewingMonth === today.getMonth() &&
-                        viewingYear === today.getFullYear()
-                          ? "text-primary"
-                          : ""
-                      }`}
-                    >
-                      {day}
-                    </div>
-                    {eventsByDate[day] && (
-                      <div className="space-y-1">
-                        {eventsByDate[day].slice(0, 3).map((event, eventIndex) => (
-                          <div
-                            key={eventIndex}
-                            className="text-xs p-1 rounded bg-primary/10 text-primary border border-primary/20 cursor-pointer hover:bg-primary/20 transition-colors"
-                            onClick={() => onEventClick(event)}
-                          >
-                            <div className="flex items-center gap-1 mb-1">
-                              {getEventTypeIcon(event.type)}
-                              <span className="font-medium truncate">{event.name}</span>
+            {calendarDays.map((day, index) => {
+              const isToday =
+                day !== null &&
+                day === today.getDate() &&
+                viewingMonth === today.getMonth() &&
+                viewingYear === today.getFullYear()
+
+              if (isToday) {
+                console.log("[v0] CalendarView - Found today's cell:", day, "at index:", index)
+              }
+
+              return (
+                <div
+                  key={index}
+                  className={`min-h-[120px] p-2 border-r border-b last:border-r-0 ${
+                    isToday ? "bg-primary/5 ring-2 ring-primary/20" : ""
+                  }`}
+                >
+                  {day && (
+                    <>
+                      <div className={`text-sm font-medium mb-1 ${isToday ? "text-primary font-bold" : ""}`}>{day}</div>
+                      {eventsByDate[day] && (
+                        <div className="space-y-1">
+                          {eventsByDate[day].slice(0, 3).map((event, eventIndex) => (
+                            <div
+                              key={eventIndex}
+                              className="text-xs p-1 rounded bg-primary/10 text-primary border border-primary/20 cursor-pointer hover:bg-primary/20 transition-colors"
+                              onClick={() => onEventClick(event)}
+                            >
+                              <div className="flex items-center gap-1 mb-1">
+                                {getEventTypeIcon(event.type)}
+                                <span className="font-medium truncate">{event.name}</span>
+                              </div>
+                              {event.startTime && (
+                                <div className="text-xs text-muted-foreground">{formatTime(event.startTime)}</div>
+                              )}
                             </div>
-                            {event.startTime && (
-                              <div className="text-xs text-muted-foreground">{formatTime(event.startTime)}</div>
-                            )}
-                          </div>
-                        ))}
-                        {eventsByDate[day].length > 3 && (
-                          <div
-                            className="text-xs text-muted-foreground cursor-pointer hover:text-primary"
-                            onClick={() => onEventClick(eventsByDate[day][3])}
-                          >
-                            +{eventsByDate[day].length - 3} more
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            ))}
+                          ))}
+                          {eventsByDate[day].length > 3 && (
+                            <div
+                              className="text-xs text-muted-foreground cursor-pointer hover:text-primary"
+                              onClick={() => onEventClick(eventsByDate[day][3])}
+                            >
+                              +{eventsByDate[day].length - 3} more
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </CardContent>
       </Card>
@@ -426,7 +426,20 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
   const today = new Date()
   const [viewingMonth, setViewingMonth] = useState(today.getMonth())
   const [viewingYear, setViewingYear] = useState(today.getFullYear())
-  const [selectedDay, setSelectedDay] = useState<number | null>(null)
+  const [selectedDay, setSelectedDay] = useState<number | null>(() => {
+    // Only set today as selected if we're viewing the current month/year
+    const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
+    return isCurrentMonth ? today.getDate() : null
+  })
+
+  console.log(
+    "[v0] CompactCalendarView - Today:",
+    today.getDate(),
+    "Month:",
+    today.getMonth(),
+    "Year:",
+    today.getFullYear(),
+  )
 
   const goToPreviousMonth = () => {
     setSelectedDay(null)
@@ -447,6 +460,15 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
       setViewingMonth(viewingMonth + 1)
     }
   }
+
+  useEffect(() => {
+    const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
+    if (isCurrentMonth && selectedDay === null) {
+      setSelectedDay(today.getDate())
+    } else if (!isCurrentMonth && selectedDay === today.getDate()) {
+      setSelectedDay(null)
+    }
+  }, [viewingMonth, viewingYear, today, selectedDay])
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -536,57 +558,57 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
 
           {/* Calendar days */}
           <div className="grid grid-cols-7 gap-1">
-            {calendarDays.map((day, index) => (
-              <div
-                key={index}
-                className={`aspect-square p-1 text-center relative cursor-pointer hover:bg-muted/50 rounded-md transition-colors ${
-                  day === today.getDate() && viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
-                    ? "bg-primary/10"
-                    : ""
-                } ${selectedDay === day ? "ring-2 ring-primary bg-primary/5" : ""}`}
-                onClick={() => day && setSelectedDay(selectedDay === day ? null : day)}
-              >
-                {day && (
-                  <>
-                    <div
-                      className={`text-sm font-medium ${
-                        day === today.getDate() &&
-                        viewingMonth === today.getMonth() &&
-                        viewingYear === today.getFullYear()
-                          ? "text-primary"
-                          : ""
-                      }`}
-                    >
-                      {day}
-                    </div>
-                    {eventsByDate[day] && (
-                      <div className="absolute bottom-0 left-0 right-0 px-0.5">
-                        <div className="space-y-0.5">
-                          {eventsByDate[day].slice(0, 2).map((event, eventIndex) => (
-                            <div
-                              key={eventIndex}
-                              className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30 flex items-center gap-1"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                onEventClick(event)
-                              }}
-                            >
-                              {getEventTypeIcon(event.type)}
-                              <span className="truncate">{event.name}</span>
-                            </div>
-                          ))}
-                        </div>
-                        {eventsByDate[day].length > 2 && (
-                          <div className="text-xs text-muted-foreground text-center mt-0.5">
-                            +{eventsByDate[day].length - 2}
+            {calendarDays.map((day, index) => {
+              const isToday =
+                day !== null &&
+                day === today.getDate() &&
+                viewingMonth === today.getMonth() &&
+                viewingYear === today.getFullYear()
+
+              if (isToday) {
+                console.log("[v0] CompactCalendarView - Found today's cell:", day, "at index:", index)
+              }
+
+              return (
+                <div
+                  key={index}
+                  className={`aspect-square p-1 text-center relative cursor-pointer hover:bg-muted/50 rounded-md transition-colors ${
+                    isToday ? "bg-primary/10 ring-2 ring-primary/30" : ""
+                  } ${selectedDay === day ? "ring-2 ring-primary bg-primary/5" : ""}`}
+                  onClick={() => day && setSelectedDay(selectedDay === day ? null : day)}
+                >
+                  {day && (
+                    <>
+                      <div className={`text-sm font-medium ${isToday ? "text-primary font-bold" : ""}`}>{day}</div>
+                      {eventsByDate[day] && (
+                        <div className="absolute bottom-0 left-0 right-0 px-0.5">
+                          <div className="space-y-0.5">
+                            {eventsByDate[day].slice(0, 2).map((event, eventIndex) => (
+                              <div
+                                key={eventIndex}
+                                className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30 flex items-center gap-1"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  onEventClick(event)
+                                }}
+                              >
+                                {getEventTypeIcon(event.type)}
+                                <span className="truncate">{event.name}</span>
+                              </div>
+                            ))}
                           </div>
-                        )}
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            ))}
+                          {eventsByDate[day].length > 2 && (
+                            <div className="text-xs text-muted-foreground text-center mt-0.5">
+                              +{eventsByDate[day].length - 2}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </CardContent>
       </Card>
