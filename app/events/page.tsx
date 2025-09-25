@@ -78,8 +78,14 @@ function getEventTypeLabel(type: string) {
 async function getEvents(): Promise<Event[]> {
   try {
     console.log("[v0] Fetching events from API route")
-    const response = await fetch("/api/events", {
-      next: { revalidate: 300 }, // Revalidate every 5 minutes
+    const timestamp = Date.now()
+    const response = await fetch(`/api/events?t=${timestamp}`, {
+      cache: "no-store",
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
     })
 
     if (!response.ok) {
@@ -231,9 +237,6 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   const [viewingMonth, setViewingMonth] = useState(today.getMonth())
   const [viewingYear, setViewingYear] = useState(today.getFullYear())
 
-  console.log("[v0] CalendarView - Today:", today.getDate(), "Month:", today.getMonth(), "Year:", today.getFullYear())
-  console.log("[v0] CalendarView - Viewing:", viewingMonth, viewingYear)
-
   const goToPreviousMonth = () => {
     if (viewingMonth === 0) {
       setViewingMonth(11)
@@ -257,22 +260,16 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   const firstDayWeekday = firstDayOfMonth.getDay() // 0 = Sunday
   const daysInMonth = lastDayOfMonth.getDate()
 
-  console.log("[v0] CalendarView - First day weekday:", firstDayWeekday, "Days in month:", daysInMonth)
-
-  // Create calendar grid
   const calendarDays = []
 
-  // Add empty cells for days before month starts
   for (let i = 0; i < firstDayWeekday; i++) {
     calendarDays.push(null)
   }
 
-  // Add days of the month
   for (let day = 1; day <= daysInMonth; day++) {
     calendarDays.push(day)
   }
 
-  // Group events by date
   const eventsByDate = events.reduce(
     (acc, event) => {
       const eventDate = new Date(event.date)
@@ -305,7 +302,6 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
 
   return (
     <div className="space-y-6">
-      {/* Calendar Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">
           {monthNames[viewingMonth]} {viewingYear}
@@ -320,10 +316,8 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
         </div>
       </div>
 
-      {/* Calendar Grid */}
       <Card>
         <CardContent className="p-0">
-          {/* Day headers */}
           <div className="grid grid-cols-7 border-b">
             {dayNames.map((day) => (
               <div key={day} className="p-3 text-center font-medium text-muted-foreground border-r last:border-r-0">
@@ -332,7 +326,6 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
             ))}
           </div>
 
-          {/* Calendar days */}
           <div className="grid grid-cols-7">
             {calendarDays.map((day, index) => {
               const isToday =
@@ -340,10 +333,6 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
                 day === today.getDate() &&
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
-
-              if (isToday) {
-                console.log("[v0] CalendarView - Found today's cell:", day, "at index:", index)
-              }
 
               return (
                 <div
@@ -427,19 +416,9 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
   const [viewingMonth, setViewingMonth] = useState(today.getMonth())
   const [viewingYear, setViewingYear] = useState(today.getFullYear())
   const [selectedDay, setSelectedDay] = useState<number | null>(() => {
-    // Only set today as selected if we're viewing the current month/year
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
     return isCurrentMonth ? today.getDate() : null
   })
-
-  console.log(
-    "[v0] CompactCalendarView - Today:",
-    today.getDate(),
-    "Month:",
-    today.getMonth(),
-    "Year:",
-    today.getFullYear(),
-  )
 
   const goToPreviousMonth = () => {
     setSelectedDay(null)
@@ -529,7 +508,6 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
 
   return (
     <div className="space-y-4">
-      {/* Compact Calendar Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">
           {monthNames[viewingMonth]} {viewingYear}
@@ -544,10 +522,8 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
         </div>
       </div>
 
-      {/* Compact Calendar Grid */}
       <Card>
         <CardContent className="p-2">
-          {/* Day headers */}
           <div className="grid grid-cols-7 mb-2">
             {dayNames.map((day) => (
               <div key={day} className="p-2 text-center text-xs font-medium text-muted-foreground">
@@ -556,7 +532,6 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
             ))}
           </div>
 
-          {/* Calendar days */}
           <div className="grid grid-cols-7 gap-1">
             {calendarDays.map((day, index) => {
               const isToday =
@@ -564,10 +539,6 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
                 day === today.getDate() &&
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
-
-              if (isToday) {
-                console.log("[v0] CompactCalendarView - Found today's cell:", day, "at index:", index)
-              }
 
               return (
                 <div
@@ -624,7 +595,6 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
         </div>
       )}
 
-      {/* Events list for selected month/day */}
       <div className="space-y-3">
         {filteredEvents
           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -636,7 +606,6 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
             >
               <CardContent className="p-3">
                 <div className="flex items-start gap-3">
-                  {/* Date highlight */}
                   <div className="flex-shrink-0 text-center">
                     <div className="bg-primary/10 text-primary rounded-lg p-2 border border-primary/20">
                       <div className="text-xs font-medium">
@@ -649,7 +618,6 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
                     </div>
                   </div>
 
-                  {/* Event details */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-2">
                       <h3 className="font-semibold text-base leading-tight">{event.name}</h3>

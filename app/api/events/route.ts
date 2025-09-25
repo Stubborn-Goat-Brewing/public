@@ -19,12 +19,17 @@ export async function GET() {
       return NextResponse.json({ error: "Missing EVENTS_JSON_URL configuration" }, { status: 500 })
     }
 
-    const response = await fetch(EVENTS_JSON_URL, {
+    const timestamp = Date.now()
+    const urlWithTimestamp = `${EVENTS_JSON_URL}${EVENTS_JSON_URL.includes("?") ? "&" : "?"}t=${timestamp}`
+
+    const response = await fetch(urlWithTimestamp, {
       method: "GET",
       headers: {
         Accept: "application/json",
-        "Cache-Control": "no-cache",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
       },
+      cache: "no-store",
     })
 
     console.log("[v0] Response status:", response.status)
@@ -69,10 +74,12 @@ export async function GET() {
       { events: processedEvents },
       {
         headers: {
-          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
           Pragma: "no-cache",
           Expires: "0",
           "Surrogate-Control": "no-store",
+          "CDN-Cache-Control": "no-store",
+          "Vercel-CDN-Cache-Control": "no-store",
         },
       },
     )
