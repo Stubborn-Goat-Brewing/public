@@ -5,7 +5,6 @@ import Link from "next/link"
 import { MapPin, Phone, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InstagramFeed } from "@/components/instagram-feed"
-import { PopupButton } from "@/components/popup-button"
 import { HoursCard } from "@/components/hours-card"
 import { useState } from "react"
 
@@ -176,9 +175,9 @@ export default function Home() {
               Stay updated with our latest brews, events, and happenings.
             </p>
 
-            <div className="mt-12 grid gap-8 md:grid-cols-2">
+            <div className="mt-12 flex justify-center">
               {/* Follow The Herd */}
-              <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
+              <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm max-w-2xl w-full">
                 <Image
                   src="/images/icon_instagram.png"
                   alt="Instagram"
@@ -211,33 +210,6 @@ export default function Home() {
                 </div>
                 <div className="mt-8 w-full">
                   <InstagramFeed username="StubbornGoatBrewing" />
-                </div>
-              </div>
-
-              {/* Join Our Mailing List */}
-              <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
-                <Image src="/images/icon_email.png" alt="Email" width={48} height={48} className="h-12 w-12 mb-4" />
-                <h3 className="text-xl font-bold">Join Our Mailing List</h3>
-                <p className="mt-2 text-muted-foreground">
-                  Subscribe to our newsletter to stay updated on new beer releases, events, and special offers.
-                </p>
-                <div className="mt-8">
-                  <PopupButton
-                    url="http://eepurl.com/i7dgdc"
-                    popupTitle="Mailing List Signup"
-                    size="lg"
-                    iconSrc="/images/icon_email.png"
-                    iconAlt="Email"
-                    className="border-[#2c5530] bg-[#2c5530] text-white hover:bg-[#2c5530] hover:border-[#2c5530] hover:text-white"
-                  >
-                    Subscribe to Our Newsletter
-                  </PopupButton>
-                </div>
-                <div className="mt-8">
-                  <p className="text-xs text-muted-foreground">
-                    By subscribing, you agree to receive marketing emails from Stubborn Goat Brewing. You can
-                    unsubscribe at any time.
-                  </p>
                 </div>
               </div>
             </div>
