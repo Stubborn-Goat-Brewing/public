@@ -8,8 +8,12 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Stubborn Goat Brewing",
   description: "Craft beer and community in West Grove, Pennsylvania",
-  viewport: "width=device-width, initial-scale=1.0",
     generator: 'v0.app'
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
 }
 
 export default function RootLayout({

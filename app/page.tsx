@@ -282,8 +282,8 @@ export default function Home() {
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:4842619710" className="mt-4 text-lg font-medium hover:underline">
-                      (484) 261-9710
+                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
+                      (610) 679-9017
                     </a>
                   </div>
                   <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
