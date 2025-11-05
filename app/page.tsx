@@ -119,8 +119,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/40 z-10" />
           <div className="relative min-h-[80vh]">
             <Image
-              src="/images/brewery-hero.png"
-              alt="Brewery interior with copper tanks and wooden barrels"
+              src="/images/brewery-exterior-sunset.jpg"
+              alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
               fill
               priority
               className="object-cover"
