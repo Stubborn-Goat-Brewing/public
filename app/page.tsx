@@ -4,7 +4,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { InstagramFeed } from "@/components/instagram-feed"
 import { HoursCard } from "@/components/hours-card"
 import { useState } from "react"
 
@@ -32,9 +31,6 @@ export default function Home() {
             </Link>
             <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
               Events
-            </Link>
-            <Link href="#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
-              Get Connected
             </Link>
             <Link href="#visit" className="text-sm font-medium hover:underline underline-offset-4">
               Visit Us
@@ -82,13 +78,6 @@ export default function Home() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Events
-              </Link>
-              <Link
-                href="#get-connected"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get Connected
               </Link>
               <Link
                 href="#visit"
@@ -167,56 +156,46 @@ export default function Home() {
 
         {/* About Section */}
 
-        {/* Get Connected Section */}
-        <section id="get-connected" className="bg-muted py-12 md:py-16">
+        <section id="follow-the-herd" className="py-12 md:py-16 bg-primary/5">
           <div className="container">
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get Connected</h2>
-            <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
-              Stay updated with our latest brews, events, and happenings.
-            </p>
-
-            <div className="mt-12 flex justify-center">
-              {/* Follow The Herd */}
-              <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm max-w-2xl w-full">
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-background rounded-lg shadow-lg p-8 md:p-12 text-center border-2 border-primary/20">
                 <Image
                   src="/images/icon_instagram.png"
                   alt="Instagram"
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 mb-4"
+                  width={64}
+                  height={64}
+                  className="h-16 w-16 mx-auto mb-6"
                 />
-                <h3 className="text-xl font-bold">Follow The Herd!</h3>
-                <p className="mt-2 text-muted-foreground">
-                  Follow us on Instagram for the latest photos, events, and behind-the-scenes content.
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">Follow The Herd!</h2>
+                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Follow us on Instagram for the latest photos, events, and behind-the-scenes content. Join our
+                  community and see what's brewing at The Goat!
                 </p>
-                <div className="mt-8">
-                  <Button asChild variant="default" size="lg">
-                    <Link
-                      href="https://instagram.com/StubbornGoatBrewing"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
-                    >
-                      <Image
-                        src="/images/icon_instagram.png"
-                        alt="Instagram"
-                        width={20}
-                        height={20}
-                        className="h-5 w-5"
-                      />
-                      Follow Us on Instagram
-                    </Link>
-                  </Button>
-                </div>
-                <div className="mt-8 w-full">
-                  <InstagramFeed username="StubbornGoatBrewing" />
-                </div>
+                <Button asChild size="lg" className="text-lg px-8 py-6">
+                  <Link
+                    href="https://instagram.com/StubbornGoatBrewing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <Image
+                      src="/images/icon_instagram.png"
+                      alt="Instagram"
+                      width={20}
+                      height={20}
+                      className="h-5 w-5"
+                    />
+                    Follow Us on Instagram
+                  </Link>
+                </Button>
+                <p className="text-xs text-muted-foreground mt-6">Stay connected with our brewing community!</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-12 md:py-16 bg-primary/5">
+        <section id="mailing-list" className="py-12 md:py-16 bg-primary/5">
           <div className="container">
             <div className="max-w-3xl mx-auto">
               <div className="bg-background rounded-lg shadow-lg p-8 md:p-12 text-center border-2 border-primary/20">
@@ -307,8 +286,8 @@ export default function Home() {
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:4842619710" className="mt-4 text-lg font-medium hover:underline">
-                      (484) 261-9710
+                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
+                      610-679-9017
                     </a>
                   </div>
                   <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
