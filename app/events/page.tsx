@@ -761,9 +761,6 @@ export default function EventsPage() {
             <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
               Events
             </Link>
-            <Link href="/#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
-              Get Connected
-            </Link>
             <Link href="/#visit" className="text-sm font-medium hover:underline underline-offset-4">
               Visit Us
             </Link>
@@ -810,13 +807,6 @@ export default function EventsPage() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Events
-              </Link>
-              <Link
-                href="/#get-connected"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get Connected
               </Link>
               <Link
                 href="/#visit"

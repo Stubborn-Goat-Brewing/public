@@ -237,47 +237,24 @@ const drinkSections: MenuSection[] = [
 
 const currentBeers: Beer[] = [
   {
+    name: "Goat Light",
+    style: "Light Lager",
+    abv: 4.5,
+    description:
+      "Light, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
+  },
+  {
     name: "Counting Sheep IPA",
     style: "Hazy IPA",
-    abv: 6.5,
+    abv: 7.2,
     description:
       "Hazy IPA brewed with raw wheat & malted oats. Heavily hopped with citra & mosaic. Dank citrusy aroma.",
-  },
-  {
-    name: "Minotaur Red IPA",
-    style: "Red IPA",
-    abv: 7.0,
-    description: "Bold red ipa with bright citrus and pine hop character layered over rich caramel & toasted malt.",
-  },
-  {
-    name: "Italian Pils",
-    style: "Pilsner",
-    abv: 4.8,
-    description: "Dry-hopped pilsner with el dorado, citra, and simcoe.",
-  },
-  {
-    name: "Hazy IPA",
-    style: "New England IPA",
-    abv: 6.5,
-    description: "New England IPA infused with tangerine peel, citra, and simcoe hops.",
-  },
-  {
-    name: "Tropical IPA",
-    style: "Hazy IPA",
-    abv: 6.4,
-    description: "Hazy IPA with citra, iodaho7, and mandarina bavaria. Full of citrus and tropical fruit.",
   },
   {
     name: "West Coast IPA",
     style: "West Coast IPA",
     abv: 6.5,
     description: "Dry-hopped with simcoe, citra, and chinook. Notes of grapefruit, pine, and honeydew.",
-  },
-  {
-    name: "Kolsch",
-    style: "Kölsch",
-    abv: 4.9,
-    description: "Traditional style kolsch made with pils, wheat, vienna, and munich malts.",
   },
   {
     name: "Cold IPA",
@@ -310,6 +287,20 @@ const currentBeers: Beer[] = [
     abv: 5.4,
     description:
       "A truly unique collaboration with our friends at Drip Cafe, this Pale Ale captures the essence of a fresh-baked lemon poppy muffin. Brewed with actual Drip Cafe muffins, it pours with a hazy, golden hue. The aroma is a delightful mix of zesty lemon and sweet, bready notes.",
+  },
+  {
+    name: "Better Late Than November",
+    style: "Pumpkin Spiced Ale",
+    abv: 7.0,
+    description:
+      "Brewed with real roasted pumpkins and a warming blend of cinnamon, nutmeg, ginger, and cloves, this spiced ale captures the cozy flavor of late autumn in every sip. Rich malt sweetness and gentle spice come together for a smooth, balanced finish that's worth the wait — even if it's almost November.",
+  },
+  {
+    name: "Hopfenfest",
+    style: "Dry Hopped Festbier",
+    abv: 5.8,
+    description:
+      "Experience the spirit of the German festival season with a modern twist. Hopfenfest takes the rich malt backbone of a classic Festbier with notes of toasted bread and caramel, and elevates it with a generous hop addition.",
   },
 ]
 
@@ -355,9 +346,6 @@ export default function MenuPage() {
             </Link>
             <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
               Events
-            </Link>
-            <Link href="/#get-connected" className="text-sm font-medium hover:underline underline-offset-4">
-              Get Connected
             </Link>
             <Link href="/#visit" className="text-sm font-medium hover:underline underline-offset-4">
               Visit Us
@@ -405,13 +393,6 @@ export default function MenuPage() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Events
-              </Link>
-              <Link
-                href="/#get-connected"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get Connected
               </Link>
               <Link
                 href="/#visit"
