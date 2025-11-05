@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Menu, X } from "lucide-react"
+import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InstagramFeed } from "@/components/instagram-feed"
 import { HoursCard } from "@/components/hours-card"
@@ -216,6 +216,31 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="py-12 md:py-16 bg-primary/5">
+          <div className="container">
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-background rounded-lg shadow-lg p-8 md:p-12 text-center border-2 border-primary/20">
+                <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">Join Our Mailing List</h2>
+                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Stay in the loop with exclusive updates on new beer releases, special events, promotions, and
+                  everything happening at The Goat. Be the first to know!
+                </p>
+                <Button asChild size="lg" className="text-lg px-8 py-6">
+                  <Link
+                    href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/marketing-signup"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Sign Up Now
+                  </Link>
+                </Button>
+                <p className="text-xs text-muted-foreground mt-6">We respect your privacy. Unsubscribe anytime.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Visit Us Section */}
         <section id="visit" className="py-8 md:py-12">
           <div className="container">
@@ -282,8 +307,8 @@ export default function Home() {
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
-                      (610) 679-9017
+                    <a href="tel:4842619710" className="mt-4 text-lg font-medium hover:underline">
+                      (484) 261-9710
                     </a>
                   </div>
                   <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
