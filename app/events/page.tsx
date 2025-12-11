@@ -28,6 +28,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { AnnouncementBanner } from "@/components/announcement-banner"
 
 interface Event {
   name: string
@@ -740,7 +741,14 @@ export default function EventsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-background">
+      <AnnouncementBanner
+        message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
+        linkText="Show me more"
+        linkHref="https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
+        disclaimer="Bonus card will be sent to the email you choose for your receipt. Bonus cards valid from 12/26/2025 - 3/31/2026, Sun to Sat. Discount must be used in full on one check."
+      />
+
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-2">
