@@ -327,101 +327,44 @@ export default function MenuPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      {/* Announcement Banner */}
-      <AnnouncementBanner
-        message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
-        linkText="Show me more"
-        linkHref="https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
-        disclaimer="Bonus card will be sent to the email you choose for your receipt. Bonus cards valid from 12/26/2025 - 3/31/2026, Sun to Sat. Discount must be used in full on one check."
-      />
+      {/* Sticky Container */}
+      <div className="sticky top-0 z-40">
+        {/* Announcement Banner */}
+        <AnnouncementBanner
+          message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
+          linkText="Show me more"
+          linkHref="https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
+          disclaimer="Bonus card will be sent to the email you choose for your receipt. Bonus cards valid from 12/26/2025 - 3/31/2026, Sun to Sat. Discount must be used in full on one check."
+        />
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between py-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/images/goat-head-new.png"
-              alt="Stubborn Goat Brewing Logo"
-              width={40}
-              height={40}
-              className="h-10 w-auto"
-            />
-            <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
-          </Link>
+        {/* Header */}
+        <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="container flex h-16 items-center justify-between py-4">
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/images/goat-head-new.png"
+                alt="Stubborn Goat Brewing Logo"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+              />
+              <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
+            </Link>
 
-          <nav className="hidden md:flex items-center gap-4 sm:gap-6">
-            <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
-              Menu
-            </Link>
-            <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
-              Events
-            </Link>
-            <Link href="/#visit" className="text-sm font-medium hover:underline underline-offset-4">
-              Visit Us
-            </Link>
-            <Link href="/#hours" className="text-sm font-medium hover:underline underline-offset-4">
-              Hours
-            </Link>
-            <Link href="/#contact" className="text-sm font-medium hover:underline underline-offset-4">
-              Contact
-            </Link>
-            <Link
-              href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium hover:underline underline-offset-4"
-            >
-              Gift Cards
-            </Link>
-          </nav>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-background/95 backdrop-blur">
-            <nav className="container py-4 flex flex-col space-y-4">
-              <Link
-                href="/menu"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+            <nav className="hidden md:flex items-center gap-4 sm:gap-6">
+              <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
                 Menu
               </Link>
-              <Link
-                href="/events"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+              <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
                 Events
               </Link>
-              <Link
-                href="/#visit"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+              <Link href="/#visit" className="text-sm font-medium hover:underline underline-offset-4">
                 Visit Us
               </Link>
-              <Link
-                href="/#hours"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+              <Link href="/#hours" className="text-sm font-medium hover:underline underline-offset-4">
                 Hours
               </Link>
-              <Link
-                href="/#contact"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+              <Link href="/#contact" className="text-sm font-medium hover:underline underline-offset-4">
                 Contact
               </Link>
               <Link
@@ -429,14 +372,74 @@ export default function MenuPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Gift Cards
               </Link>
             </nav>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
           </div>
-        )}
-      </header>
+
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t bg-background/95 backdrop-blur">
+              <nav className="container py-4 flex flex-col space-y-4">
+                <Link
+                  href="/menu"
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/events"
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Events
+                </Link>
+                <Link
+                  href="/#visit"
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Visit Us
+                </Link>
+                <Link
+                  href="/#hours"
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Hours
+                </Link>
+                <Link
+                  href="/#contact"
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium hover:underline underline-offset-4"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Gift Cards
+                </Link>
+              </nav>
+            </div>
+          )}
+        </header>
+      </div>
 
       <main className="container py-8">
         {/* Hero Section */}
