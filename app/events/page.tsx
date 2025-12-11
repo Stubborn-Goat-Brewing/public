@@ -747,7 +747,7 @@ export default function EventsPage() {
           message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
           linkText="Show me more"
           linkHref="https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
-          disclaimer="Bonus card will be sent to the email you choose for your receipt. Bonus cards valid from 12/26/2025 - 3/31/2026, Sun to Sat. Discount must be used in full on one check."
+          disclaimer="Offer available in-store or online through 12/23/25. Bonus cards are redeemable 12/26/25 through 3/31/26 and must be used in full on one check."
         />
 
         <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
