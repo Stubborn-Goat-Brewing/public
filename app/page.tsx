@@ -6,6 +6,7 @@ import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { AnnouncementBanner } from "@/components/announcement-banner"
+import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { useState } from "react"
 
 export default function Home() {
@@ -124,13 +125,13 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="relative min-h-[80vh]">
+          <div className="relative min-h-[80vh] bg-black">
             <Image
               src="/images/brewery-exterior-sunset.jpg"
               alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
               fill
               priority
-              className="object-cover"
+              className="object-cover object-top"
             />
             <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white">
               <div className="flex flex-col items-center max-w-4xl mx-auto pt-16 pb-16">
@@ -144,6 +145,9 @@ export default function Home() {
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
                   Welcome to Stubborn Goat Brewing
                 </h1>
+                <div className="w-full mt-8 mb-4">
+                  <UpcomingEventsBanner />
+                </div>
                 <p className="mt-4 max-w-[700px] text-lg text-white/90">
                   At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
                   plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to
@@ -161,12 +165,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About Section */}
-
-        <section id="follow-the-herd" className="py-12 md:py-16 bg-primary/5">
+        <section className="py-12 md:py-16 bg-primary/5">
           <div className="container">
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-background rounded-lg shadow-lg p-8 md:p-12 text-center border-2 border-primary/20">
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {/* Follow The Herd */}
+              <div className="bg-background rounded-lg shadow-lg p-8 md:p-10 text-center border-2 border-primary/20">
                 <Image
                   src="/images/icon_instagram.png"
                   alt="Instagram"
@@ -174,12 +177,12 @@ export default function Home() {
                   height={64}
                   className="h-16 w-16 mx-auto mb-6"
                 />
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">Follow The Herd!</h2>
-                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">Follow The Herd!</h2>
+                <p className="text-base md:text-lg text-muted-foreground mb-8">
                   Follow us on Instagram for the latest photos, events, and behind-the-scenes content. Join our
                   community and see what's brewing at The Goat!
                 </p>
-                <Button asChild size="lg" className="text-lg px-8 py-6">
+                <Button asChild size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6">
                   <Link
                     href="https://instagram.com/StubbornGoatBrewing"
                     target="_blank"
@@ -198,21 +201,16 @@ export default function Home() {
                 </Button>
                 <p className="text-xs text-muted-foreground mt-6">Stay connected with our brewing community!</p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        <section id="mailing-list" className="py-12 md:py-16 bg-primary/5">
-          <div className="container">
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-background rounded-lg shadow-lg p-8 md:p-12 text-center border-2 border-primary/20">
+              {/* Join Our Mailing List */}
+              <div className="bg-background rounded-lg shadow-lg p-8 md:p-10 text-center border-2 border-primary/20">
                 <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">Join Our Mailing List</h2>
-                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">Join Our Mailing List</h2>
+                <p className="text-base md:text-lg text-muted-foreground mb-8">
                   Stay in the loop with exclusive updates on new beer releases, special events, promotions, and
                   everything happening at The Goat. Be the first to know!
                 </p>
-                <Button asChild size="lg" className="text-lg px-8 py-6">
+                <Button asChild size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6">
                   <Link
                     href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/marketing-signup"
                     target="_blank"

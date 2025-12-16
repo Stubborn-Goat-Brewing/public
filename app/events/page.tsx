@@ -555,7 +555,7 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
                       {eventsByDate[day] && (
                         <div className="absolute bottom-0 left-0 right-0 px-0.5">
                           <div className="space-y-0.5">
-                            {eventsByDate[day].slice(0, 2).map((event, eventIndex) => (
+                            {eventsByDate[day].slice(0, 3).map((event, eventIndex) => (
                               <div
                                 key={eventIndex}
                                 className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30 flex items-center gap-1"
@@ -569,9 +569,9 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
                               </div>
                             ))}
                           </div>
-                          {eventsByDate[day].length > 2 && (
+                          {eventsByDate[day].length > 3 && (
                             <div className="text-xs text-muted-foreground text-center mt-0.5">
-                              +{eventsByDate[day].length - 2}
+                              +{eventsByDate[day].length - 3}
                             </div>
                           )}
                         </div>
