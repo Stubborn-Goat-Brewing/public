@@ -97,6 +97,34 @@ export function UpcomingEventsBanner() {
             return eventDate.getTime() === date.getTime()
           })
 
+          dayEvents.sort((a, b) => {
+            const getEndTimeValue = (time: string | Date) => {
+              if (!time) return 999999 // Events without end time go last
+
+              let hours: number
+              let minutes: number
+
+              // Check if time is a Date object (ISO string from API)
+              if (typeof time === "string" && time.includes("T")) {
+                const timeDate = new Date(time)
+                hours = timeDate.getUTCHours() - 5 // Convert to EST
+                if (hours < 0) hours += 24
+                minutes = timeDate.getUTCMinutes()
+              } else {
+                // Parse regular time format "HH:MM"
+                const timeStr = typeof time === "string" ? time : time.toString()
+                const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})/)
+                if (!timeMatch) return 999999
+                hours = Number.parseInt(timeMatch[1], 10)
+                minutes = Number.parseInt(timeMatch[2], 10)
+              }
+
+              return hours * 60 + minutes // Convert to minutes for comparison
+            }
+
+            return getEndTimeValue(a.endTime) - getEndTimeValue(b.endTime)
+          })
+
           next5Days.push({
             date,
             dayName: date.toLocaleDateString("en-US", { weekday: "short" }),

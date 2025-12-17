@@ -225,54 +225,59 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Visit Us Section */}
-        <section id="visit" className="py-8 md:py-12">
+        {/* Combined Visit Us and Hours Sections */}
+        <section className="py-8 md:py-12">
           <div className="container">
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Visit Us</h2>
-            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
-              Come spend some time with us in West Grove, PA.
-            </p>
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {/* Visit Us */}
+              <div id="visit">
+                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                  Visit Us
+                </h2>
+                <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
+                  Come spend some time with us in West Grove, PA.
+                </p>
 
-            <div className="flex justify-center">
-              <div className="w-full max-w-2xl">
-                <div className="space-y-6">
-                  <address className="not-italic text-muted-foreground text-center">
-                    <p className="flex items-center justify-center gap-2 text-lg">
-                      <MapPin className="h-5 w-5" />
-                      122 Rosehill Ave, West Grove, PA 19390
-                    </p>
-                  </address>
+                <div className="flex justify-center">
+                  <div className="w-full max-w-2xl">
+                    <div className="space-y-6">
+                      <address className="not-italic text-muted-foreground text-center">
+                        <p className="flex items-center justify-center gap-2 text-lg">
+                          <MapPin className="h-5 w-5" />
+                          122 Rosehill Ave, West Grove, PA 19390
+                        </p>
+                      </address>
 
-                  <div className="h-[300px] overflow-hidden rounded-lg">
-                    <iframe
-                      title="Stubborn Goat Brewing Location"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5116035870707!2d-75.8293238!3d39.8224868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6579e4a5e4a8d%3A0x618460a2c2e8a04a!2s122%20Rosehill%20Ave%2C%20West%20Grove%2C%20PA%2019390!5e0!3m2!1sen!2sus!4v1712508081!5m2!1sen!2sus"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
+                      <div className="h-[300px] overflow-hidden rounded-lg">
+                        <iframe
+                          title="Stubborn Goat Brewing Location"
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5116035870707!2d-75.8293238!3d39.8224868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6579e4a5e4a8d%3A0x618460a2c2e8a04a!2s122%20Rosehill%20Ave%2C%20West%20Grove%2C%20PA%2019390!5e0!3m2!1sen!2sus!4v1712508081!5m2!1sen!2sus"
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Hours Section */}
-        <section id="hours" className="bg-muted py-8 md:py-12">
-          <div className="container">
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-              Hours of Operation
-            </h2>
-            <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
-              We're open and ready to welcome you! Check out our current hours below.
-            </p>
+              {/* Hours of Operation */}
+              <div id="hours">
+                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                  Hours of Operation
+                </h2>
+                <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
+                  We're open and ready to welcome you! Check out our current hours below.
+                </p>
 
-            <div className="flex justify-center">
-              <HoursCard />
+                <div className="flex justify-center">
+                  <HoursCard />
+                </div>
+              </div>
             </div>
           </div>
         </section>
