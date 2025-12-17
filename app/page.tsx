@@ -231,12 +231,9 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {/* Visit Us */}
               <div id="visit">
-                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">
                   Visit Us
                 </h2>
-                <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
-                  Come spend some time with us in West Grove, PA.
-                </p>
 
                 <div className="flex justify-center">
                   <div className="w-full max-w-2xl">
@@ -267,12 +264,9 @@ export default function Home() {
 
               {/* Hours of Operation */}
               <div id="hours">
-                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">
                   Hours of Operation
                 </h2>
-                <p className="mx-auto max-w-[700px] text-center text-muted-foreground mb-8">
-                  We're open and ready to welcome you! Check out our current hours below.
-                </p>
 
                 <div className="flex justify-center">
                   <HoursCard />
