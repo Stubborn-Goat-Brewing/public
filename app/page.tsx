@@ -125,7 +125,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="relative min-h-[80vh] bg-black">
+          <div className="relative min-h-[60vh] md:min-h-[80vh] bg-black">
             <Image
               src="/images/brewery-exterior-sunset.jpg"
               alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
@@ -133,29 +133,29 @@ export default function Home() {
               priority
               className="object-cover object-top"
             />
-            <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white">
-              <div className="flex flex-col items-center max-w-4xl mx-auto pt-16 pb-16">
+            <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white px-4">
+              <div className="flex flex-col items-center max-w-4xl mx-auto py-8 md:pt-16 md:pb-16 w-full">
                 <Image
                   src="/images/full-logo.png"
                   alt="Stubborn Goat Brewing"
                   width={300}
                   height={150}
-                  className="mb-6 w-32 sm:w-40 md:w-52"
+                  className="mb-4 md:mb-6 w-24 sm:w-32 md:w-40 lg:w-52"
                 />
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+                <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl px-4">
                   Welcome to Stubborn Goat Brewing
                 </h1>
-                <div className="w-full mt-8 mb-4">
+                <div className="w-full mt-4 md:mt-8 mb-2 md:mb-4 -mx-4">
                   <UpcomingEventsBanner />
                 </div>
-                <p className="mt-4 max-w-[700px] text-lg text-white/90">
+                <p className="mt-2 md:mt-4 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 px-4">
                   At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
                   plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to
                   connect over local brews, PA-made wine and spirits, delicious food, creative mocktails, and an
                   always-fresh lineup of live music and events. Whether you're here for a pint, a plate, or a laid-back
                   outing with the kids, there's something for everyone at The Goat.
                 </p>
-                <div className="mt-6 flex justify-center">
+                <div className="mt-4 md:mt-6 flex justify-center">
                   <Button asChild size="lg">
                     <Link href="#visit">Visit Us</Link>
                   </Button>

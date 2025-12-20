@@ -163,30 +163,35 @@ export function UpcomingEventsBanner() {
   }
 
   return (
-    <div className="w-full bg-zinc-900/80 backdrop-blur-sm border-t border-white/10 py-6">
-      <div className="container">
-        <div className="flex items-center justify-between mb-4">
+    <div className="w-full bg-zinc-900/80 backdrop-blur-sm border-t border-white/10 py-4 md:py-6">
+      <div className="container px-4">
+        <div className="flex items-center justify-between mb-3 md:mb-4">
           <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-amber-400" />
-            <h3 className="text-white font-semibold text-lg">Coming Up This Week</h3>
+            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-amber-400" />
+            <h3 className="text-white font-semibold text-sm md:text-lg">Coming Up This Week</h3>
           </div>
-          <Button asChild variant="ghost" size="sm" className="text-white hover:text-amber-400 hover:bg-white/10">
+          <Button
+            asChild
+            variant="ghost"
+            size="sm"
+            className="text-white hover:text-amber-400 hover:bg-white/10 text-xs md:text-sm"
+          >
             <Link href="/events" className="flex items-center gap-1">
-              See All Events
-              <ChevronRight className="h-4 w-4" />
+              See All
+              <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
             </Link>
           </Button>
         </div>
 
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 md:gap-3 overflow-x-auto pb-2 snap-x snap-mandatory md:snap-none scrollbar-hide">
           {upcomingDays.map((day, idx) => (
             <div
               key={idx}
-              className={`flex-shrink-0 w-48 rounded-lg border ${
+              className={`flex-shrink-0 w-[85vw] md:w-48 snap-center rounded-lg border ${
                 day.events.length > 0 ? "bg-white/95 border-amber-400/50" : "bg-white/5 border-white/10"
-              } p-4 transition-all hover:scale-105`}
+              } p-3 md:p-4 transition-all hover:scale-105`}
             >
-              <div className="flex flex-col items-center mb-3 pb-3 border-b border-zinc-200">
+              <div className="flex flex-col items-center mb-2 md:mb-3 pb-2 md:pb-3 border-b border-zinc-200">
                 <p
                   className={`text-xs font-semibold uppercase tracking-wide ${
                     day.events.length > 0 ? "text-amber-600" : "text-white/40"
@@ -194,7 +199,9 @@ export function UpcomingEventsBanner() {
                 >
                   {day.dayName}
                 </p>
-                <p className={`text-2xl font-bold ${day.events.length > 0 ? "text-zinc-900" : "text-white/60"}`}>
+                <p
+                  className={`text-xl md:text-2xl font-bold ${day.events.length > 0 ? "text-zinc-900" : "text-white/60"}`}
+                >
                   {day.monthDay}
                 </p>
               </div>
