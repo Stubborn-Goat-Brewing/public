@@ -1,7 +1,23 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Calendar, Clock, ChevronRight } from "lucide-react"
+import {
+  Calendar,
+  ChevronRight,
+  Music,
+  HelpCircle,
+  Grid3X3,
+  Hammer,
+  Star,
+  Trophy,
+  UtensilsCrossed,
+  Wine,
+  Users,
+  Lock,
+  XCircle,
+  Heart,
+  DollarSign,
+} from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
@@ -19,6 +35,38 @@ interface DayEvents {
   dayName: string
   monthDay: string
   events: Event[]
+}
+
+function getEventTypeIcon(type: string) {
+  switch (type?.toLowerCase()) {
+    case "live music":
+      return <Music className="h-3 w-3 text-amber-600" />
+    case "trivia":
+      return <HelpCircle className="h-3 w-3 text-amber-600" />
+    case "bingo":
+      return <Grid3X3 className="h-3 w-3 text-amber-600" />
+    case "craft":
+      return <Hammer className="h-3 w-3 text-amber-600" />
+    case "sports":
+      return <Trophy className="h-3 w-3 text-amber-600" />
+    case "food special":
+      return <UtensilsCrossed className="h-3 w-3 text-amber-600" />
+    case "drink special":
+      return <Wine className="h-3 w-3 text-amber-600" />
+    case "community event":
+      return <Users className="h-3 w-3 text-amber-600" />
+    case "private event (closed to public)":
+      return <Lock className="h-3 w-3 text-amber-600" />
+    case "closed":
+      return <XCircle className="h-3 w-3 text-amber-600" />
+    case "dine and donate":
+      return <Heart className="h-3 w-3 text-amber-600" />
+    case "fundraiser":
+      return <DollarSign className="h-3 w-3 text-amber-600" />
+    case "general":
+    default:
+      return <Star className="h-3 w-3 text-amber-600" />
+  }
 }
 
 export function UpcomingEventsBanner() {
@@ -81,13 +129,12 @@ export function UpcomingEventsBanner() {
         const data = await response.json()
         const events: Event[] = data.events || []
 
-        // Get the next 5 days starting from today
         const today = new Date()
         today.setHours(0, 0, 0, 0)
 
-        const next5Days: DayEvents[] = []
+        const next7Days: DayEvents[] = []
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 7; i++) {
           const date = new Date(today)
           date.setDate(today.getDate() + i)
 
@@ -125,7 +172,7 @@ export function UpcomingEventsBanner() {
             return getEndTimeValue(a.endTime) - getEndTimeValue(b.endTime)
           })
 
-          next5Days.push({
+          next7Days.push({
             date,
             dayName: date.toLocaleDateString("en-US", { weekday: "short" }),
             monthDay: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
@@ -133,7 +180,7 @@ export function UpcomingEventsBanner() {
           })
         }
 
-        setUpcomingDays(next5Days)
+        setUpcomingDays(next7Days)
         setLoading(false)
       } catch (error) {
         console.error("Error fetching events:", error)
@@ -183,11 +230,11 @@ export function UpcomingEventsBanner() {
           </Button>
         </div>
 
-        <div className="flex gap-2 md:gap-3 overflow-x-auto pb-2 snap-x snap-mandatory md:snap-none scrollbar-hide">
+        <div className="flex gap-2 md:gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide">
           {upcomingDays.map((day, idx) => (
             <div
               key={idx}
-              className={`flex-shrink-0 w-[85vw] md:w-48 snap-center rounded-lg border ${
+              className={`flex-shrink-0 w-[85vw] sm:w-[45vw] md:w-[30vw] lg:w-40 xl:w-44 snap-center rounded-lg border ${
                 day.events.length > 0 ? "bg-white/95 border-amber-400/50" : "bg-white/5 border-white/10"
               } p-3 md:p-4 transition-all hover:scale-105`}
             >
@@ -210,13 +257,11 @@ export function UpcomingEventsBanner() {
                 <div className="space-y-2">
                   {day.events.slice(0, 3).map((event, eventIdx) => (
                     <div key={eventIdx} className="text-left">
-                      <p className="text-sm font-semibold text-zinc-900 line-clamp-2 leading-tight">{event.name}</p>
-                      {event.startTime && (
-                        <div className="flex items-center gap-1 mt-1">
-                          <Clock className="h-3 w-3 text-amber-600" />
-                          <p className="text-xs text-zinc-600">{formatEventTime(event)}</p>
-                        </div>
-                      )}
+                      <div className="flex items-start gap-1.5 mb-1">
+                        <div className="flex-shrink-0 mt-0.5">{getEventTypeIcon(event.type)}</div>
+                        <p className="text-sm font-semibold text-zinc-900 line-clamp-2 leading-tight">{event.name}</p>
+                      </div>
+                      {event.startTime && <p className="text-xs text-zinc-600 ml-5">{formatEventTime(event)}</p>}
                     </div>
                   ))}
                   {day.events.length > 3 && (

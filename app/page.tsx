@@ -14,6 +14,12 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <style jsx global>{`
+        html {
+          scroll-padding-top: 120px;
+        }
+      `}</style>
+
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <AnnouncementBanner
           message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
@@ -166,51 +172,62 @@ export default function Home() {
         </section>
 
         <section className="py-12 md:py-16 bg-primary/5">
-          <div className="container">
-            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="container px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
               {/* Follow The Herd */}
-              <div className="bg-background rounded-lg shadow-lg p-8 md:p-10 text-center border-2 border-primary/20">
+              <div className="bg-background rounded-lg shadow-lg p-6 md:p-8 lg:p-10 text-center border-2 border-primary/20">
                 <Image
                   src="/images/icon_instagram.png"
                   alt="Instagram"
                   width={64}
                   height={64}
-                  className="h-16 w-16 mx-auto mb-6"
+                  className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 md:mb-6"
                 />
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">Follow The Herd!</h2>
-                <p className="text-base md:text-lg text-muted-foreground mb-8">
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-3 md:mb-4">
+                  Follow The Herd!
+                </h2>
+                <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-6 md:mb-8">
                   Follow us on Instagram for the latest photos, events, and behind-the-scenes content. Join our
                   community and see what's brewing at The Goat!
                 </p>
-                <Button asChild size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
+                >
                   <Link
                     href="https://instagram.com/StubbornGoatBrewing"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2"
+                    className="flex items-center justify-center gap-2"
                   >
                     <Image
                       src="/images/icon_instagram.png"
                       alt="Instagram"
                       width={20}
                       height={20}
-                      className="h-5 w-5"
+                      className="h-4 w-4 md:h-5 md:w-5"
                     />
                     Follow Us on Instagram
                   </Link>
                 </Button>
-                <p className="text-xs text-muted-foreground mt-6">Stay connected with our brewing community!</p>
               </div>
 
               {/* Join Our Mailing List */}
-              <div className="bg-background rounded-lg shadow-lg p-8 md:p-10 text-center border-2 border-primary/20">
-                <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">Join Our Mailing List</h2>
-                <p className="text-base md:text-lg text-muted-foreground mb-8">
+              <div className="bg-background rounded-lg shadow-lg p-6 md:p-8 lg:p-10 text-center border-2 border-primary/20">
+                <Mail className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4 md:mb-6" />
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-3 md:mb-4">
+                  Join Our Mailing List
+                </h2>
+                <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-6 md:mb-8">
                   Stay in the loop with exclusive updates on new beer releases, special events, promotions, and
                   everything happening at The Goat. Be the first to know!
                 </p>
-                <Button asChild size="lg" className="text-base md:text-lg px-6 md:px-8 py-5 md:py-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
+                >
                   <Link
                     href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/marketing-signup"
                     target="_blank"
@@ -219,65 +236,81 @@ export default function Home() {
                     Sign Up Now
                   </Link>
                 </Button>
-                <p className="text-xs text-muted-foreground mt-6">We respect your privacy. Unsubscribe anytime.</p>
+                <p className="text-xs text-muted-foreground mt-4 md:mt-6">
+                  We respect your privacy. Unsubscribe anytime.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Combined Visit Us and Hours Sections */}
-        <section className="py-8 md:py-12">
-          <div className="container">
-            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <section className="pb-6 md:pb-8 bg-primary/5">
+          <div className="container px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
               {/* Visit Us */}
-              <div id="visit">
-                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">
-                  Visit Us
-                </h2>
+              <div
+                id="visit"
+                className="scroll-mt-32 bg-background rounded-lg shadow-lg p-6 md:p-8 lg:p-10 text-center border-2 border-primary/20"
+              >
+                <MapPin className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4 md:mb-6" />
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-6 md:mb-8">Visit Us</h2>
 
-                <div className="flex justify-center">
-                  <div className="w-full max-w-2xl">
-                    <div className="space-y-6">
-                      <address className="not-italic text-muted-foreground text-center">
-                        <p className="flex items-center justify-center gap-2 text-lg">
-                          <MapPin className="h-5 w-5" />
-                          122 Rosehill Ave, West Grove, PA 19390
-                        </p>
-                      </address>
+                <div className="space-y-4 md:space-y-6">
+                  <address className="not-italic text-muted-foreground text-center">
+                    <p className="flex items-center justify-center gap-2 text-sm md:text-base lg:text-lg">
+                      <MapPin className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
+                      <span className="break-words">122 Rosehill Ave, West Grove, PA 19390</span>
+                    </p>
+                  </address>
 
-                      <div className="h-[300px] overflow-hidden rounded-lg">
-                        <iframe
-                          title="Stubborn Goat Brewing Location"
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5116035870707!2d-75.8293238!3d39.8224868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6579e4a5e4a8d%3A0x618460a2c2e8a04a!2s122%20Rosehill%20Ave%2C%20West%20Grove%2C%20PA%2019390!5e0!3m2!1sen!2sus!4v1712508081!5m2!1sen!2sus"
-                          width="100%"
-                          height="100%"
-                          style={{ border: 0 }}
-                          allowFullScreen
-                          loading="lazy"
-                          referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
-                      </div>
-                    </div>
+                  <div className="h-[250px] md:h-[300px] overflow-hidden rounded-lg">
+                    <iframe
+                      title="Stubborn Goat Brewing Location"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.5116035870707!2d-75.8293238!3d39.8224868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6579e4a5e4a8d%3A0x618460a2c2e8a04a!2s122%20Rosehill%20Ave%2C%20West%20Grove%2C%20PA%2019390!5e0!3m2!1sen!2sus!4v1712508081!5m2!1sen!2sus"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
                   </div>
                 </div>
               </div>
 
               {/* Hours of Operation */}
-              <div id="hours">
-                <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">
+              <div
+                id="hours"
+                className="scroll-mt-32 bg-background rounded-lg shadow-lg p-6 md:p-8 lg:p-10 text-center border-2 border-primary/20"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="64"
+                  height="64"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4 md:mb-6"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-6 md:mb-8">
                   Hours of Operation
                 </h2>
 
-                <div className="flex justify-center">
-                  <HoursCard />
-                </div>
+                <HoursCard />
               </div>
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-8 md:py-12">
+        <section id="contact" className="py-8 md:py-12 scroll-mt-32">
           <div className="container">
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
             <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">

@@ -31,13 +31,13 @@ const foodSections: MenuSection[] = [
     title: "Shareables",
     items: [
       {
-        name: "Pretzel Sticks",
-        description: "Soft pretzel sticks served with house-made beer cheese.",
-        price: 12,
+        name: "Basket of Seasoned Fries or Tots",
+        description: "Cajun or Old Bay (+1), Truffle (+2).",
+        price: 6,
       },
       {
-        name: "Cheesesteak Egg Rolls",
-        description: "Three cheesesteak egg rolls served with sweet red chili dipping sauce.",
+        name: "Soft Pretzel Sticks",
+        description: "Warm baked pretzel sticks brushed with butter and salt, served with our house beer-cheese.",
         price: 12,
       },
       {
@@ -47,42 +47,31 @@ const foodSections: MenuSection[] = [
       },
       {
         name: "Mozzarella Sticks",
-        description: "Breaded mozzarella sticks served with house-made marinara sauce.",
+        description: "Crispy fried mozzarella served with warm marinara.",
         price: 12,
+      },
+      {
+        name: "Cheesesteak Egg Rolls",
+        description:
+          "Crispy egg rolls stuffed with shaved steak, onions, and cheese. Served with sweet red chili sauce.",
+        price: 13,
       },
       {
         name: "The Herd Nachos",
         description:
-          "House-made tortilla chips topped with beer cheese, pico de gallo, jalapeños, and sour cream. Add Chicken +2. Add Shrimp +3.",
+          "House-made tortilla chips topped with beer cheese, pico de gallo, jalapeños, and sour cream. Add Chicken (+3). Add Shrimp (+4).",
         price: 13,
       },
-    ],
-  },
-  {
-    title: "Salads",
-    items: [
       {
-        name: "Cobb Salad",
-        description:
-          "Romaine, bacon, hard-boiled egg, cucumber, red onion, tomato, avocado, served with blue cheese dressing.",
-        price: 16,
+        name: "Maple Roasted Brussels",
+        description: "Brussels sprouts tossed with bacon, maple glaze, and parmesan.",
+        price: 13,
       },
       {
-        name: "Caesar Salad",
-        description: "Romaine, croutons, parmesan cheese, served with a creamy caesar dressing.",
+        name: "BBQ Short Rib Loaded Fries or Tots",
+        description:
+          "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our short rib braised in-house with our Iron Hoof Ale.",
         price: 15,
-      },
-      {
-        name: "Summer Salad",
-        description:
-          "Mixed greens, strawberries, blueberries, walnuts, goat cheese served with balsamic vinaigrette dressing.",
-        price: 13,
-      },
-      {
-        name: "Chickpea Salad",
-        description:
-          "Mixed greens, chickpeas, cucumber, cherry tomato, bell pepper, red onion, feta cheese, served with an oil and vinegar dressing.",
-        price: 14,
       },
     ],
   },
@@ -91,13 +80,42 @@ const foodSections: MenuSection[] = [
     items: [
       {
         name: "Classic Wings",
-        description: "Bone-in wings tossed in your choice of sauce. Choice of sauce. Add a side of fries (+4).",
+        description: "Bone-in wings tossed in your choice of sauce. Add a side of fries (+3) or tots (+4).",
         price: 13,
       },
       {
         name: "Boneless Wings",
-        description: "Boneless wings tossed in your choice of sauce. Choice of sauce. Add a side of fries (+4).",
+        description: "Boneless wings tossed in your choice of sauce. Add a side of fries (+3) or tots (+4).",
         price: 13,
+      },
+    ],
+  },
+  {
+    title: "Smash Burgers",
+    items: [
+      {
+        name: "Classic Smash",
+        description:
+          "Single or double (+2) smash patties with melted American cheese, lettuce, tomato, pickles, & our house secret sauce. Served with a side of fresh-cut fries. Sub tots (+1).",
+        price: 14,
+      },
+      {
+        name: "BBQ Bacon Smash",
+        description:
+          "Single or double (+2) smash patties layered with sharp cheddar, crispy bacon, caramelized onion, and a smoky-sweet BBQ sauce. Served with a side of fresh-cut fries. Sub tots (+1).",
+        price: 16,
+      },
+      {
+        name: "The Goat Smash",
+        description:
+          "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and balsamic glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub tots (+1).",
+        price: 16,
+      },
+      {
+        name: "Mushroom & Swiss Smash",
+        description:
+          "Single or double (+2) smash patties stacked with melty Swiss cheese, sweet caramelized onions, sautéed mushrooms, and a rich roasted-garlic aioli. Served with a side of fresh-cut fries. Sub tots (+1).",
+        price: 16,
       },
     ],
   },
@@ -106,36 +124,53 @@ const foodSections: MenuSection[] = [
     items: [
       {
         name: "Hot Dogs & Fries",
-        description: "Two jumbo hot dogs served with a side of fries.",
-        price: 12,
+        description: "Two 1/4 pound hot dogs served with a side of fries. Sub tots (+1).",
+        price: 13,
       },
       {
         name: "B.A.L.T. Wrap",
         description:
-          "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with seasoned house-made tortilla chips.",
+          "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips.",
         price: 14,
       },
       {
         name: "Smoked Turkey Caesar Wrap",
         description:
-          "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with seasoned house-made tortilla chips.",
+          "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips.",
         price: 14,
       },
     ],
   },
   {
-    title: "Burgers",
+    title: "Flatbreads",
     items: [
       {
-        name: "Classic Smash",
+        name: "Butternut Squash & Goat Cheese",
         description:
-          "Single or double (+2) smash patties, American cheese, lettuce, tomato, pickles, & house-made secret sauce served with a side of fries.",
-        price: 14,
+          "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple glaze on a crisp flatbread. Served with house tortilla chips. Sub fries (+3) or tots (+4).",
+        price: 16,
       },
       {
-        name: "BBQ Bacon Smash",
+        name: "BBQ Short Rib",
         description:
-          "Single or double (+2) smash patties, cheddar cheese, crispy bacon, caramelized onion, & BBQ sauce served with a side of fries.",
+          "Short rib braised in-house with our Iron Hoof Ale, smoked gouda, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple glaze on a crisp flatbread. Served with house tortilla chips. Sub fries (+3) or tots (+4).",
+        price: 17,
+      },
+    ],
+  },
+  {
+    title: "Salads",
+    items: [
+      {
+        name: "Caesar Salad",
+        description:
+          "Crisp romaine lettuce, shaved Parmesan, garlic croutons, and creamy Caesar dressing. Add grilled chicken (+3) or grilled shrimp (+4).",
+        price: 13,
+      },
+      {
+        name: "Autumn Brussels & Apple Salad",
+        description:
+          "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded white cheddar tossed in a light maple-Dijon vinaigrette.",
         price: 16,
       },
     ],
@@ -144,12 +179,13 @@ const foodSections: MenuSection[] = [
 
 const drinkSections: MenuSection[] = [
   {
-    title: "Cocktails",
+    title: "Specialty Cocktails",
     items: [
       {
-        name: "Old Fashioned",
-        description: "A timeless blend of whiskey, bitters, sugar, and citrus—smooth, balanced, and perfectly simple.",
-        price: 14,
+        name: "Apple Pie Spritz",
+        description:
+          "Crisp apple pie cider with smooth vanilla vodka and topped with bubbly prosecco. Light, sparkling, and dessert-inspired, but not too sweet—just right.",
+        price: 12,
       },
       {
         name: "Margarita",
@@ -158,14 +194,43 @@ const drinkSections: MenuSection[] = [
         price: 13,
       },
       {
-        name: "Stubborn Knees",
-        description: "Gin, honey simple syrup, lavender bitters, topped with lemonade served on the rocks.",
+        name: "Transfusion",
+        description:
+          "A bright, refreshing blend of vodka, grape juice, a squeeze of fresh lime, cranberry, and a touch of simple syrup, topped with bubbly ginger ale for a crisp, golf-course-classic sipper.",
+        price: 13,
+      },
+      {
+        name: "Old Fashioned",
+        description: "A timeless blend of whiskey, bitters, sugar, and citrus—smooth, balanced, and perfectly simple.",
         price: 14,
       },
       {
-        name: "Transfusion",
-        description: "Grape vodka, simple syrup, fresh squeezed lime juice, cranberry juice, topped with ginger ale.",
-        price: 12,
+        name: "Winter Margarita",
+        description:
+          "A festive fusion, bringing a chilly twist to a sun-drenched classic. We blend crisp silver tequila with the tart embrace of real cranberry puree, and a sparkling splash of lemon-lime soda.",
+        price: 14,
+      },
+      {
+        name: "Smoked Old Fashioned",
+        description:
+          "An elevated twist on our classic Old Fashioned, infused with real smoke from apple, cherry, or pecan wood.",
+        price: 15,
+      },
+      {
+        name: "Coffee Old Fashioned",
+        description:
+          "A bold Old Fashioned with bourbon, coffee liqueur, and bitters, gently sweetened and finished with a citrus peel for a velvety, sippable classic.",
+        price: 15,
+      },
+    ],
+  },
+  {
+    title: "Classic Cocktails",
+    items: [
+      {
+        name: "The Classics, Pennsylvania Style",
+        description:
+          "If you have a timeless favorite in mind, our bartenders are ready to craft it to perfection. We honor cocktail traditions using a full range of exceptional, Pennsylvania-made spirits—from crisp vodkas and botanical gins to aged bourbons and smooth rums. Simply request your classic cocktail, and we will mix a masterpiece for you.",
       },
     ],
   },
@@ -199,10 +264,24 @@ const drinkSections: MenuSection[] = [
     title: "Wine",
     items: [
       {
-        name: "Penns Woods Winery",
-        description:
-          "Multiple varieties available by the glass. We offer Rose, Chardonnay, Willow White, Sauvignon Blanc, Cabernet Sauvignon.",
+        name: "White Wines",
+        description: "Sauvignon Blanc, Willow White. Penns Woods Winery - Chadds Ford, PA.",
         price: 10,
+      },
+      {
+        name: "Red Wines",
+        description: "Cabernet Sauvignon. Penns Woods Winery - Chadds Ford, PA.",
+        price: 10,
+      },
+      {
+        name: "Rose",
+        description: "Pinot Rose. Penns Woods Winery - Chadds Ford, PA.",
+        price: 10,
+      },
+      {
+        name: "Bubbly",
+        description: "Brut Rose, Blanc de Blanc. Penns Woods Winery - Chadds Ford, PA.",
+        price: 12,
       },
     ],
   },
@@ -210,27 +289,10 @@ const drinkSections: MenuSection[] = [
     title: "Non-Alcoholic",
     items: [
       {
-        name: "Hop Water",
-        description:
-          "A crisp, bubbly, non-alcoholic refresher infused with aromatic hops. Lightly flavored with citrusy and floral notes, it's clean, hydrating, and perfect anytime. Available in rotating flavors.",
-        price: 4,
-      },
-      {
         name: "Athletic Brewing Cans",
         description:
-          "Award-winning, craft non-alcoholic beers for those who want the full flavor of a craft brew without the alcohol. Ask your server for current availability.",
+          "Award-winning, craft non-alcoholic beers for those who want the full flavor of a craft brew without the alcohol. Run Wild (IPA), Free Wave (Hazy IPA), Upside Dawn (Golden Ale).",
         price: 6,
-      },
-      {
-        name: "Fountain Soda",
-        description:
-          "Coke, Diet Coke, Sprite, Root Beer, Ginger Ale, Minute-Made Lemonade, Cranberry Juice, Tonic Water, and Club Soda.",
-        price: 3,
-      },
-      {
-        name: "Iced Tea",
-        description: "Fresh-brewed, served unsweetened with a lemon slice.",
-        price: 4,
       },
     ],
   },
@@ -238,70 +300,101 @@ const drinkSections: MenuSection[] = [
 
 const currentBeers: Beer[] = [
   {
-    name: "Goat Light",
-    style: "Light Lager",
+    name: "La Cabra Loca",
+    style: "Mexican Lager",
     abv: 4.5,
     description:
-      "Light, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
+      "A bright, easy-drinking Mexican lager brewed for sunshine and good company. Crisp malt character, a touch of corn sweetness, and a refreshingly dry finish make this beer endlessly crushable. Best enjoyed ice-cold with a lime wedge.",
   },
   {
-    name: "Counting Sheep IPA",
-    style: "Hazy IPA",
-    abv: 7.2,
-    description:
-      "Hazy IPA brewed with raw wheat & malted oats. Heavily hopped with citra & mosaic. Dank citrusy aroma.",
-  },
-  {
-    name: "West Coast IPA",
-    style: "West Coast IPA",
-    abv: 6.5,
-    description: "Dry-hopped with simcoe, citra, and chinook. Notes of grapefruit, pine, and honeydew.",
-  },
-  {
-    name: "Cold IPA",
-    style: "Cold IPA",
+    name: "Light Lager",
+    style: "American Light Lager",
     abv: 4.5,
-    description: "Clean and dry IPA, double dry-hopped with Nectaron.",
+    description: "American Light Lager brewed with pilsner malt.",
+  },
+  {
+    name: "Goat Lager",
+    style: "American Lager",
+    abv: 4.5,
+    description: "COMING BACK SOON!!",
   },
   {
     name: "Grove Refresher Watermelon Sour",
-    style: "Sour Ale",
+    style: "Fruited Sour",
     abv: 5.5,
-    description: 'The first in our new "refresher" sour series. Light sour, slightly fruity, great flavor.',
+    description:
+      "A bright, tart watermelon sour with a clean, juicy finish. Fresh fruit character and lively acidity make it a crisp, easy-drinking choice year-round.",
   },
   {
-    name: "Oktoberfest",
-    style: "Festbier",
-    abv: 5.5,
-    description: "Traditional Festbier.",
+    name: "Hazy IPA",
+    style: "New England / Hazy IPA",
+    abv: 6.5,
+    description: "New recipe. Not ready for a name yet. Hoppy, fruity hazy.",
+  },
+  {
+    name: "West Coast IPA",
+    style: "West Coast Style IPA",
+    abv: 6.5,
+    description: "New recipe! West coast style IPA. Hop-forward, crisp, clean.",
+  },
+  {
+    name: "Counting Sheep",
+    style: "Hazy IPA",
+    abv: 7.2,
+    description:
+      "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
+  },
+  {
+    name: "Headbutt",
+    style: "Double American IPA",
+    abv: 8.4,
+    description:
+      "Headbutt is an 8.4% Double American IPA built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish. A powerful yet refined IPA for serious hop fans.",
   },
   {
     name: "Iron Hoof",
     style: "Brown Ale",
     abv: 4.8,
     description:
-      "An ale as dark and bold as the name implies. Iron Hoof is a rich brown ale with an uncompromising spirit. Its deep, robust character is forged from a blend of dark roasted malts, which lend a smooth, full-bodied taste. Served on Nitro.",
+      "An ale as dark and bold as the name implies. Iron Hoof is a rich brown ale with an uncompromising spirit. Its deep, robust character is forged from a blend of dark roasted malts, which lend a smooth, full-bodied taste.",
   },
   {
-    name: "Lemon Poppy Crumble",
-    style: "Pale Ale",
-    abv: 5.4,
-    description:
-      "A truly unique collaboration with our friends at Drip Cafe, this Pale Ale captures the essence of a fresh-baked lemon poppy muffin. Brewed with actual Drip Cafe muffins, it pours with a hazy, golden hue. The aroma is a delightful mix of zesty lemon and sweet, bready notes.",
+    name: "Dark Cerveza",
+    style: "Dark Mexican Lager",
+    abv: 4.7,
+    description: "A traditional Mexican-style dark lager.",
+  },
+  {
+    name: "Irish Stout",
+    style: "Irish Stout",
+    abv: 5.0,
+    description: "Limited tap. A classic Irish Stout brewed with Flaked, Roasted and Malted Barley.",
+  },
+  {
+    name: "Chocolate Vanilla Stout",
+    style: "Stout",
+    abv: 6.5,
+    description: "Limited tap. Dark, rich, flavorful.",
   },
   {
     name: "Better Late Than November",
     style: "Pumpkin Spiced Ale",
     abv: 7.0,
     description:
-      "Brewed with real roasted pumpkins and a warming blend of cinnamon, nutmeg, ginger, and cloves, this spiced ale captures the cozy flavor of late autumn in every sip. Rich malt sweetness and gentle spice come together for a smooth, balanced finish that's worth the wait — even if it's almost November.",
+      "Brewed with real roasted pumpkins and a warming blend of cinnamon, nutmeg, ginger, and cloves, this spiced ale captures the cozy flavor of late autumn in every sip. Rich malt sweetness and gentle spice come together for a smooth, balanced finish that's worth the wait.",
   },
   {
-    name: "Hopfenfest",
-    style: "Dry Hopped Festbier",
-    abv: 5.8,
+    name: "Tundra Buck",
+    style: "Winter Spiced Stout",
+    abv: 7.9,
     description:
-      "Experience the spirit of the German festival season with a modern twist. Hopfenfest takes the rich malt backbone of a classic Festbier with notes of toasted bread and caramel, and elevates it with a generous hop addition.",
+      "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base—featuring notes of roasted coffee and dark chocolate—with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger.",
+  },
+  {
+    name: "King David",
+    style: "Cider",
+    abv: 6.8,
+    description: "Sweet and light, notes of honeysuckle, apple, and pear from Old Stone Cider in Lewisville, PA.",
   },
 ]
 
@@ -312,14 +405,7 @@ const sauces = [
   "Classic BBQ",
   "Classic Buffalo",
   "Nashville Hot",
-  "Jerk",
-]
-
-const friesWithPrices = [
-  { name: "Salt & Pepper", price: 6 },
-  { name: "Cajun", price: 7 },
-  { name: "Old Bay", price: 7 },
-  { name: "Truffle", price: 8 },
+  "Lemon Pepper",
 ]
 
 export default function MenuPage() {
@@ -467,7 +553,7 @@ export default function MenuPage() {
                           <h4 className="font-semibold text-lg">{item.name}</h4>
                           <p className="text-muted-foreground text-sm mt-1">{item.description}</p>
                         </div>
-                        <span className="text-lg font-bold text-primary">${item.price}</span>
+                        {item.price !== 0 && <span className="text-lg font-bold text-primary">${item.price}</span>}
                       </div>
                     ))}
                   </div>
@@ -484,32 +570,9 @@ export default function MenuPage() {
                       </div>
                     </div>
                   )}
-
-                  {section.title === "Salads" && (
-                    <div className="mt-6 pt-4 border-t">
-                      <p className="text-sm text-muted-foreground">
-                        Add grilled chicken (+5) or grilled shrimp (+6) to any salad.
-                      </p>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             ))}
-
-            {/* Fries */}
-            <Card className="mb-8">
-              <CardContent className="p-6">
-                <h3 className="text-2xl font-bold mb-4 text-primary border-b pb-2">Basket of Seasoned Fries</h3>
-                <div className="space-y-2">
-                  {friesWithPrices.map((fry, index) => (
-                    <div key={index} className="flex justify-between items-center">
-                      <span className="font-medium">{fry.name}</span>
-                      <span className="text-lg font-bold text-primary">${fry.price}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Drink Menu */}
@@ -547,7 +610,7 @@ export default function MenuPage() {
                           <h4 className="font-semibold text-lg">{item.name}</h4>
                           <p className="text-muted-foreground text-sm mt-1">{item.description}</p>
                         </div>
-                        <span className="text-lg font-bold text-primary">${item.price}</span>
+                        {item.price !== 0 && <span className="text-lg font-bold text-primary">${item.price}</span>}
                       </div>
                     ))}
                   </div>
