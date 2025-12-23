@@ -3,9 +3,11 @@
 import { Suspense, useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { AnnouncementBanner } from "@/components/announcement-banner"
 import {
-  Menu,
-  X,
   Calendar,
   MapPin,
   Music,
@@ -24,11 +26,12 @@ import {
   XCircle,
   Heart,
   DollarSign,
+  Utensils,
+  Beer,
+  Mail,
+  X,
+  Menu,
 } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { AnnouncementBanner } from "@/components/announcement-banner"
 
 interface Event {
   name: string
@@ -412,7 +415,12 @@ function EventsLoading() {
   )
 }
 
-function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEventClick: (event: Event) => void }) {
+interface CalendarViewProps {
+  events: Event[]
+  onEventClick: (event: Event) => void
+}
+
+function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
   const today = new Date()
   const [viewingMonth, setViewingMonth] = useState(today.getMonth())
   const [viewingYear, setViewingYear] = useState(today.getFullYear())
@@ -509,22 +517,24 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">
-          {monthNames[viewingMonth]} {viewingYear}
-        </h2>
-        <div className="flex gap-1">
-          <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="sm" onClick={goToNextMonth}>
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
       <Card>
-        <CardContent className="p-2">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold">
+              {monthNames[viewingMonth]} {viewingYear}
+            </h2>
+            <div className="flex gap-1">
+              <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="sm" onClick={goToNextMonth}>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent className="p-4">
           <div className="grid grid-cols-7 mb-2">
             {dayNames.map((day) => (
               <div key={day} className="p-2 text-center text-xs font-medium text-muted-foreground">
@@ -541,42 +551,27 @@ function CompactCalendarView({ events, onEventClick }: { events: Event[]; onEven
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
 
+              const hasEvents = day && eventsByDate[day] && eventsByDate[day].length > 0
+
               return (
                 <div
                   key={index}
-                  className={`aspect-square p-1 text-center relative cursor-pointer hover:bg-muted/50 rounded-md transition-colors ${
+                  className={`aspect-square p-2 text-center relative cursor-pointer hover:bg-muted/50 rounded-md transition-colors ${
                     isToday ? "bg-primary/10 ring-2 ring-primary/30" : ""
                   } ${selectedDay === day ? "ring-2 ring-primary bg-primary/5" : ""}`}
                   onClick={() => day && setSelectedDay(selectedDay === day ? null : day)}
                 >
                   {day && (
-                    <>
+                    <div className="flex flex-col items-center justify-center h-full">
                       <div className={`text-sm font-medium ${isToday ? "text-primary font-bold" : ""}`}>{day}</div>
-                      {eventsByDate[day] && (
-                        <div className="absolute bottom-0 left-0 right-0 px-0.5">
-                          <div className="space-y-0.5">
-                            {eventsByDate[day].slice(0, 3).map((event, eventIndex) => (
-                              <div
-                                key={eventIndex}
-                                className="text-xs bg-primary/20 text-primary rounded px-1 py-0.5 truncate border border-primary/30 flex items-center gap-1"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  onEventClick(event)
-                                }}
-                              >
-                                {getEventTypeIcon(event.type)}
-                                <span className="truncate">{event.name}</span>
-                              </div>
-                            ))}
-                          </div>
-                          {eventsByDate[day].length > 3 && (
-                            <div className="text-xs text-muted-foreground text-center mt-0.5">
-                              +{eventsByDate[day].length - 3}
-                            </div>
-                          )}
+                      {hasEvents && (
+                        <div className="mt-1 flex gap-0.5">
+                          {eventsByDate[day].slice(0, 3).map((_, i) => (
+                            <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          ))}
                         </div>
                       )}
-                    </>
+                    </div>
                   )}
                 </div>
               )
@@ -855,6 +850,74 @@ export default function EventsPage() {
 
       <div className="container py-12">
         <div className="max-w-6xl mx-auto">
+          <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
+            <CardContent className="p-8 md:p-12">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-4">Host Your Event at The Goat</h2>
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                  Looking to host a memorable event? We offer private and semi-private on-site spaces perfect for your
+                  celebration, meeting, or gathering.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <Calendar className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Private & Semi-Private Events</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Reserve our space for your next party, corporate event, or special occasion
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <Utensils className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Full Catering Services</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Enjoy our complete menu with catering options for both on-site and off-site events
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <Beer className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Craft Beer & Cocktails</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Feature our award-winning beers and specialty cocktails at your event
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-center space-y-4">
+                <p className="text-muted-foreground">
+                  Ready to plan your event? Our events team is here to help make it unforgettable.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button asChild size="lg" className="gap-2">
+                    <a
+                      href="https://www.toasttab.com/invoice/lead?rx=8be4c691-2b25-4588-8823-9e8f7cb3f600&ot=f579e56b-2f56-404a-9da3-9507554ce832"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Calendar className="h-4 w-4" />
+                      Submit Event Inquiry
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="gap-2 bg-transparent">
+                    <a href="mailto:events@stubborngoatbrewing.com">
+                      <Mail className="h-4 w-4" />
+                      Email Our Events Team
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold tracking-tight mb-4">Events at The Goat</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
