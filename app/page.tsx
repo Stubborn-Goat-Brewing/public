@@ -5,7 +5,6 @@ import Link from "next/link"
 import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
-import { AnnouncementBanner } from "@/components/announcement-banner"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { useState } from "react"
 
@@ -21,12 +20,12 @@ export default function Home() {
       `}</style>
 
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <AnnouncementBanner
+        {/* <AnnouncementBanner
           message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
           linkText="Show me more"
           linkHref="https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
           disclaimer="Offer available in-store or online through 12/23/25. Bonus cards are redeemable 12/26/25 through 3/31/26 and must be used in full on one check."
-        />
+        /> */}
         <div className="container flex h-16 items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-2">
             <Image

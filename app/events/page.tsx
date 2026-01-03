@@ -6,7 +6,6 @@ import Link from "next/link"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { AnnouncementBanner } from "@/components/announcement-banner"
 import {
   Calendar,
   MapPin,
@@ -738,12 +737,12 @@ export default function EventsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <div className="sticky top-0 z-40">
-        <AnnouncementBanner
+        {/* <AnnouncementBanner
           message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
           linkText="Show me more"
           linkHref="https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
           disclaimer="Offer available in-store or online through 12/23/25. Bonus cards are redeemable 12/26/25 through 3/31/26 and must be used in full on one check."
-        />
+        /> */}
 
         <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container flex h-16 items-center justify-between py-4">
