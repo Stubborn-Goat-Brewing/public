@@ -886,7 +886,7 @@ export default function EventsPage() {
                   </div>
                   <h3 className="font-semibold mb-2">Craft Beer & Cocktails</h3>
                   <p className="text-sm text-muted-foreground">
-                    Feature our award-winning beers and specialty cocktails at your event
+                    Feature our craft beers and specialty cocktails at your event
                   </p>
                 </div>
               </div>
@@ -895,7 +895,7 @@ export default function EventsPage() {
                 <p className="text-muted-foreground">
                   Ready to plan your event? Our events team is here to help make it unforgettable.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div className="flex items-center justify-center gap-2 mt-4 text-muted-foreground">
                   <Button asChild size="lg" className="gap-2">
                     <a
                       href="https://www.toasttab.com/invoice/lead?rx=8be4c691-2b25-4588-8823-9e8f7cb3f600&ot=f579e56b-2f56-404a-9da3-9507554ce832"
