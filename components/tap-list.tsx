@@ -9,6 +9,8 @@ interface Beer {
   style: string
   abv: number
   description: string
+  flagship?: boolean
+  fourPackAvailable?: boolean
 }
 
 export function TapList() {
@@ -40,7 +42,7 @@ export function TapList() {
     <div className="container">
       <div className="text-center mb-12">
         <LucideBeer className="h-12 w-12 mx-auto mb-4 text-primary" />
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Current Beers on Tap</h2>
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Current Tap Lineup</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Craft beers brewed with passion and quality ingredients
         </p>
@@ -50,10 +52,19 @@ export function TapList() {
         {beers.map((beer, index) => (
           <Card
             key={index}
-            className="transition-all duration-300 hover:scale-105 hover:shadow-lg bg-card border-border"
+            className={`transition-all duration-300 hover:scale-105 hover:shadow-lg bg-card border-border ${
+              beer.flagship ? "ring-2 ring-primary" : ""
+            }`}
           >
             <CardHeader className="pb-3">
-              <CardTitle className="text-xl font-bold text-card-foreground">{beer.name}</CardTitle>
+              <div className="flex items-start justify-between gap-2">
+                <CardTitle className="text-xl font-bold text-card-foreground">{beer.name}</CardTitle>
+                {beer.flagship && (
+                  <span className="shrink-0 px-2 py-1 text-xs font-semibold bg-primary text-primary-foreground rounded">
+                    Flagship
+                  </span>
+                )}
+              </div>
               <div className="flex items-center justify-between">
                 <p className="text-sm italic text-muted-foreground">{beer.style}</p>
                 <span className="text-sm font-medium text-accent">{beer.abv}% ABV</span>
@@ -61,6 +72,11 @@ export function TapList() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-card-foreground leading-relaxed">{beer.description}</p>
+              {beer.fourPackAvailable && (
+                <p className="mt-3 text-sm font-medium text-primary">
+                  Now available in 4-packs to-go!
+                </p>
+              )}
             </CardContent>
           </Card>
         ))}

@@ -1,34 +1,20 @@
 {
   "beers": [
     {
-      "name": "La Cabra Loca",
-      "style": "Mexican Lager",
-      "abv": 4.5,
-      "description": "A bright, easy-drinking Mexican lager brewed for sunshine and good company. Crisp malt character, a touch of corn sweetness, and a refreshingly dry finish make this beer endlessly crushable. Best enjoyed ice-cold with a lime wedge."
-    },
-    {
-      "name": "Light Lager",
-      "style": "American Light Lager",
-      "abv": 4.5,
-      "description": "American Light Lager brewed with pilsner malt."
-    },
-    {
       "name": "Goat Lager",
       "style": "American Lager",
       "abv": 4.5,
-      "description": "COMING BACK SOON!!"
-    },
-    {
-      "name": "West Coast IPA",
-      "style": "West Coast Style IPA",
-      "abv": 6.5,
-      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
+      "description": "Bright, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
+      "flagship": true,
+      "fourPackAvailable": true
     },
     {
       "name": "Counting Sheep",
       "style": "Hazy IPA",
-      "abv": 7.2,
-      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor."
+      "abv": 6.9,
+      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
+      "flagship": true,
+      "fourPackAvailable": true
     },
     {
       "name": "Headbutt",
@@ -37,16 +23,16 @@
       "description": "Headbutt is an 8.4% Double American IPA built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish. A powerful yet refined IPA for serious hop fans."
     },
     {
-      "name": "Dark Cerveza",
-      "style": "Dark Mexican Lager",
-      "abv": 4.7,
-      "description": "A traditional Mexican-style dark lager."
+      "name": "Beast of Burden",
+      "style": "Belgian Tripel",
+      "abv": 9.6,
+      "description": "Beast of Burden is a nod to the hardworking strength required to craft a traditional Belgian Tripel. This \"beast\" hides its power behind a sophisticated profile of spicy phenolics and fruity esters. Brewed with premium Pilsner malt and clear candy sugar, it is effervescent, complex, and deceptively smooth. It carries the weight of its high gravity with the grace of a champion workhorse."
     },
     {
-      "name": "Irish Stout",
-      "style": "Irish Stout",
-      "abv": 5.0,
-      "description": "Limited tap. A classic Irish Stout brewed with Flaked, Roasted and Malted Barley."
+      "name": "Grove Refresher - PB&J",
+      "style": "Fruited Sour",
+      "abv": 4.6,
+      "description": "Grove Refresher is a liquid tribute to the ultimate childhood classic. We've taken a crisp, tart sour base and layered it with creamy roasted peanuts and a massive addition of sweet concord grape puree. At a crushable 4.6%, it's a whimsical, nostalgic journey that balances savory nuttiness with a bright, puckering finish."
     },
     {
       "name": "Better Late Than November",
@@ -61,10 +47,40 @@
       "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base—featuring notes of roasted coffee and dark chocolate—with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger."
     },
     {
+      "name": "Irish Stout",
+      "style": "Irish Stout",
+      "abv": 5.0,
+      "description": "Limited tap. A classic Irish Stout brewed with Flaked, Roasted and Malted Barley."
+    },
+    {
+      "name": "New Zealand Pilsner",
+      "style": "Pilsner",
+      "abv": 5.0,
+      "description": "Dry hopped with Motueka hops."
+    },
+    {
+      "name": "Dark Cerveza",
+      "style": "Dark Mexican Lager",
+      "abv": 4.7,
+      "description": "A traditional Mexican-style dark lager."
+    },
+    {
+      "name": "West Coast IPA",
+      "style": "West Coast Style IPA",
+      "abv": 6.5,
+      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
+    },
+    {
       "name": "King David",
       "style": "Cider",
       "abv": 6.8,
       "description": "Sweet and light, notes of honeysuckle, apple, and pear from Old Stone Cider in Lewisville, PA."
+    },
+    {
+      "name": "Roxbury Russet",
+      "style": "Cider",
+      "abv": 7.2,
+      "description": "Single-varietal craft cider made from one of America's oldest, 17th-century heirloom apples. Known for its high sugar content and rich, complex flavor, this cider offers a sweet, well-balanced profile with a distinct, effervescent mouthfeel. From Old Stone Cider in Lewisville, PA."
     }
   ],
   "food": [
@@ -108,7 +124,7 @@
         },
         {
           "name": "BBQ Short Rib Loaded Fries or Tots",
-          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our short rib braised in-house with our Iron Hoof Ale.",
+          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our Short Rib braised in-house with our Iron Hoof Ale, drizzled with BBQ sauce.",
           "price": 15
         }
       ]
@@ -143,7 +159,7 @@
         },
         {
           "name": "The Goat Smash",
-          "description": "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and balsamic glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub tots (+1).",
           "price": 16
         },
         {
@@ -154,21 +170,41 @@
       ]
     },
     {
+      "category": "Cheesesteaks",
+      "items": [
+        {
+          "name": "Classic Cheesesteak",
+          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "price": 16
+        },
+        {
+          "name": "Mushroom & Swiss Cheesesteak",
+          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "price": 17
+        },
+        {
+          "name": "Classic Chicken Cheesesteak",
+          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "price": 16
+        }
+      ]
+    },
+    {
       "category": "Handhelds",
       "items": [
         {
           "name": "Hot Dogs & Fries",
-          "description": "Two 1/4 pound hot dogs served with a side of fries. Sub tots (+1).",
+          "description": "Two 1/4 pound hot dogs served with a side of fries. Sub Tots (+1).",
           "price": 13
         },
         {
           "name": "B.A.L.T. Wrap",
-          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips.",
+          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips. Sub fries (+3) or tots (+4).",
           "price": 14
         },
         {
           "name": "Smoked Turkey Caesar Wrap",
-          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips.",
+          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips. Sub fries (+3) or tots (+4).",
           "price": 14
         }
       ]
@@ -177,13 +213,18 @@
       "category": "Flatbreads",
       "items": [
         {
+          "name": "Margherita",
+          "description": "Crispy flatbread layered with house marinara and melty mozzarella, topped with fresh sliced tomatoes for a bright, classic finish.",
+          "price": 15
+        },
+        {
           "name": "Butternut Squash & Goat Cheese",
-          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple glaze on a crisp flatbread. Served with house tortilla chips. Sub fries (+3) or tots (+4).",
+          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple glaze on a crisp flatbread.",
           "price": 16
         },
         {
           "name": "BBQ Short Rib",
-          "description": "Short rib braised in-house with our Iron Hoof Ale, smoked gouda, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple glaze on a crisp flatbread. Served with house tortilla chips. Sub fries (+3) or tots (+4).",
+          "description": "Short Rib braised in-house with our Iron Hoof Ale, smoked gouda, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple glaze on a crisp flatbread.",
           "price": 17
         }
       ]
@@ -192,14 +233,19 @@
       "category": "Salads",
       "items": [
         {
-          "name": "Caesar Salad",
+          "name": "Classic Caesar Salad",
           "description": "Crisp romaine lettuce, shaved Parmesan, garlic croutons, and creamy Caesar dressing. Add grilled chicken (+3) or grilled shrimp (+4).",
           "price": 13
         },
         {
           "name": "Autumn Brussels & Apple Salad",
-          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded white cheddar tossed in a light maple-Dijon vinaigrette.",
+          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded white cheddar tossed in a light maple-dijon vinaigrette.",
           "price": 16
+        },
+        {
+          "name": "Harvest Maple Salad",
+          "description": "Mixed greens, roasted butternut squash, candied pecans, dried cranberries, goat cheese, served with our maple-dijon vinaigrette.",
+          "price": 17
         }
       ]
     }
@@ -315,5 +361,5 @@
       ]
     }
   ],
-  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot"]
+  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot", "Lemon Pepper", "Garlic Parmesan"]
 }
