@@ -82,7 +82,7 @@ export function BigGamePromo() {
                     <p className="text-white/90 text-xs leading-tight">Featured Cocktail</p>
                   </div>
                   <div className="bg-white/5 rounded-md p-3 text-center border border-white/10">
-                    <p className="text-amber-400 font-bold text-xl">$40</p>
+                    <p className="text-amber-400 font-bold text-xl">$38</p>
                     <p className="text-white/90 text-xs leading-tight">Boardroom Buckets</p>
                   </div>
                 </div>
