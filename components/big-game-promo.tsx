@@ -8,6 +8,10 @@ import { Calendar, Ticket, Clock, Gift } from "lucide-react"
 export function BigGamePromo() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-r from-[#1a472a] via-[#2d5a3d] to-[#1a472a]">
+      {/* Top border/shadow transition */}
+      <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-t from-transparent to-black/60 z-20" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500/80 z-20" />
+      
       {/* Bottom border/shadow transition */}
       <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-b from-transparent to-black/60 z-20" />
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-amber-500/80 z-20" />
