@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Calendar, Ticket, Clock, Gift } from "lucide-react"
+import { Calendar, Ticket, Clock, Gift, Beer } from "lucide-react"
 
 export function BigGamePromo() {
   return (
@@ -63,6 +63,28 @@ export function BigGamePromo() {
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <span className="text-amber-400 font-bold text-lg">21+</span>
                   <span>First Drink Included</span>
+                </div>
+              </div>
+              
+              {/* Drink Specials */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-amber-500/30 max-w-xl mx-auto lg:mx-0">
+                <div className="flex items-center gap-2 mb-3">
+                  <Beer className="h-5 w-5 text-amber-400" />
+                  <span className="text-amber-400 font-bold text-sm uppercase tracking-wide">Game Day Drink Specials</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="bg-white/5 rounded-md p-3 text-center border border-white/10">
+                    <p className="text-amber-400 font-bold text-xl">$5</p>
+                    <p className="text-white/90 text-xs leading-tight">Goat Lager & Counting Sheep Pints</p>
+                  </div>
+                  <div className="bg-white/5 rounded-md p-3 text-center border border-white/10">
+                    <p className="text-amber-400 font-bold text-xl">$8</p>
+                    <p className="text-white/90 text-xs leading-tight">Featured Cocktail</p>
+                  </div>
+                  <div className="bg-white/5 rounded-md p-3 text-center border border-white/10">
+                    <p className="text-amber-400 font-bold text-xl">$40</p>
+                    <p className="text-white/90 text-xs leading-tight">Boardroom Buckets</p>
+                  </div>
                 </div>
               </div>
             </div>
