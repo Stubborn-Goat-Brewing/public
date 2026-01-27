@@ -1,22 +1,20 @@
 {
   "beers": [
     {
-      "name": "La Cabra Loca",
-      "style": "Mexican Lager",
-      "abv": 4.5,
-      "description": "A bright, easy-drinking Mexican lager brewed for sunshine and good company. Crisp malt character, a touch of corn sweetness, and a refreshingly dry finish make this beer endlessly crushable. Best enjoyed ice-cold with a lime wedge."
-    },
-    {
-      "name": "Light Lager",
-      "style": "American Light Lager",
-      "abv": 4.5,
-      "description": "American Light Lager brewed with pilsner malt."
-    },
-    {
       "name": "Goat Lager",
       "style": "American Lager",
       "abv": 4.5,
-      "description": "COMING BACK SOON!!"
+      "description": "Bright, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
+      "flagship": true,
+      "fourPackAvailable": true
+    },
+    {
+      "name": "Counting Sheep",
+      "style": "Hazy IPA",
+      "abv": 6.9,
+      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
+      "flagship": true,
+      "fourPackAvailable": true
     },
     {
       "name": "West Coast IPA",
@@ -25,16 +23,28 @@
       "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
     },
     {
-      "name": "Counting Sheep",
-      "style": "Hazy IPA",
-      "abv": 7.2,
-      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor."
-    },
-    {
       "name": "Headbutt",
       "style": "Double American IPA",
       "abv": 8.4,
       "description": "Headbutt is an 8.4% Double American IPA built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish. A powerful yet refined IPA for serious hop fans."
+    },
+    {
+      "name": "New Zealand Pilsner",
+      "style": "Pilsner",
+      "abv": 5.0,
+      "description": "Dry hopped with Motueka hops."
+    },
+    {
+      "name": "Beast of Burden",
+      "style": "Belgian Tripel",
+      "abv": 9.6,
+      "description": "Beast of Burden is a nod to the hardworking strength required to craft a traditional Belgian Tripel. This \"beast\" hides its power behind a sophisticated profile of spicy phenolics and fruity esters. Brewed with premium Pilsner malt and clear candy sugar, it is effervescent, complex, and deceptively smooth. It carries the weight of its high gravity with the grace of a champion workhorse."
+    },
+    {
+      "name": "Grove Refresher - PB&J",
+      "style": "Fruited Sour",
+      "abv": 4.6,
+      "description": "Grove Refresher is a liquid tribute to the ultimate childhood classic. We've taken a crisp, tart sour base and layered it with creamy roasted peanuts and a massive addition of sweet concord grape puree. At a crushable 4.6%, it's a whimsical, nostalgic journey that balances savory nuttiness with a bright, puckering finish."
     },
     {
       "name": "Dark Cerveza",
@@ -65,6 +75,12 @@
       "style": "Cider",
       "abv": 6.8,
       "description": "Sweet and light, notes of honeysuckle, apple, and pear from Old Stone Cider in Lewisville, PA."
+    },
+    {
+      "name": "Roxbury Russet",
+      "style": "Cider",
+      "abv": 7.2,
+      "description": "Single-varietal craft cider made from one of America's oldest, 17th-century heirloom apples. Known for its high sugar content and rich, complex flavor, this cider offers a sweet, well-balanced profile with a distinct, effervescent mouthfeel."
     }
   ],
   "food": [
