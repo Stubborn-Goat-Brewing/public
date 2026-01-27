@@ -17,22 +17,10 @@
       "fourPackAvailable": true
     },
     {
-      "name": "West Coast IPA",
-      "style": "West Coast Style IPA",
-      "abv": 6.5,
-      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
-    },
-    {
       "name": "Headbutt",
       "style": "Double American IPA",
       "abv": 8.4,
       "description": "Headbutt is an 8.4% Double American IPA built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish. A powerful yet refined IPA for serious hop fans."
-    },
-    {
-      "name": "New Zealand Pilsner",
-      "style": "Pilsner",
-      "abv": 5.0,
-      "description": "Dry hopped with Motueka hops."
     },
     {
       "name": "Beast of Burden",
@@ -47,18 +35,6 @@
       "description": "Grove Refresher is a liquid tribute to the ultimate childhood classic. We've taken a crisp, tart sour base and layered it with creamy roasted peanuts and a massive addition of sweet concord grape puree. At a crushable 4.6%, it's a whimsical, nostalgic journey that balances savory nuttiness with a bright, puckering finish."
     },
     {
-      "name": "Dark Cerveza",
-      "style": "Dark Mexican Lager",
-      "abv": 4.7,
-      "description": "A traditional Mexican-style dark lager."
-    },
-    {
-      "name": "Irish Stout",
-      "style": "Irish Stout",
-      "abv": 5.0,
-      "description": "Limited tap. A classic Irish Stout brewed with Flaked, Roasted and Malted Barley."
-    },
-    {
       "name": "Better Late Than November",
       "style": "Pumpkin Spiced Ale",
       "abv": 7.0,
@@ -69,6 +45,30 @@
       "style": "Winter Spiced Stout",
       "abv": 7.9,
       "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base—featuring notes of roasted coffee and dark chocolate—with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger."
+    },
+    {
+      "name": "Irish Stout",
+      "style": "Irish Stout",
+      "abv": 5.0,
+      "description": "Limited tap. A classic Irish Stout brewed with Flaked, Roasted and Malted Barley."
+    },
+    {
+      "name": "New Zealand Pilsner",
+      "style": "Pilsner",
+      "abv": 5.0,
+      "description": "Dry hopped with Motueka hops."
+    },
+    {
+      "name": "Dark Cerveza",
+      "style": "Dark Mexican Lager",
+      "abv": 4.7,
+      "description": "A traditional Mexican-style dark lager."
+    },
+    {
+      "name": "West Coast IPA",
+      "style": "West Coast Style IPA",
+      "abv": 6.5,
+      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
     },
     {
       "name": "King David",
