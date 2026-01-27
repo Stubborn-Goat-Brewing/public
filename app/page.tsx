@@ -6,6 +6,7 @@ import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
+import { BigGamePromo } from "@/components/big-game-promo"
 import { useState } from "react"
 
 export default function Home() {
@@ -169,6 +170,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Big Game Watch Party Promotion */}
+        <BigGamePromo />
 
         <section className="py-12 md:py-16 bg-primary/5">
           <div className="container px-4">
