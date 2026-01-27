@@ -8,10 +8,16 @@ import { Calendar, Ticket, Clock, Gift } from "lucide-react"
 export function BigGamePromo() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-r from-[#1a472a] via-[#2d5a3d] to-[#1a472a]">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3" />
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/big-game-promo-bg.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-30"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a472a]/80 via-[#2d5a3d]/70 to-[#1a472a]/80" />
       </div>
       
       <div className="container relative z-10 py-8 md:py-12 px-4">
@@ -22,7 +28,7 @@ export function BigGamePromo() {
               {/* Early Bird Badge */}
               <div className="inline-flex items-center gap-2 bg-amber-500 text-amber-950 px-4 py-1.5 rounded-full text-sm font-bold mb-4 animate-pulse">
                 <Clock className="h-4 w-4" />
-                Early Bird Pricing Through Feb 1st!
+                Early Bird Pricing Through Feb 3rd!
               </div>
               
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-tight">
@@ -36,9 +42,9 @@ export function BigGamePromo() {
                 </div>
               </div>
               
-              <p className="text-white/80 text-sm md:text-base max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">
-                Join us for the biggest game of the year at Stubborn Goat Brewing! Your ticket includes a generous buffet with a wing bar, build-your-own cheesesteaks, nacho bar, and more (vegetarian options available). Plus unlimited soft drinks, entry to three Big Game Squares pools, chances to win prizes, and your first beer is on us (21+)!
-              </p>
+              <div className="text-white/80 text-sm md:text-base max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed [&_b]:text-white [&_b]:font-semibold">
+                Join us, friends, family, and neighbors for the big game on Sunday, February 8th, 2026 at Stubborn Goat Brewing in West Grove, PA! Your ticket gives you access to a <b>generous buffet of your game day favorites</b>, including a wing bar, build-your-own cheesesteaks, a nacho bar, and plenty of other staples, including vegetarian options as well. You&apos;ll also get <b>unlimited soft drinks</b>, one <b>free entry to each of the three Big Game Squares pools</b>, multiple <b>opportunities to win great prizes</b> like gift cards, apparel, merchandise, and more throughout the game, and for those over 21, your first <b>beer, wine, or canned cocktail</b> is included!
+              </div>
               
               {/* Highlights */}
               <div className="grid grid-cols-2 gap-3 mb-6 max-w-md mx-auto lg:mx-0">
@@ -48,7 +54,7 @@ export function BigGamePromo() {
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <span className="text-amber-400 font-bold text-lg">21+</span>
-                  <span>First Beer Included</span>
+                  <span>First Drink Included</span>
                 </div>
               </div>
             </div>
@@ -56,17 +62,8 @@ export function BigGamePromo() {
             {/* Right side - CTA */}
             <div className="flex flex-col items-center lg:items-end gap-4">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 md:p-8 text-center border border-white/20">
-                <div className="flex items-center justify-center gap-2 mb-4">
-                  <Image
-                    src="/images/goat-head-new.png"
-                    alt="Stubborn Goat"
-                    width={48}
-                    height={48}
-                    className="h-12 w-12"
-                  />
-                </div>
                 <p className="text-white/70 text-sm mb-2">Limited Tickets Available</p>
-                <p className="text-amber-400 font-bold text-lg mb-4">Don't Miss Out!</p>
+                <p className="text-amber-400 font-bold text-lg mb-4">Don&apos;t Miss Out!</p>
                 <Button
                   asChild
                   size="lg"
