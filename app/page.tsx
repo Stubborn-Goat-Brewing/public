@@ -127,6 +127,10 @@ export default function Home() {
           </div>
         )}
       </header>
+
+      {/* Big Game Watch Party Promotion - Above the fold */}
+      <BigGamePromo />
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative">
@@ -170,9 +174,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Big Game Watch Party Promotion */}
-        <BigGamePromo />
 
         <section className="py-12 md:py-16 bg-primary/5">
           <div className="container px-4">
