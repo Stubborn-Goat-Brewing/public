@@ -124,7 +124,7 @@
         },
         {
           "name": "BBQ Short Rib Loaded Fries or Tots",
-          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our short rib braised in-house with our Iron Hoof Ale.",
+          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our Short Rib braised in-house with our Iron Hoof Ale, drizzled with BBQ sauce.",
           "price": 15
         }
       ]
@@ -159,7 +159,7 @@
         },
         {
           "name": "The Goat Smash",
-          "description": "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and balsamic glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub tots (+1).",
           "price": 16
         },
         {
@@ -170,21 +170,41 @@
       ]
     },
     {
+      "category": "Cheesesteaks",
+      "items": [
+        {
+          "name": "Classic Cheesesteak",
+          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "price": 16
+        },
+        {
+          "name": "Mushroom & Swiss Cheesesteak",
+          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "price": 17
+        },
+        {
+          "name": "Classic Chicken Cheesesteak",
+          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "price": 16
+        }
+      ]
+    },
+    {
       "category": "Handhelds",
       "items": [
         {
           "name": "Hot Dogs & Fries",
-          "description": "Two 1/4 pound hot dogs served with a side of fries. Sub tots (+1).",
+          "description": "Two 1/4 pound hot dogs served with a side of fries. Sub Tots (+1).",
           "price": 13
         },
         {
           "name": "B.A.L.T. Wrap",
-          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips.",
+          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips. Sub fries (+3) or tots (+4).",
           "price": 14
         },
         {
           "name": "Smoked Turkey Caesar Wrap",
-          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips.",
+          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips. Sub fries (+3) or tots (+4).",
           "price": 14
         }
       ]
@@ -193,13 +213,18 @@
       "category": "Flatbreads",
       "items": [
         {
+          "name": "Margherita",
+          "description": "Crispy flatbread layered with house marinara and melty mozzarella, topped with fresh sliced tomatoes for a bright, classic finish.",
+          "price": 15
+        },
+        {
           "name": "Butternut Squash & Goat Cheese",
-          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple glaze on a crisp flatbread. Served with house tortilla chips. Sub fries (+3) or tots (+4).",
+          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple glaze on a crisp flatbread.",
           "price": 16
         },
         {
           "name": "BBQ Short Rib",
-          "description": "Short rib braised in-house with our Iron Hoof Ale, smoked gouda, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple glaze on a crisp flatbread. Served with house tortilla chips. Sub fries (+3) or tots (+4).",
+          "description": "Short Rib braised in-house with our Iron Hoof Ale, smoked gouda, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple glaze on a crisp flatbread.",
           "price": 17
         }
       ]
@@ -208,14 +233,19 @@
       "category": "Salads",
       "items": [
         {
-          "name": "Caesar Salad",
+          "name": "Classic Caesar Salad",
           "description": "Crisp romaine lettuce, shaved Parmesan, garlic croutons, and creamy Caesar dressing. Add grilled chicken (+3) or grilled shrimp (+4).",
           "price": 13
         },
         {
           "name": "Autumn Brussels & Apple Salad",
-          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded white cheddar tossed in a light maple-Dijon vinaigrette.",
+          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded white cheddar tossed in a light maple-dijon vinaigrette.",
           "price": 16
+        },
+        {
+          "name": "Harvest Maple Salad",
+          "description": "Mixed greens, roasted butternut squash, candied pecans, dried cranberries, goat cheese, served with our maple-dijon vinaigrette.",
+          "price": 17
         }
       ]
     }
@@ -331,5 +361,5 @@
       ]
     }
   ],
-  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot"]
+  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot", "Lemon Pepper", "Garlic Parmesan"]
 }
