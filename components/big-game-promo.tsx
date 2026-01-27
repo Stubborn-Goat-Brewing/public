@@ -43,7 +43,7 @@ export function BigGamePromo() {
               </div>
               
               <div className="text-white/80 text-sm md:text-base max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed [&_b]:text-white [&_b]:font-semibold">
-                Join us, friends, family, and neighbors for the big game on Sunday, February 8th, 2026 at Stubborn Goat Brewing in West Grove, PA! Your ticket gives you access to a <b>generous buffet of your game day favorites</b>, including a wing bar, build-your-own cheesesteaks, a nacho bar, and plenty of other staples, including vegetarian options as well. You&apos;ll also get <b>unlimited soft drinks</b>, one <b>free entry to each of the three Big Game Squares pools</b>, multiple <b>opportunities to win great prizes</b> like gift cards, apparel, merchandise, and more throughout the game, and for those over 21, your first <b>beer, wine, or canned cocktail</b> is included!
+                Your ticket includes a <b>game day buffet</b> (wings, cheesesteaks, nachos, vegetarian options), <b>unlimited soft drinks</b>, <b>free entry to three Big Game Squares pools</b>, <b>chances to win prizes</b> throughout the game, and for 21+, your first <b>beer, wine, or canned cocktail</b> is on us!
               </div>
               
               {/* Highlights */}
