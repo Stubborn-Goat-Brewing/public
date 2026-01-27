@@ -6,6 +6,7 @@ import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
+import { BigGamePromo } from "@/components/big-game-promo"
 import { useState } from "react"
 
 export default function Home() {
@@ -126,6 +127,10 @@ export default function Home() {
           </div>
         )}
       </header>
+
+      {/* Big Game Watch Party Promotion - Above the fold */}
+      <BigGamePromo />
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative">

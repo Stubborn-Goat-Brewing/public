@@ -169,7 +169,12 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
             {getEventTypeLabel(event.type)}
           </div>
 
-          {event.description && <p className="text-sm text-muted-foreground leading-relaxed">{event.description}</p>}
+          {event.description && (
+            <div
+              className="text-sm text-muted-foreground leading-relaxed prose prose-sm prose-neutral dark:prose-invert max-w-none [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
+          )}
         </div>
       </DialogContent>
     </Dialog>
@@ -214,9 +219,12 @@ function ListView({ events, onEventClick }: { events: Event[]; onEventClick: (ev
                           </div>
                         )}
                       </div>
-                      {event.description && (
-                        <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
-                      )}
+{event.description && (
+                                        <div
+                                          className="text-sm text-muted-foreground line-clamp-2 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                                          dangerouslySetInnerHTML={{ __html: event.description }}
+                                        />
+                                      )}
                     </div>
                   </div>
                 </CardContent>
@@ -629,9 +637,12 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
                       </div>
                     )}
 
-                    {event.description && (
-                      <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
-                    )}
+{event.description && (
+                                      <div
+                                        className="text-sm text-muted-foreground line-clamp-2 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                                        dangerouslySetInnerHTML={{ __html: event.description }}
+                                      />
+                                    )}
                   </div>
                 </div>
               </CardContent>

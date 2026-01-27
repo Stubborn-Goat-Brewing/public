@@ -132,9 +132,9 @@ export function UpcomingEventsBanner() {
         const today = new Date()
         today.setHours(0, 0, 0, 0)
 
-        const next7Days: DayEvents[] = []
+        const next10Days: DayEvents[] = []
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 10; i++) {
           const date = new Date(today)
           date.setDate(today.getDate() + i)
 
@@ -172,7 +172,7 @@ export function UpcomingEventsBanner() {
             return getEndTimeValue(a.endTime) - getEndTimeValue(b.endTime)
           })
 
-          next7Days.push({
+          next10Days.push({
             date,
             dayName: date.toLocaleDateString("en-US", { weekday: "short" }),
             monthDay: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
@@ -180,7 +180,7 @@ export function UpcomingEventsBanner() {
           })
         }
 
-        setUpcomingDays(next7Days)
+        setUpcomingDays(next10Days)
         setLoading(false)
       } catch (error) {
         console.error("Error fetching events:", error)
@@ -215,7 +215,7 @@ export function UpcomingEventsBanner() {
         <div className="flex items-center justify-between mb-3 md:mb-4">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 md:h-5 md:w-5 text-amber-400" />
-            <h3 className="text-white font-semibold text-sm md:text-lg">Coming Up This Week</h3>
+            <h3 className="text-white font-semibold text-sm md:text-lg">Coming Up</h3>
           </div>
           <Button
             asChild
