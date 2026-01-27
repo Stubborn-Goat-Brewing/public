@@ -42,9 +42,9 @@ export function BigGamePromo() {
                 </div>
               </div>
               
-              <div className="text-white/80 text-sm md:text-base max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed [&_b]:text-white [&_b]:font-semibold">
-                Your ticket includes a <b>game day buffet</b> (wings, cheesesteaks, nachos, vegetarian options), <b>unlimited soft drinks</b>, <b>free entry to three Big Game Squares pools</b>, <b>chances to win prizes</b> throughout the game, and for 21+, your first <b>beer, wine, or canned cocktail</b> is on us!
-              </div>
+              <p className="text-white/80 text-sm md:text-base max-w-xl mx-auto lg:mx-0 mb-6 leading-relaxed">
+                Join us for the biggest game of the year at Stubborn Goat Brewing! Your ticket includes a generous buffet with a wing bar, build-your-own cheesesteaks, nacho bar, and more (vegetarian options available). Plus unlimited soft drinks, entry to three Big Game Squares pools, chances to win great prizes, and your first beer, glass of wine, or ready-to-drink cocktail is on us (21+)!
+              </p>
               
               {/* Highlights */}
               <div className="grid grid-cols-2 gap-3 mb-6 max-w-md mx-auto lg:mx-0">
