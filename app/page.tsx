@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { BigGamePromo } from "@/components/big-game-promo"
+import { TapLocationsMap } from "@/components/tap-locations-map"
 import { useState } from "react"
 
 export default function Home() {
@@ -247,6 +248,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Find Our Beer On Tap - Interactive Map */}
+        <TapLocationsMap />
 
         {/* Combined Visit Us and Hours Sections */}
         <section className="pb-6 md:pb-8 bg-primary/5">
