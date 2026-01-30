@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { MapPin, Beer, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import type L from "leaflet"
 
 interface TapLocation {
   id: string
@@ -43,6 +44,7 @@ export function TapLocationsMap() {
   const mapInstanceRef = useRef<L.Map | null>(null)
   const [selectedLocation, setSelectedLocation] = useState<TapLocation | null>(null)
   const [isMapLoaded, setIsMapLoaded] = useState(false)
+  const [mapError, setMapError] = useState(false)
 
   useEffect(() => {
     if (typeof window === "undefined" || !mapRef.current || mapInstanceRef.current) return
@@ -164,7 +166,10 @@ export function TapLocationsMap() {
       setIsMapLoaded(true)
     }
 
-    loadLeaflet()
+    loadLeaflet().catch((error) => {
+      console.log("[v0] Leaflet loading error:", error)
+      setMapError(true)
+    })
 
     return () => {
       if (mapInstanceRef.current) {
@@ -206,11 +211,19 @@ export function TapLocationsMap() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Map */}
-            <div className="lg:col-span-2 bg-background rounded-lg shadow-lg border-2 border-primary/20 overflow-hidden">
+            <div className="lg:col-span-2 bg-background rounded-lg shadow-lg border-2 border-primary/20 overflow-hidden relative">
               <div ref={mapRef} className="h-[400px] md:h-[500px] w-full" />
-              {!isMapLoaded && (
+              {!isMapLoaded && !mapError && (
                 <div className="absolute inset-0 flex items-center justify-center bg-muted">
                   <div className="text-muted-foreground">Loading map...</div>
+                </div>
+              )}
+              {mapError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                  <div className="text-center text-muted-foreground p-4">
+                    <MapPin className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                    <p>Unable to load map. Please check the locations list.</p>
+                  </div>
                 </div>
               )}
             </div>
