@@ -89,9 +89,17 @@ export function BigGamePromo() {
               </div>
 
               {/* Brunch Menu */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-[#c9a55a]/30">
-                <div className="flex items-center gap-2 mb-2">
-                  <UtensilsCrossed className="h-5 w-5 text-[#c9a55a]" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-[#c9a55a]/30 flex flex-col items-center">
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#c9a55a]/50 mb-3">
+                  <Image
+                    src="/images/chef-brunch.jpg"
+                    alt="Chef-inspired brunch plate"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex items-center gap-2 mb-1">
+                  <UtensilsCrossed className="h-4 w-4 text-[#c9a55a]" />
                   <span className="text-[#c9a55a] font-bold text-sm uppercase tracking-wide">Special Menu</span>
                 </div>
                 <p className="text-[#f5e6d0] font-semibold">Chef-Inspired Brunch</p>
