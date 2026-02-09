@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Calendar, Clock, Music, UtensilsCrossed, Wine, Beer, Heart, Users } from "lucide-react"
+import { Calendar, Clock, Music, UtensilsCrossed, Wine, Heart, Users } from "lucide-react"
 
 export function BigGamePromo() {
   return (
@@ -124,16 +124,37 @@ export function BigGamePromo() {
                 <span className="text-[#c9a55a] font-bold text-sm uppercase tracking-wide">Drink Specials</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="bg-white/5 rounded-md p-3 text-center border border-[#c9a55a]/20">
-                  <Wine className="h-6 w-6 text-[#c9a55a] mx-auto mb-1" />
+                <div className="bg-white/5 rounded-md p-4 flex flex-col items-center text-center border border-[#c9a55a]/20">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#c9a55a]/50 mb-2">
+                    <Image
+                      src="/images/mimosa.jpg"
+                      alt="Mimosa cocktail"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="text-[#f5e6d0] font-bold">Mimosa Bar</p>
                 </div>
-                <div className="bg-white/5 rounded-md p-3 text-center border border-[#c9a55a]/20">
-                  <UtensilsCrossed className="h-6 w-6 text-[#c9a55a] mx-auto mb-1" />
+                <div className="bg-white/5 rounded-md p-4 flex flex-col items-center text-center border border-[#c9a55a]/20">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#c9a55a]/50 mb-2">
+                    <Image
+                      src="/images/bloody-mary.jpg"
+                      alt="Bloody mary cocktail"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="text-[#f5e6d0] font-bold">Bloody Mary Bar</p>
                 </div>
-                <div className="bg-white/5 rounded-md p-3 text-center border border-[#c9a55a]/20">
-                  <Beer className="h-6 w-6 text-[#c9a55a] mx-auto mb-1" />
+                <div className="bg-white/5 rounded-md p-4 flex flex-col items-center text-center border border-[#c9a55a]/20">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#c9a55a]/50 mb-2">
+                    <Image
+                      src="/images/beermosa.jpg"
+                      alt="Beermosa cocktail"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="text-[#f5e6d0] font-bold">Beermosa Specials</p>
                 </div>
               </div>
