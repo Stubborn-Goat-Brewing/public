@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Calendar, Clock, Music, UtensilsCrossed, Wine, Beer, Heart, Users } from "lucide-react"
 
 export function BigGamePromo() {
@@ -70,9 +71,17 @@ export function BigGamePromo() {
             {/* Feature Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 w-full max-w-3xl mb-6">
               {/* Live Music */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-[#c9a55a]/30">
-                <div className="flex items-center gap-2 mb-2">
-                  <Music className="h-5 w-5 text-[#c9a55a]" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-[#c9a55a]/30 flex flex-col items-center">
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#c9a55a]/50 mb-3">
+                  <Image
+                    src="/images/sam-mousley.png"
+                    alt="Sam Mousley playing guitar"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Music className="h-4 w-4 text-[#c9a55a]" />
                   <span className="text-[#c9a55a] font-bold text-sm uppercase tracking-wide">Live Music</span>
                 </div>
                 <p className="text-[#f5e6d0] font-semibold text-lg">Sam Mousley</p>
@@ -90,9 +99,17 @@ export function BigGamePromo() {
               </div>
 
               {/* Specialty Cocktail */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-[#c9a55a]/30 sm:col-span-2 lg:col-span-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <Heart className="h-5 w-5 text-[#c9a55a] fill-[#c9a55a]" />
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-[#c9a55a]/30 sm:col-span-2 lg:col-span-1 flex flex-col items-center">
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#c9a55a]/50 mb-3">
+                  <Image
+                    src="/images/espresso-martini.jpg"
+                    alt="Espresso martini cocktail"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Heart className="h-4 w-4 text-[#c9a55a] fill-[#c9a55a]" />
                   <span className="text-[#c9a55a] font-bold text-sm uppercase tracking-wide">Featured</span>
                 </div>
                 <p className="text-[#f5e6d0] font-semibold">Specialty Cocktail</p>
