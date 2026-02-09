@@ -3,7 +3,7 @@
     {
       "name": "Goat Lager",
       "style": "American Lager",
-      "abv": 4.5,
+      "abv": 4.7,
       "description": "Bright, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
       "flagship": true,
       "fourPackAvailable": true
@@ -11,16 +11,40 @@
     {
       "name": "Counting Sheep",
       "style": "Hazy IPA",
-      "abv": 6.9,
+      "abv": 7.2,
       "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
       "flagship": true,
       "fourPackAvailable": true
+    },
+    {
+      "name": "Little Lamb",
+      "style": "Hazy IPA",
+      "abv": 5.6,
+      "description": "Don't let the name fool you. This IPA packs a punch of flavor. Little Lamb is a soft, cloud-like Hazy IPA brewed for maximum juiciness and an approachable finish. We've dialed in a heavy dose of bright tangerine to lead the charge, offering a sweet, citrusy burst that's perfectly complemented by a subtle, zesty hop profile. It's light on its feet at 5.6%, making it the perfect companion for an all-day session."
     },
     {
       "name": "Headbutt",
       "style": "Double American IPA",
       "abv": 8.4,
       "description": "Headbutt is an 8.4% Double American IPA built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish. A powerful yet refined IPA for serious hop fans."
+    },
+    {
+      "name": "West Coast IPA",
+      "style": "West Coast Style IPA",
+      "abv": 6.5,
+      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
+    },
+    {
+      "name": "New Zealand Pilsner",
+      "style": "Pilsner",
+      "abv": 4.7,
+      "description": "Dry hopped with Motueka hops."
+    },
+    {
+      "name": "Amber Acreage",
+      "style": "Amber Lager",
+      "abv": 5.2,
+      "description": "A rustic tribute to the golden hour. Built on a robust caramel malt backbone, this lager delivers smooth, toasted notes of biscuit and burnt sugar. A subtle hop bitterness snaps on the back end, perfectly balancing the sweetness and ensuring every sip is as refreshing as the first."
     },
     {
       "name": "Beast of Burden",
@@ -46,25 +70,17 @@
       "abv": 7.9,
       "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base—featuring notes of roasted coffee and dark chocolate—with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger."
     },
-
-    {
-      "name": "New Zealand Pilsner",
-      "style": "Pilsner",
-      "abv": 5.0,
-      "description": "Dry hopped with Motueka hops."
-    },
-
-    {
-      "name": "West Coast IPA",
-      "style": "West Coast Style IPA",
-      "abv": 6.5,
-      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
-    },
     {
       "name": "King David",
       "style": "Cider",
       "abv": 6.8,
-      "description": "Sweet and light, notes of honeysuckle, apple, and pear from Old Stone Cider in Lewisville, PA."
+      "description": "Sweet and light, notes of honeysuckle, apple, and pear. From Old Stone Cider in Lewisville, PA."
+    },
+    {
+      "name": "Old Stone Blend",
+      "style": "Cider",
+      "abv": 7.0,
+      "description": "Light, crisp, and tart with a clean finish. From Old Stone Cider in Lewisville, PA."
     }
   ],
   "food": [
@@ -103,12 +119,12 @@
         },
         {
           "name": "Maple Roasted Brussels",
-          "description": "Brussels sprouts tossed with bacon, maple glaze, and parmesan.",
+          "description": "Brussels sprouts tossed with bacon, maple balsamic glaze, and parmesan.",
           "price": 13
         },
         {
           "name": "BBQ Short Rib Loaded Fries or Tots",
-          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our Short Rib braised in-house with our Iron Hoof Ale, drizzled with BBQ sauce.",
+          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our Short Rib braised in-house with our chef's choice of beer, drizzled with BBQ sauce.",
           "price": 15
         }
       ]
@@ -133,22 +149,22 @@
       "items": [
         {
           "name": "Classic Smash",
-          "description": "Single or double (+2) smash patties with melted American cheese, lettuce, tomato, pickles, & our house secret sauce. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Single or double (+2) smash patties with melted American cheese, lettuce, tomato, pickles, & our house secret sauce. Served with a side of fresh-cut fries. Sub Tots (+1) or Side Salad (+2).",
           "price": 14
         },
         {
           "name": "BBQ Bacon Smash",
-          "description": "Single or double (+2) smash patties layered with sharp cheddar, crispy bacon, caramelized onion, and a smoky-sweet BBQ sauce. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Single or double (+2) smash patties layered with sharp cheddar, crispy bacon, caramelized onion, and a smoky-sweet BBQ sauce. Served with a side of fresh-cut fries. Sub Tots (+1) or Side Salad (+2).",
           "price": 16
         },
         {
           "name": "The Goat Smash",
-          "description": "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Single or double (+2) smash patties topped with creamy goat cheese, crispy bacon, peppery arugula, and balsamic glaze on a toasted brioche bun. Served with a side of fresh-cut fries. Sub Tots (+1) or Side Salad (+2).",
           "price": 16
         },
         {
           "name": "Mushroom & Swiss Smash",
-          "description": "Single or double (+2) smash patties stacked with melty Swiss cheese, sweet caramelized onions, sautéed mushrooms, and a rich roasted-garlic aioli. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Single or double (+2) smash patties stacked with melty Swiss cheese, sweet caramelized onions, sautéed mushrooms, and a rich roasted-garlic aioli. Served with a side of fresh-cut fries. Sub Tots (+1) or Side Salad (+2).",
           "price": 16
         }
       ]
@@ -158,18 +174,23 @@
       "items": [
         {
           "name": "Classic Cheesesteak",
-          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
           "price": 16
         },
         {
           "name": "Mushroom & Swiss Cheesesteak",
-          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
           "price": 17
         },
         {
           "name": "Classic Chicken Cheesesteak",
-          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1).",
+          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
           "price": 16
+        },
+        {
+          "name": "Buffalo Chicken Cheesesteak",
+          "description": "Shaved grilled chicken, tossed in classic buffalo sauce, topped with melted American cheese on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "price": 17
         }
       ]
     },
@@ -183,13 +204,18 @@
         },
         {
           "name": "B.A.L.T. Wrap",
-          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips. Sub fries (+3) or tots (+4).",
+          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
           "price": 14
         },
         {
           "name": "Smoked Turkey Caesar Wrap",
-          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips. Sub fries (+3) or tots (+4).",
+          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
           "price": 14
+        },
+        {
+          "name": "Pesto Chicken Wrap",
+          "description": "Pesto, grilled chicken, arugula, fresh mozzarella, tomato, wrapped in a flour tortilla. Served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "price": 15
         }
       ]
     },
@@ -197,18 +223,18 @@
       "category": "Flatbreads",
       "items": [
         {
-          "name": "Margherita",
-          "description": "Crispy flatbread layered with house marinara and melty mozzarella, topped with fresh sliced tomatoes for a bright, classic finish.",
+          "name": "Classic Margherita",
+          "description": "Fresh sliced mozzarella, tomato, shredded basil, finished with a balsamic glaze.",
           "price": 15
         },
         {
           "name": "Butternut Squash & Goat Cheese",
-          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple glaze on a crisp flatbread.",
+          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple balsamic glaze on a crisp flatbread.",
           "price": 16
         },
         {
           "name": "BBQ Short Rib",
-          "description": "Short Rib braised in-house with our Iron Hoof Ale, smoked gouda, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple glaze on a crisp flatbread.",
+          "description": "Short Rib braised in-house with our chef's choice of beer, cheddar jack, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple balsamic glaze on a crisp flatbread.",
           "price": 17
         }
       ]
@@ -223,13 +249,23 @@
         },
         {
           "name": "Autumn Brussels & Apple Salad",
-          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded white cheddar tossed in a light maple-dijon vinaigrette.",
+          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded cheddar jack tossed in a light maple-dijon vinaigrette.",
           "price": 16
         },
         {
           "name": "Harvest Maple Salad",
           "description": "Mixed greens, roasted butternut squash, candied pecans, dried cranberries, goat cheese, served with our maple-dijon vinaigrette.",
           "price": 17
+        }
+      ]
+    },
+    {
+      "category": "Soups",
+      "items": [
+        {
+          "name": "Soup du Jour",
+          "description": "A hearty bowl of our chef's latest creation. Ask your server or bartender what is on tap this week!",
+          "price": 8
         }
       ]
     }
