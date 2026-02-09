@@ -46,24 +46,14 @@
       "abv": 7.9,
       "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base—featuring notes of roasted coffee and dark chocolate—with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger."
     },
-    {
-      "name": "Irish Stout",
-      "style": "Irish Stout",
-      "abv": 5.0,
-      "description": "Limited tap. A classic Irish Stout brewed with Flaked, Roasted and Malted Barley."
-    },
+
     {
       "name": "New Zealand Pilsner",
       "style": "Pilsner",
       "abv": 5.0,
       "description": "Dry hopped with Motueka hops."
     },
-    {
-      "name": "Dark Cerveza",
-      "style": "Dark Mexican Lager",
-      "abv": 4.7,
-      "description": "A traditional Mexican-style dark lager."
-    },
+
     {
       "name": "West Coast IPA",
       "style": "West Coast Style IPA",
@@ -75,12 +65,6 @@
       "style": "Cider",
       "abv": 6.8,
       "description": "Sweet and light, notes of honeysuckle, apple, and pear from Old Stone Cider in Lewisville, PA."
-    },
-    {
-      "name": "Roxbury Russet",
-      "style": "Cider",
-      "abv": 7.2,
-      "description": "Single-varietal craft cider made from one of America's oldest, 17th-century heirloom apples. Known for its high sugar content and rich, complex flavor, this cider offers a sweet, well-balanced profile with a distinct, effervescent mouthfeel. From Old Stone Cider in Lewisville, PA."
     }
   ],
   "food": [
