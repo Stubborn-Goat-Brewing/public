@@ -128,7 +128,7 @@ export default function Home() {
         )}
       </header>
 
-      {/* Big Game Watch Party Promotion - Above the fold */}
+      {/* Featured Event Promotion - Above the fold */}
       <BigGamePromo />
 
       <main className="flex-1">
