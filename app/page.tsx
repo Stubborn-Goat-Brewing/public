@@ -323,25 +323,22 @@ export default function Home() {
             <div className="mt-12">
               <div className="flex flex-col items-center justify-center gap-8">
                 <div className="grid gap-8 md:grid-cols-2 w-full max-w-2xl">
-                  <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
+                  <a href="tel:6106799017" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-accent transition-colors">
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
-                      610-679-9017
-                    </a>
-                  </div>
-                  <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
+                    <span className="mt-4 text-lg font-medium text-primary hover:underline">
+                      Give Us a Call
+                    </span>
+                  </a>
+                  <a href="mailto:tribe@stubborngoatbrewing.com" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-accent transition-colors">
                     <Image src="/images/icon_email.png" alt="Email" width={48} height={48} className="h-12 w-12 mb-4" />
                     <h3 className="text-xl font-bold">Email Us</h3>
                     <p className="mt-2 text-muted-foreground">Send us a message anytime</p>
-                    <a
-                      href="mailto:tribe@stubborngoatbrewing.com"
-                      className="mt-4 text-lg font-medium hover:underline break-all"
-                    >
-                      tribe@stubborngoatbrewing.com
-                    </a>
-                  </div>
+                    <span className="mt-4 text-lg font-medium text-primary hover:underline">
+                      Send Us a Message
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
