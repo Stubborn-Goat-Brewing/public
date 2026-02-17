@@ -366,6 +366,12 @@ export default function Home() {
             </div>
             <div className="flex gap-4">
               <Button variant="ghost" size="icon" asChild>
+                <Link href="https://www.facebook.com/p/Stubborn-Goat-Brewing-61575081059536/" target="_blank" rel="noopener noreferrer">
+                  <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
+                  <span className="sr-only">Facebook</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
                 <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
                   <Image src="/images/icon_instagram.png" alt="Instagram" width={24} height={24} className="h-6 w-6" />
                   <span className="sr-only">Instagram</span>
