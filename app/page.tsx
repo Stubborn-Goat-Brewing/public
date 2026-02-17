@@ -323,22 +323,28 @@ export default function Home() {
             <div className="mt-12">
               <div className="flex flex-col items-center justify-center gap-8">
                 <div className="grid gap-8 md:grid-cols-2 w-full max-w-2xl">
-                  <a href="tel:6106799017" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                  <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <span className="mt-4 text-lg font-medium text-primary hover:underline">
+                    <a
+                      href="tel:6106799017"
+                      className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+                    >
                       Give Us a Call
-                    </span>
-                  </a>
-                  <a href="mailto:tribe@stubborngoatbrewing.com" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                    </a>
+                  </div>
+                  <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
                     <Image src="/images/icon_email.png" alt="Email" width={48} height={48} className="h-12 w-12 mb-4" />
                     <h3 className="text-xl font-bold">Email Us</h3>
                     <p className="mt-2 text-muted-foreground">Send us a message anytime</p>
-                    <span className="mt-4 text-lg font-medium text-primary hover:underline">
+                    <a
+                      href="mailto:tribe@stubborngoatbrewing.com"
+                      className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+                    >
                       Send Us a Message
-                    </span>
-                  </a>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
