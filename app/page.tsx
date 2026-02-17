@@ -128,11 +128,6 @@ export default function Home() {
         )}
       </header>
 
-      {/* Weekly Event Promo Carousel */}
-      <div className="w-full">
-        <EventPromoCarousel />
-      </div>
-
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative">
@@ -159,6 +154,9 @@ export default function Home() {
                 </h1>
                 <div className="w-full mt-4 md:mt-8 mb-2 md:mb-4 -mx-4">
                   <UpcomingEventsBanner />
+                </div>
+                <div className="w-full mt-2 md:mt-4 mb-2 md:mb-4 -mx-4">
+                  <EventPromoCarousel />
                 </div>
                 <p className="mt-2 md:mt-4 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 px-4">
                   At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
