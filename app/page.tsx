@@ -365,30 +365,22 @@ export default function Home() {
               <span className="font-bold">Stubborn Goat Brewing</span>
             </div>
             <div className="flex gap-4">
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://www.facebook.com/p/Stubborn-Goat-Brewing-61575081059536/" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Facebook</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_instagram.png" alt="Instagram" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Instagram</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://untappd.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_untappd.png" alt="Untappd" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Untappd</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="mailto:tribe@stubborngoatbrewing.com">
-                  <Image src="/images/icon_email.png" alt="Email" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Email</span>
-                </Link>
-              </Button>
+              <Link href="https://www.facebook.com/p/Stubborn-Goat-Brewing-61575081059536/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10">
+                <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
+                <span className="sr-only">Facebook</span>
+              </Link>
+              <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10">
+                <Image src="/images/icon_instagram.png" alt="Instagram" width={24} height={24} className="h-6 w-6" />
+                <span className="sr-only">Instagram</span>
+              </Link>
+              <Link href="https://untappd.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10">
+                <Image src="/images/icon_untappd.png" alt="Untappd" width={24} height={24} className="h-6 w-6" />
+                <span className="sr-only">Untappd</span>
+              </Link>
+              <Link href="mailto:tribe@stubborngoatbrewing.com" className="inline-flex items-center justify-center h-10 w-10">
+                <Image src="/images/icon_email.png" alt="Email" width={24} height={24} className="h-6 w-6" />
+                <span className="sr-only">Email</span>
+              </Link>
             </div>
           </div>
           <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
