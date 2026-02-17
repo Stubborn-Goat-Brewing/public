@@ -366,7 +366,7 @@ export default function Home() {
             </div>
             <div className="flex gap-4">
               <Link href="https://www.facebook.com/p/Stubborn-Goat-Brewing-61575081059536/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10">
-                <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
+                <Image src="/images/icon_facebook.svg" alt="Facebook" width={24} height={24} className="h-6 w-6" />
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10">
