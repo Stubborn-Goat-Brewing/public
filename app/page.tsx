@@ -323,7 +323,7 @@ export default function Home() {
             <div className="mt-12">
               <div className="flex flex-col items-center justify-center gap-8">
                 <div className="grid gap-8 md:grid-cols-2 w-full max-w-2xl">
-                  <a href="tel:6106799017" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-accent transition-colors">
+                  <a href="tel:6106799017" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
@@ -331,7 +331,7 @@ export default function Home() {
                       Give Us a Call
                     </span>
                   </a>
-                  <a href="mailto:tribe@stubborngoatbrewing.com" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-accent transition-colors">
+                  <a href="mailto:tribe@stubborngoatbrewing.com" className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
                     <Image src="/images/icon_email.png" alt="Email" width={48} height={48} className="h-12 w-12 mb-4" />
                     <h3 className="text-xl font-bold">Email Us</h3>
                     <p className="mt-2 text-muted-foreground">Send us a message anytime</p>
