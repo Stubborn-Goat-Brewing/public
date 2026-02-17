@@ -6,6 +6,7 @@ import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
+import { EventPromoCarousel } from "@/components/event-promo-carousel"
 import { useState } from "react"
 
 export default function Home() {
@@ -126,6 +127,11 @@ export default function Home() {
           </div>
         )}
       </header>
+
+      {/* Weekly Event Promo Carousel */}
+      <div className="w-full">
+        <EventPromoCarousel />
+      </div>
 
       <main className="flex-1">
         {/* Hero Section */}
