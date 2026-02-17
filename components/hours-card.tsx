@@ -10,7 +10,7 @@ export function HoursCard() {
   const currentDay = getCurrentDay()
 
   const hours = [
-    { day: "Sunday", time: "12pm - 9pm" },
+    { day: "Sunday", time: "10:30am - 6:30pm" },
     { day: "Monday", time: "Closed" },
     { day: "Tuesday", time: "4pm - 10pm" },
     { day: "Wednesday", time: "4pm - 10pm" },
