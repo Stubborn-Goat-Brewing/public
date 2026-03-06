@@ -1,6 +1,10 @@
 from PIL import Image
 import urllib.request
 import io
+import os
+
+# Ensure output directory exists
+os.makedirs("/vercel/share/v0-project/public/images", exist_ok=True)
 
 # Download the source Facebook icon
 url = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/facebook-square-social-logo-COWVHG4oTI5CixvWDJoum83s1cBJ7z.png"
