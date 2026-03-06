@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 import urllib.request
 import io
 import os
@@ -6,40 +6,28 @@ import os
 # Ensure output directory exists
 os.makedirs("/vercel/share/v0-project/public/images", exist_ok=True)
 
-# Download the source Facebook icon
-url = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/facebook-square-social-logo-COWVHG4oTI5CixvWDJoum83s1cBJ7z.png"
+# Download the source Facebook icon (the user's provided image)
+url = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/facebook-square-social-logo-2-HVNpFIPlp81kGysYfyPTjGGuz8Arf4.png"
 with urllib.request.urlopen(url) as response:
     img_data = response.read()
 
 # Open the image
 img = Image.open(io.BytesIO(img_data)).convert("RGBA")
-
-# Get the pixel data
-pixels = img.load()
 width, height = img.size
 
-# Target colors to match other icons (dark charcoal bg, light gray icon)
-# Based on the other icons: background ~#4a4a4a (74,74,74), icon ~#a0a0a0 (160,160,160)
-bg_color = (74, 74, 74, 255)  # Dark charcoal
-icon_color = (160, 160, 160, 255)  # Light gray
+# Create a rounded corner mask
+radius = int(min(width, height) * 0.12)  # Slight rounding ~12% of size
+mask = Image.new("L", (width, height), 0)
+draw = ImageDraw.Draw(mask)
+draw.rounded_rectangle([(0, 0), (width, height)], radius=radius, fill=255)
 
-# Process each pixel
-for y in range(height):
-    for x in range(width):
-        r, g, b, a = pixels[x, y]
-        # If pixel is dark (black background), make it charcoal
-        if r < 50 and g < 50 and b < 50:
-            pixels[x, y] = bg_color
-        # If pixel is light (white "f"), make it light gray
-        elif r > 200 and g > 200 and b > 200:
-            pixels[x, y] = icon_color
-
-# Resize to match other icons (48x48 is typical for these social icons)
-img_resized = img.resize((48, 48), Image.LANCZOS)
+# Apply the mask to create rounded corners
+output = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+output.paste(img, (0, 0), mask)
 
 # Save the processed icon
 output_path = "/vercel/share/v0-project/public/images/icon_facebook.png"
-img_resized.save(output_path, "PNG")
+output.save(output_path, "PNG")
 
-print(f"Facebook icon processed and saved to {output_path}")
-print(f"Final size: {img_resized.size}")
+print(f"Facebook icon with rounded corners saved to {output_path}")
+print(f"Final size: {output.size}")
