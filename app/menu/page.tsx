@@ -277,6 +277,12 @@ export default function MenuPage() {
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
+                <Link href="https://www.facebook.com/profile.php?id=61575081059536" target="_blank" rel="noopener noreferrer">
+                  <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
+                  <span className="sr-only">Facebook</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
                 <Link href="https://untappd.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
                   <Image src="/images/icon_untappd.png" alt="Untappd" width={24} height={24} className="h-6 w-6" />
                   <span className="sr-only">Untappd</span>
