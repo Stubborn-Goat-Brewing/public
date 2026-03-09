@@ -352,30 +352,19 @@ export default function Home() {
             <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
               Have questions or want to book an event? Reach out to us!
             </p>
-            <div className="mt-12">
-              <div className="flex flex-col items-center justify-center gap-8">
-                <div className="grid gap-8 md:grid-cols-2 w-full max-w-2xl">
-                  <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
-                    <Phone className="h-12 w-12 mb-4 text-primary" />
-                    <h3 className="text-xl font-bold">Call Us</h3>
-                    <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
-                      610-679-9017
-                    </a>
-                  </div>
-                  <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
-                    <Image src="/images/icon_email.png" alt="Email" width={48} height={48} className="h-12 w-12 mb-4" />
-                    <h3 className="text-xl font-bold">Email Us</h3>
-                    <p className="mt-2 text-muted-foreground">Send us a message anytime</p>
-                    <a
-                      href="mailto:tribe@stubborngoatbrewing.com"
-                      className="mt-4 text-lg font-medium hover:underline break-all"
-                    >
-                      tribe@stubborngoatbrewing.com
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <a href="tel:6106799017" className="flex items-center gap-2">
+                  <Phone className="h-5 w-5" />
+                  Call Us Now
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+                <a href="mailto:tribe@stubborngoatbrewing.com" className="flex items-center gap-2">
+                  <Image src="/images/icon_email.png" alt="" width={20} height={20} className="h-5 w-5" />
+                  Email Us Now
+                </a>
+              </Button>
             </div>
           </div>
         </section>
