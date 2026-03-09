@@ -180,41 +180,73 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
               {/* Follow The Herd */}
               <div className="bg-background rounded-lg shadow-lg p-6 md:p-8 lg:p-10 text-center border-2 border-primary/20">
-                <Image
-                  src="/images/icon_instagram.png"
-                  alt="Instagram"
-                  width={64}
-                  height={64}
-                  className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 md:mb-6"
-                />
+                <div className="flex justify-center gap-4 mb-4 md:mb-6">
+                  <Image
+                    src="/images/icon_instagram.png"
+                    alt="Instagram"
+                    width={64}
+                    height={64}
+                    className="h-12 w-12 md:h-16 md:w-16"
+                  />
+                  <Image
+                    src="/images/icon_facebook.png"
+                    alt="Facebook"
+                    width={64}
+                    height={64}
+                    className="h-12 w-12 md:h-16 md:w-16"
+                  />
+                </div>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-3 md:mb-4">
                   Follow The Herd!
                 </h2>
                 <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-6 md:mb-8">
-                  Follow us on Instagram for the latest photos, events, and behind-the-scenes content. Join our
+                  Follow us on Instagram and Facebook for the latest photos, events, and behind-the-scenes content. Join our
                   community and see what's brewing at The Goat!
                 </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
-                >
-                  <Link
-                    href="https://instagram.com/StubbornGoatBrewing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2"
+                <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
                   >
-                    <Image
-                      src="/images/icon_instagram.png"
-                      alt="Instagram"
-                      width={20}
-                      height={20}
-                      className="h-4 w-4 md:h-5 md:w-5"
-                    />
-                    Follow Us on Instagram
-                  </Link>
-                </Button>
+                    <Link
+                      href="https://instagram.com/StubbornGoatBrewing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <Image
+                        src="/images/icon_instagram.png"
+                        alt="Instagram"
+                        width={20}
+                        height={20}
+                        className="h-4 w-4 md:h-5 md:w-5"
+                      />
+                      Instagram
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
+                  >
+                    <Link
+                      href="https://www.facebook.com/profile.php?id=61575081059536"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <Image
+                        src="/images/icon_facebook.png"
+                        alt="Facebook"
+                        width={20}
+                        height={20}
+                        className="h-4 w-4 md:h-5 md:w-5"
+                      />
+                      Facebook
+                    </Link>
+                  </Button>
+                </div>
               </div>
 
               {/* Join Our Mailing List */}
@@ -366,6 +398,12 @@ export default function Home() {
                 <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
                   <Image src="/images/icon_instagram.png" alt="Instagram" width={24} height={24} className="h-6 w-6" />
                   <span className="sr-only">Instagram</span>
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="https://www.facebook.com/profile.php?id=61575081059536" target="_blank" rel="noopener noreferrer">
+                  <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
+                  <span className="sr-only">Facebook</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
