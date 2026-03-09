@@ -359,20 +359,23 @@ export default function Home() {
                     <Phone className="h-12 w-12 mb-4 text-primary" />
                     <h3 className="text-xl font-bold">Call Us</h3>
                     <p className="mt-2 text-muted-foreground">We'd love to hear from you</p>
-                    <a href="tel:6106799017" className="mt-4 text-lg font-medium hover:underline">
-                      610-679-9017
-                    </a>
+                    <Button asChild size="lg" className="mt-4">
+                      <a href="tel:6106799017" className="flex items-center gap-2">
+                        <Phone className="h-4 w-4" />
+                        Call Now
+                      </a>
+                    </Button>
                   </div>
                   <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background shadow-sm">
                     <Image src="/images/icon_email.png" alt="Email" width={48} height={48} className="h-12 w-12 mb-4" />
                     <h3 className="text-xl font-bold">Email Us</h3>
                     <p className="mt-2 text-muted-foreground">Send us a message anytime</p>
-                    <a
-                      href="mailto:tribe@stubborngoatbrewing.com"
-                      className="mt-4 text-lg font-medium hover:underline break-all"
-                    >
-                      tribe@stubborngoatbrewing.com
-                    </a>
+                    <Button asChild size="lg" className="mt-4">
+                      <a href="mailto:tribe@stubborngoatbrewing.com" className="flex items-center gap-2">
+                        <Image src="/images/icon_email.png" alt="" width={16} height={16} className="h-4 w-4" />
+                        Send Email
+                      </a>
+                    </Button>
                   </div>
                 </div>
               </div>
