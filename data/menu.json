@@ -33,6 +33,7 @@
       "description": "A bright, easy-drinking Mexican lager brewed for sunshine and good company. Crisp malt character, a touch of corn sweetness, and a refreshingly dry finish make this beer endlessly crushable. Best enjoyed ice-cold with a lime wedge.",
       "category": "easy-drinking",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
+      "flagship": true,
       "fourPackAvailable": true
     },
     {
@@ -92,6 +93,7 @@
       "description": "Built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish.",
       "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
+      "flagship": true,
       "fourPackAvailable": true
     },
     {
@@ -127,10 +129,6 @@
       "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
     }
   ],
-  "flightInfo": {
-    "description": "Your choice of four 5oz pours",
-    "price": 12
-  },
   "food": [
     {
       "category": "Shareables",

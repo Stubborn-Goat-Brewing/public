@@ -15,14 +15,8 @@ interface Beer {
   fourPackAvailable?: boolean
 }
 
-interface FlightInfo {
-  description: string
-  price: number
-}
-
 interface MenuData {
   beers: Beer[]
-  flightInfo?: FlightInfo
 }
 
 const categoryLabels: Record<string, string> = {
@@ -39,7 +33,6 @@ const categoryOrder = ["easy-drinking", "seasonal-spiced", "fruity-tart", "hoppy
 
 export function TapList() {
   const [beers, setBeers] = useState<Beer[]>([])
-  const [flightInfo, setFlightInfo] = useState<FlightInfo | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -47,7 +40,6 @@ export function TapList() {
       .then((res) => res.json())
       .then((data: MenuData) => {
         setBeers(data.beers)
-        setFlightInfo(data.flightInfo || null)
         setLoading(false)
       })
       .catch((error) => {
@@ -81,14 +73,6 @@ export function TapList() {
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Craft beers brewed with passion and quality ingredients
         </p>
-        {flightInfo && (
-          <div className="mt-4 inline-block px-6 py-3 bg-primary/10 rounded-lg">
-            <p className="text-lg font-semibold text-primary">
-              Try a Flight - ${flightInfo.price}
-            </p>
-            <p className="text-sm text-muted-foreground">{flightInfo.description}</p>
-          </div>
-        )}
       </div>
 
       <div className="space-y-12">
