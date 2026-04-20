@@ -54,7 +54,7 @@ export function TapList() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {beers.map((beer, index) => (
+        {[...beers].sort((a, b) => (b.flagship ? 1 : 0) - (a.flagship ? 1 : 0)).map((beer, index) => (
           <Card
             key={index}
             className={`transition-all duration-300 hover:scale-105 hover:shadow-lg bg-card border-border ${
