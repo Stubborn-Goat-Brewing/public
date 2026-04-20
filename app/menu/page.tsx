@@ -277,7 +277,6 @@ export default function MenuPage() {
                               className="rounded-lg"
                             />
                             <div>
-                              <h4 className="text-lg font-bold mb-2">{section.items[0]?.name}</h4>
                               <p className="text-sm text-muted-foreground mb-3">{section.items[0]?.description}</p>
                               <div className="flex flex-wrap justify-center gap-2">
                                 {section.items[0]?.varieties?.map((variety, varietyIdx) => (
@@ -316,7 +315,6 @@ export default function MenuPage() {
                               className="rounded-lg"
                             />
                             <div>
-                              <h4 className="text-lg font-bold mb-2">Wayvine Winery & Vineyard</h4>
                               <p className="text-sm text-muted-foreground mb-3">
                                 Local wine from Wayvine Winery. Ask for availability.
                               </p>
@@ -359,7 +357,6 @@ export default function MenuPage() {
                                   className="rounded-lg"
                                 />
                                 <div>
-                                  <h4 className="text-lg font-bold mb-2">{item.name}</h4>
                                   <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
                                   <div className="flex flex-wrap justify-center gap-2">
                                     {item.varieties?.map((variety, varietyIdx) => (
@@ -402,7 +399,6 @@ export default function MenuPage() {
                                   className="rounded-lg"
                                 />
                                 <div>
-                                  <h4 className="text-lg font-bold mb-2">{item.logoAlt || item.name}</h4>
                                   <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
                                   <div className="flex flex-wrap justify-center gap-2">
                                     {item.varieties?.map((variety, varietyIdx) => (
