@@ -169,7 +169,7 @@ export default function OurTeamPage() {
                       src={member.image}
                       alt={`${member.firstName} "${member.nickname}" ${member.lastName}`}
                       fill
-                      className="object-cover object-[center_25%] scale-150"
+                      className="object-cover object-[center_30%] scale-110"
                     />
                   </div>
                   <CardContent className="p-6">
