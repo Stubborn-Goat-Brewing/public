@@ -12,6 +12,9 @@ interface MenuItem {
   name: string
   description: string
   price?: number
+  varieties?: string[]
+  logo?: string
+  logoAlt?: string
 }
 
 interface MenuCategory {
@@ -231,26 +234,194 @@ export default function MenuPage() {
             </div>
 
             <div className="space-y-8">
-              {menuData.drinks.map((section, idx) => (
-                <div key={idx}>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">{section.category}</h3>
-                  <div className="grid gap-6 md:grid-cols-2">
-                    {section.items.map((item, itemIdx) => (
-                      <Card key={itemIdx} className="bg-card">
-                        <CardHeader>
-                          <div className="flex items-start justify-between">
-                            <CardTitle className="text-lg">{item.name}</CardTitle>
-                            {item.price && <span className="text-lg font-bold text-primary">${item.price}</span>}
+              {/* Regular drink sections */}
+              {menuData.drinks
+                .filter((section) => !["Wine", "Canned Cocktails", "Non-Alcoholic"].includes(section.category))
+                .map((section, idx) => (
+                  <div key={idx}>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">{section.category}</h3>
+                    <div className="grid gap-6 md:grid-cols-2">
+                      {section.items.map((item, itemIdx) => (
+                        <Card key={itemIdx} className="bg-card">
+                          <CardHeader>
+                            <div className="flex items-start justify-between">
+                              <CardTitle className="text-lg">{item.name}</CardTitle>
+                              {item.price && <span className="text-lg font-bold text-primary">${item.price}</span>}
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <CardDescription className="text-base">{item.description}</CardDescription>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+              {/* Partner Brand Sections - Flowing Grid */}
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Canned Cocktails - Boardroom Spirits */}
+                {menuData.drinks
+                  .filter((section) => section.category === "Canned Cocktails")
+                  .map((section) => (
+                    <div key="canned-cocktails" className="flex flex-col">
+                      <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Canned Cocktails</h3>
+                      <Card className="bg-card flex-1">
+                        <CardContent className="p-6">
+                          <div className="flex flex-col items-center text-center gap-4">
+                            <Image
+                              src={section.items[0]?.logo || "/images/boardroom-spirits-logo.png"}
+                              alt={section.items[0]?.logoAlt || "Boardroom Spirits"}
+                              width={100}
+                              height={100}
+                              className="rounded-lg"
+                            />
+                            <div>
+                              <p className="text-sm text-muted-foreground mb-3">{section.items[0]?.description}</p>
+                              <div className="flex flex-wrap justify-center gap-2">
+                                {section.items[0]?.varieties?.map((variety, varietyIdx) => (
+                                  <span
+                                    key={varietyIdx}
+                                    className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
+                                  >
+                                    {variety}
+                                  </span>
+                                ))}
+                              </div>
+                              {section.items[0]?.price && (
+                                <p className="mt-3 text-sm font-bold text-primary">${section.items[0].price} each</p>
+                              )}
+                            </div>
                           </div>
-                        </CardHeader>
-                        <CardContent>
-                          <CardDescription className="text-base">{item.description}</CardDescription>
                         </CardContent>
                       </Card>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                    </div>
+                  ))}
+
+                {/* Wine - Wayvine Winery */}
+                {menuData.drinks
+                  .filter((section) => section.category === "Wine")
+                  .map((section) => (
+                    <div key="wine" className="flex flex-col">
+                      <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Wine</h3>
+                      <Card className="bg-card flex-1">
+                        <CardContent className="p-6">
+                          <div className="flex flex-col items-center text-center gap-4">
+                            <Image
+                              src="/images/wayvine-logo.webp"
+                              alt="Wayvine Winery & Vineyard"
+                              width={100}
+                              height={100}
+                              className="rounded-lg"
+                            />
+                            <div>
+                              <p className="text-sm text-muted-foreground mb-3">
+                                Local wine from Wayvine Winery. Ask for availability.
+                              </p>
+                              <div className="flex flex-wrap justify-center gap-2">
+                                {section.items
+                                  .filter((item) => item.price)
+                                  .map((item, itemIdx) => (
+                                    <span
+                                      key={itemIdx}
+                                      className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
+                                    >
+                                      {item.name}
+                                    </span>
+                                  ))}
+                              </div>
+                              <p className="mt-3 text-sm font-bold text-primary">$10 each</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  ))}
+
+                {/* Non-Alcoholic Beer - Athletic Brewing */}
+                {menuData.drinks
+                  .filter((section) => section.category === "Non-Alcoholic")
+                  .flatMap((section) =>
+                    section.items
+                      .filter((item) => item.name === "Athletic Brewing")
+                      .map((item) => (
+                        <div key="na-beer" className="flex flex-col">
+                          <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Non-Alcoholic Beer</h3>
+                          <Card className="bg-card flex-1">
+                            <CardContent className="p-6">
+                              <div className="flex flex-col items-center text-center gap-4">
+                                <Image
+                                  src={item.logo || "/images/athletic-brewing-logo.jpg"}
+                                  alt={item.logoAlt || item.name}
+                                  width={100}
+                                  height={100}
+                                  className="rounded-lg"
+                                />
+                                <div>
+                                  <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
+                                  <div className="flex flex-wrap justify-center gap-2">
+                                    {item.varieties?.map((variety, varietyIdx) => (
+                                      <span
+                                        key={varietyIdx}
+                                        className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
+                                      >
+                                        {variety}
+                                      </span>
+                                    ))}
+                                  </div>
+                                  {item.price && (
+                                    <p className="mt-3 text-sm font-bold text-primary">${item.price} each</p>
+                                  )}
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      ))
+                  )}
+
+                {/* Soft Drinks - Coca-Cola */}
+                {menuData.drinks
+                  .filter((section) => section.category === "Non-Alcoholic")
+                  .flatMap((section) =>
+                    section.items
+                      .filter((item) => item.name === "Soft Drinks")
+                      .map((item) => (
+                        <div key="soft-drinks" className="flex flex-col">
+                          <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Soft Drinks</h3>
+                          <Card className="bg-card flex-1">
+                            <CardContent className="p-6">
+                              <div className="flex flex-col items-center text-center gap-4">
+                                <Image
+                                  src={item.logo || "/images/coca-cola-logo.png"}
+                                  alt={item.logoAlt || item.name}
+                                  width={100}
+                                  height={100}
+                                  className="rounded-lg"
+                                />
+                                <div>
+                                  <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
+                                  <div className="flex flex-wrap justify-center gap-2">
+                                    {item.varieties?.map((variety, varietyIdx) => (
+                                      <span
+                                        key={varietyIdx}
+                                        className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
+                                      >
+                                        {variety}
+                                      </span>
+                                    ))}
+                                  </div>
+                                  {item.price && (
+                                    <p className="mt-3 text-sm font-bold text-primary">${item.price} each</p>
+                                  )}
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      ))
+                  )}
+              </div>
             </div>
           </div>
         </section>
