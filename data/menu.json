@@ -442,12 +442,17 @@
           "name": "Athletic Brewing",
           "description": "Award-winning, craft non-alcoholic beers for those who want the full flavor of a craft brew without the alcohol.",
           "price": 6,
-          "varieties": ["Run Wild (IPA)", "Free Wave (Hazy IPA)", "Upside Dawn (Golden Ale)"]
+          "varieties": ["Run Wild (IPA)", "Free Wave (Hazy IPA)", "Upside Dawn (Golden Ale)"],
+          "logo": "/images/athletic-brewing-logo.jpg",
+          "logoAlt": "Athletic Brewing Co."
         },
         {
           "name": "Soft Drinks",
-          "description": "We serve a variety of Coca-Cola products. Refills $1.50. Classic Coke, Diet Coke, Sprite, Root Beer, Ginger Ale, Lemonade, Cranberry Juice, Tonic Water, Club Soda.",
-          "price": 3
+          "description": "We serve a variety of Coca-Cola products. Refills $1.50.",
+          "price": 3,
+          "varieties": ["Classic Coke", "Diet Coke", "Sprite", "Root Beer", "Ginger Ale", "Lemonade", "Cranberry Juice", "Tonic Water", "Club Soda"],
+          "logo": "/images/coca-cola-logo.png",
+          "logoAlt": "Coca-Cola"
         }
       ]
     }

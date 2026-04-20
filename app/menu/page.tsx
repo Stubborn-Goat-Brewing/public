@@ -13,6 +13,8 @@ interface MenuItem {
   description: string
   price?: number
   varieties?: string[]
+  logo?: string
+  logoAlt?: string
 }
 
 interface MenuCategory {
@@ -278,15 +280,15 @@ export default function MenuPage() {
                               <div className="flex flex-col md:flex-row items-center gap-6">
                                 <div className="shrink-0">
                                   <Image
-                                    src="/images/athletic-brewing-logo.jpg"
-                                    alt="Athletic Brewing Co."
+                                    src={item.logo || "/images/athletic-brewing-logo.jpg"}
+                                    alt={item.logoAlt || item.name}
                                     width={150}
                                     height={150}
                                     className="rounded-lg"
                                   />
                                 </div>
                                 <div className="text-center md:text-left">
-                                  <h4 className="text-xl font-bold mb-2">Athletic Brewing Co.</h4>
+                                  <h4 className="text-xl font-bold mb-2">{item.name}</h4>
                                   <p className="text-muted-foreground mb-4">{item.description}</p>
                                   <div className="flex flex-wrap justify-center md:justify-start gap-3">
                                     {item.varieties.map((variety, varietyIdx) => (
