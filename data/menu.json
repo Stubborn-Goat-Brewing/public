@@ -367,12 +367,7 @@
           "name": "Old Fashioned",
           "description": "A timeless blend of whiskey, bitters, sugar, and citrus—smooth, balanced, and perfectly simple.",
           "price": 14
-        }
-      ]
-    },
-    {
-      "category": "Martinis",
-      "items": [
+        },
         {
           "name": "Classic Martini",
           "description": "Your choice of gin or vodka, served chilled and smooth in a timeless cocktail that can be prepared classic, dirty, or dry to suit your taste.",
@@ -390,7 +385,6 @@
         }
       ]
     },
-    
     {
       "category": "Canned Cocktails",
       "items": [
