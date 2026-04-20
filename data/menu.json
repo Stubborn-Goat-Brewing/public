@@ -5,82 +5,128 @@
       "style": "American Lager",
       "abv": 4.7,
       "description": "Bright, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
+      "category": "easy-drinking",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
       "flagship": true,
       "fourPackAvailable": true
     },
     {
-      "name": "Counting Sheep",
-      "style": "Hazy IPA",
-      "abv": 7.2,
-      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
-      "flagship": true,
-      "fourPackAvailable": true
-    },
-    {
-      "name": "Little Lamb",
-      "style": "Hazy IPA",
-      "abv": 5.6,
-      "description": "Don't let the name fool you. This IPA packs a punch of flavor. Little Lamb is a soft, cloud-like Hazy IPA brewed for maximum juiciness and an approachable finish. We've dialed in a heavy dose of bright tangerine to lead the charge, offering a sweet, citrusy burst that's perfectly complemented by a subtle, zesty hop profile. It's light on its feet at 5.6%, making it the perfect companion for an all-day session."
-    },
-    {
-      "name": "Headbutt",
-      "style": "Double American IPA",
-      "abv": 8.4,
-      "description": "Headbutt is an 8.4% Double American IPA built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish. A powerful yet refined IPA for serious hop fans."
-    },
-    {
-      "name": "West Coast IPA",
-      "style": "West Coast Style IPA",
-      "abv": 6.5,
-      "description": "New recipe! West coast style IPA. Hop-forward, crisp, clean."
-    },
-    {
-      "name": "New Zealand Pilsner",
-      "style": "Pilsner",
-      "abv": 4.7,
-      "description": "Dry hopped with Motueka hops."
+      "name": "Pia, Sweet As",
+      "style": "New Zealand Pilsner",
+      "abv": 6.3,
+      "description": "In the native Maori language of New Zealand, \"Pia\" simply means beer. Pair that with the iconic Kiwi slang \"Sweet As\" used to describe something that is cool, awesome, or perfect. This Pilsner is generously hopped with New Zealand grown Nelson Sauvin. Giving it the perfect hoppy kick while still being light and refreshing.",
+      "category": "easy-drinking",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
       "name": "Amber Acreage",
       "style": "Amber Lager",
       "abv": 5.2,
-      "description": "A rustic tribute to the golden hour. Built on a robust caramel malt backbone, this lager delivers smooth, toasted notes of biscuit and burnt sugar. A subtle hop bitterness snaps on the back end, perfectly balancing the sweetness and ensuring every sip is as refreshing as the first."
+      "description": "Built on a robust caramel malt backbone, this lager delivers smooth, toasted notes of biscuit and burnt sugar. A subtle hop bitterness snaps on the back end, perfectly balancing the sweetness.",
+      "category": "easy-drinking",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
-      "name": "Beast of Burden",
-      "style": "Belgian Tripel",
-      "abv": 9.6,
-      "description": "Beast of Burden is a nod to the hardworking strength required to craft a traditional Belgian Tripel. This \"beast\" hides its power behind a sophisticated profile of spicy phenolics and fruity esters. Brewed with premium Pilsner malt and clear candy sugar, it is effervescent, complex, and deceptively smooth. It carries the weight of its high gravity with the grace of a champion workhorse."
+      "name": "La Cabra Loca",
+      "style": "Mexican Lager",
+      "abv": 4.5,
+      "description": "A bright, easy-drinking Mexican lager brewed for sunshine and good company. Crisp malt character, a touch of corn sweetness, and a refreshingly dry finish make this beer endlessly crushable. Best enjoyed ice-cold with a lime wedge.",
+      "category": "easy-drinking",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
+      "flagship": true,
+      "fourPackAvailable": true
     },
     {
-      "name": "Grove Refresher - PB&J",
-      "style": "Fruited Sour",
-      "abv": 4.6,
-      "description": "Grove Refresher is a liquid tribute to the ultimate childhood classic. We've taken a crisp, tart sour base and layered it with creamy roasted peanuts and a massive addition of sweet concord grape puree. At a crushable 4.6%, it's a whimsical, nostalgic journey that balances savory nuttiness with a bright, puckering finish."
-    },
-    {
-      "name": "Better Late Than November",
-      "style": "Pumpkin Spiced Ale",
-      "abv": 7.0,
-      "description": "Brewed with real roasted pumpkins and a warming blend of cinnamon, nutmeg, ginger, and cloves, this spiced ale captures the cozy flavor of late autumn in every sip. Rich malt sweetness and gentle spice come together for a smooth, balanced finish that's worth the wait."
+      "name": "Crisp",
+      "style": "American-Style Lager",
+      "abv": 4.8,
+      "description": "From New Trail Brewing in Williamsport, PA. A brilliant golden beer that's full-flavored, refreshing, and above all, Crisp.",
+      "category": "guest-tap",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
       "name": "Tundra Buck",
       "style": "Winter Spiced Stout",
       "abv": 7.9,
-      "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base—featuring notes of roasted coffee and dark chocolate—with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger."
+      "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base, featuring notes of roasted coffee and dark chocolate, with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger.",
+      "category": "seasonal-spiced",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Beast of Burden",
+      "style": "Belgian Tripel",
+      "abv": 9.6,
+      "description": "Beast of Burden is a nod to the hardworking strength required to craft a traditional Belgian Tripel. This \"beast\" hides its power behind a sophisticated profile of spicy phenolics and fruity esters. Brewed with premium Pilsner malt and clear candy sugar, it is effervescent, complex, and deceptively smooth. It carries the weight of its high gravity with the grace of a champion workhorse.",
+      "category": "seasonal-spiced",
+      "pricing": "10oz - $7"
+    },
+    {
+      "name": "Grove Refresher - PB & J",
+      "style": "Sour",
+      "abv": 4.6,
+      "description": "A liquid tribute to the ultimate childhood classic. We've taken a crisp, tart sour base and layered it with creamy roasted peanuts and sweet concord grape puree. It's a whimsical, nostalgic journey that balances savory nuttiness with a bright, puckering finish.",
+      "category": "fruity-tart",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Strawberry Lime Sour",
+      "style": "Sour",
+      "abv": 5.0,
+      "description": "A fruited sour ale conditioned on Strawberry puree, and Lime juice.",
+      "category": "fruity-tart",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Counting Sheep",
+      "style": "Hazy IPA",
+      "abv": 6.9,
+      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
+      "flagship": true,
+      "fourPackAvailable": true
+    },
+    {
+      "name": "Headbutt",
+      "style": "Double American IPA",
+      "abv": 8.4,
+      "description": "Built on a strong base of pale malt and loaded with a heavy dose of American hops. Expect bright grapefruit, pine, and grassy aromatics balanced by a sturdy malt body and a crisp, assertive finish.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
+      "flagship": true,
+      "fourPackAvailable": true
+    },
+    {
+      "name": "Rosehill Ram",
+      "style": "West Coast IPA",
+      "abv": 6.9,
+      "description": "A modern, high-clarity IPA designed for ultimate drinkability. Built on a lean, light-bodied grain bill, this beer stays out of the way to let a classic trifecta of hops shine. We've utilized Cascade, Columbus, and Nugget to deliver a \"New School\" experience taking those legendary flavors and refining them into a crisp, refreshing profile that trades heavy bitterness for pure hop saturation. It's clean, snappy, and deceptively easy-drinking.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Minotaur",
+      "style": "Red IPA",
+      "abv": 7.7,
+      "description": "A bold red IPA with bright citrus and pine hop character layered over rich caramel and toasted malt. Smooth yet assertive, with a clean, lingering bitterness.",
+      "category": "malty-dark",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
       "name": "King David",
       "style": "Cider",
       "abv": 6.8,
-      "description": "Sweet and light, notes of honeysuckle, apple, and pear. From Old Stone Cider in Lewisville, PA."
+      "description": "Sweet and light, notes of honeysuckle, apple, and pear. From Old Stone Cider in Lewisville, PA.",
+      "category": "cider",
+      "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
     },
     {
       "name": "Old Stone Blend",
       "style": "Cider",
       "abv": 7.0,
-      "description": "Light, crisp, and tart with a clean finish. From Old Stone Cider in Lewisville, PA."
+      "description": "Light, crisp, and tart with a clean finish. From Old Stone Cider in Lewisville, PA.",
+      "category": "cider",
+      "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
     }
   ],
   "food": [
@@ -123,8 +169,8 @@
           "price": 13
         },
         {
-          "name": "BBQ Short Rib Loaded Fries or Tots",
-          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our Short Rib braised in-house with our chef's choice of beer, drizzled with BBQ sauce.",
+          "name": "BBQ Pulled Pork Loaded Fries or Tots",
+          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our pulled pork braised in-house with our chef's choice of beer, drizzled with BBQ sauce.",
           "price": 15
         }
       ]
@@ -171,32 +217,39 @@
     },
     {
       "category": "Cheesesteaks",
+      "description": "Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2). All cheesesteaks also available as wraps.",
       "items": [
         {
           "name": "Classic Cheesesteak",
-          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1).",
           "price": 16
         },
         {
           "name": "Mushroom & Swiss Cheesesteak",
-          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll.",
           "price": 17
         },
         {
           "name": "Classic Chicken Cheesesteak",
-          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1).",
           "price": 16
         },
         {
           "name": "Buffalo Chicken Cheesesteak",
-          "description": "Shaved grilled chicken, tossed in classic buffalo sauce, topped with melted American cheese on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Shaved grilled chicken, tossed in classic buffalo sauce, mixed with crumbled blue cheese on a toasted roll. Substitute our House Beer Cheese (+1).",
           "price": 17
         }
       ]
     },
     {
       "category": "Handhelds",
+      "description": "Served with house tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
       "items": [
+        {
+          "name": "Street Tacos",
+          "description": "Two tacos with your choice of cilantro-lime chicken, chipotle-honey shrimp, or veggie with mushrooms, peppers, and onions, topped with onion, cilantro, and radish, and served with a lime wedge.",
+          "price": 8
+        },
         {
           "name": "Hot Dogs & Fries",
           "description": "Two 1/4 pound hot dogs served with a side of fries. Sub Tots (+1).",
@@ -204,17 +257,17 @@
         },
         {
           "name": "B.A.L.T. Wrap",
-          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips.",
           "price": 14
         },
         {
-          "name": "Smoked Turkey Caesar Wrap",
-          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "name": "Strawberry Chickpea Wrap",
+          "description": "Fresh strawberries, crisp cucumber, chickpeas, shredded carrot, pepitas, dried cranberries, grated parmesan, and spring mix, wrapped in a flour tortilla with lemon vinaigrette.",
           "price": 14
         },
         {
           "name": "Pesto Chicken Wrap",
-          "description": "Pesto, grilled chicken, arugula, fresh mozzarella, tomato, wrapped in a flour tortilla. Served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "description": "Pesto, grilled chicken, arugula, fresh mozzarella, tomato, wrapped in a flour tortilla.",
           "price": 15
         }
       ]
@@ -228,13 +281,13 @@
           "price": 15
         },
         {
-          "name": "Butternut Squash & Goat Cheese",
-          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple balsamic glaze on a crisp flatbread.",
+          "name": "Garden Harvest",
+          "description": "Warm flatbread topped with creamy goat cheese, roasted yams, pickled red onion, fresh arugula, and a maple-balsamic drizzle.",
           "price": 16
         },
         {
-          "name": "BBQ Short Rib",
-          "description": "Short Rib braised in-house with our chef's choice of beer, cheddar jack, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple balsamic glaze on a crisp flatbread.",
+          "name": "BBQ Pulled Pork",
+          "description": "Warm flatbread topped with cheddar jack cheese, tender pulled pork, caramelized onions, scallions, BBQ sauce, and a maple-balsamic drizzle.",
           "price": 17
         }
       ]
@@ -243,29 +296,38 @@
       "category": "Salads",
       "items": [
         {
-          "name": "Classic Caesar Salad",
+          "name": "Classic Caesar",
           "description": "Crisp romaine lettuce, shaved Parmesan, garlic croutons, and creamy Caesar dressing. Add grilled chicken (+3) or grilled shrimp (+4).",
           "price": 13
         },
         {
-          "name": "Autumn Brussels & Apple Salad",
-          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded cheddar jack tossed in a light maple-dijon vinaigrette.",
+          "name": "Blue Cheese & Pear",
+          "description": "Crisp romaine topped with smoky bacon, blue cheese crumbles, fresh pear, cucumber, and pickled red onion, finished with lemon vinaigrette and a maple-balsamic drizzle.",
           "price": 16
         },
         {
-          "name": "Harvest Maple Salad",
-          "description": "Mixed greens, roasted butternut squash, candied pecans, dried cranberries, goat cheese, served with our maple-dijon vinaigrette.",
-          "price": 17
+          "name": "Spring Berry",
+          "description": "A bright, fresh salad of spring mix, mixed berries, goat cheese, red onion, and candied pecans, finished with strawberry vinaigrette.",
+          "price": 16
         }
       ]
     },
     {
-      "category": "Soups",
+      "category": "Desserts",
       "items": [
         {
-          "name": "Soup du Jour",
-          "description": "A hearty bowl of our chef's latest creation. Ask your server or bartender what is on tap this week!",
-          "price": 8
+          "name": "Scoop of Ice Cream",
+          "description": "Now featuring ice cream from Hangry Bear Creamery in Kennett Square, PA. Choose from Vanilla, Chocolate, or Strawberry. Single - $4 / Double - $6."
+        },
+        {
+          "name": "Soda Float",
+          "description": "A classic treat - a scoop of Hangry Bear vanilla ice cream topped with your choice of root beer, Coke, or Diet Coke.",
+          "price": 7
+        },
+        {
+          "name": "Beer Float",
+          "description": "A grown-up twist on a classic - a scoop of Hangry Bear vanilla ice cream topped with your choice of Tundra Buck or Irish Stout for a rich, creamy finish. *Contains alcohol.",
+          "price": 9
         }
       ]
     }
@@ -275,8 +337,18 @@
       "category": "Specialty Cocktails",
       "items": [
         {
-          "name": "Apple Pie Spritz",
-          "description": "Crisp apple pie cider with smooth vanilla vodka and topped with bubbly prosecco. Light, sparkling, and dessert-inspired, but not too sweet—just right.",
+          "name": "Crush",
+          "description": "A bright, refreshing cocktail made with vodka, fresh-squeezed citrus juice, and lemon-lime soda. Available in Orange or Grapefruit.",
+          "price": 12
+        },
+        {
+          "name": "Mimosa",
+          "description": "A bright, bubbly favorite with fresh-squeezed orange juice and Penns Woods Blanc de Blanc sparkling wine for a crisp, refreshing finish.",
+          "price": 12
+        },
+        {
+          "name": "Desert Sunset",
+          "description": "A spicy and unique combination of Gold Tequila, fresh lime juice and grapefruit juice, finished with fresh jalapeno.",
           "price": 12
         },
         {
@@ -290,33 +362,48 @@
           "price": 13
         },
         {
+          "name": "Porch Swing Fizz",
+          "description": "A light and refreshing bourbon cocktail with citrus, mint, and ginger ale. Crisp, bubbly, and made for easy porch-side sipping.",
+          "price": 13
+        },
+        {
+          "name": "Sip of Spring",
+          "description": "A lively blend of vodka, strawberry, basil, and lime juice topped with Sprite for a crisp, lightly sparkling sip of spring.",
+          "price": 13
+        },
+        {
           "name": "Old Fashioned",
           "description": "A timeless blend of whiskey, bitters, sugar, and citrus—smooth, balanced, and perfectly simple.",
           "price": 14
-        },
-        {
-          "name": "Winter Margarita",
-          "description": "A festive fusion, bringing a chilly twist to a sun-drenched classic. We blend crisp silver tequila with the tart embrace of real cranberry puree, and a sparkling splash of lemon-lime soda.",
-          "price": 14
-        },
-        {
-          "name": "Smoked Old Fashioned",
-          "description": "An elevated twist on our classic Old Fashioned, infused with real smoke from apple, cherry, or pecan wood.",
-          "price": 15
-        },
-        {
-          "name": "Coffee Old Fashioned",
-          "description": "A bold Old Fashioned with bourbon, coffee liqueur, and bitters, gently sweetened and finished with a citrus peel for a velvety, sippable classic.",
-          "price": 15
         }
       ]
     },
     {
-      "category": "Classic Cocktails",
+      "category": "Martinis",
       "items": [
         {
-          "name": "The Classics, Pennsylvania Style",
-          "description": "If you have a timeless favorite in mind, our bartenders are ready to craft it to perfection. We honor cocktail traditions using a full range of exceptional, Pennsylvania-made spirits—from crisp vodkas and botanical gins to aged bourbons and smooth rums. Simply request your classic cocktail, and we will mix a masterpiece for you."
+          "name": "Classic Martini",
+          "description": "Your choice of gin or vodka, served chilled and smooth in a timeless cocktail that can be prepared classic, dirty, or dry to suit your taste.",
+          "price": 14
+        },
+        {
+          "name": "Cold Brew Martini",
+          "description": "A rich and velvety blend of vodka, cold brew coffee, and coffee liqueur, shaken chilled for a smooth cocktail with bold coffee flavor.",
+          "price": 14
+        },
+        {
+          "name": "Lemon Drop Martini",
+          "description": "A bright and citrusy martini made with vodka and fresh lemon juice, served chilled with a smooth, sweet-tart finish.",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "category": "The Classics, Pennsylvania Style",
+      "items": [
+        {
+          "name": "Classic Cocktails",
+          "description": "If you have a timeless favorite in mind, our bartenders are ready to craft it to perfection. We honor cocktail traditions using a full range of exceptional, Pennsylvania-made spirits - from crisp vodkas and botanical gins to aged bourbons and smooth rums. Simply request your classic cocktail, and we will mix a masterpiece for you."
         }
       ]
     },
@@ -334,11 +421,6 @@
           "price": 9
         },
         {
-          "name": "Lemon Iced Tea & Vodka (5.5%)",
-          "description": "The perfect, refreshing blend of Boardroom Vodka, real brewed tea, lemon, and sugar.",
-          "price": 9
-        },
-        {
           "name": "Crimson Crush Lemonade (5%)",
           "description": "A refreshingly juicy vodka lemonade that is crimson red from a real hibiscus flower infusion.",
           "price": 9
@@ -349,24 +431,23 @@
       "category": "Wine",
       "items": [
         {
-          "name": "White Wines",
-          "description": "Sauvignon Blanc, Willow White. Penns Woods Winery - Chadds Ford, PA.",
+          "name": "Local Wine from Wayvine Winery & Vineyard",
+          "description": "We proudly offer local wine from Wayvine Winery & Vineyard. Ask your bartender or server for availability of other varieties."
+        },
+        {
+          "name": "Sauvignon Blanc",
+          "description": "From Wayvine Winery & Vineyard.",
           "price": 10
         },
         {
-          "name": "Red Wines",
-          "description": "Cabernet Sauvignon. Penns Woods Winery - Chadds Ford, PA.",
+          "name": "Cabernet Sauvignon",
+          "description": "From Wayvine Winery & Vineyard.",
           "price": 10
         },
         {
-          "name": "Rose",
-          "description": "Pinot Rose. Penns Woods Winery - Chadds Ford, PA.",
+          "name": "Rose Carmine",
+          "description": "From Wayvine Winery & Vineyard.",
           "price": 10
-        },
-        {
-          "name": "Bubbly",
-          "description": "Brut Rose, Blanc de Blanc. Penns Woods Winery - Chadds Ford, PA.",
-          "price": 12
         }
       ]
     },
@@ -377,9 +458,14 @@
           "name": "Athletic Brewing Cans",
           "description": "Award-winning, craft non-alcoholic beers for those who want the full flavor of a craft brew without the alcohol. Run Wild (IPA), Free Wave (Hazy IPA), Upside Dawn (Golden Ale).",
           "price": 6
+        },
+        {
+          "name": "Soft Drinks",
+          "description": "We serve a variety of Coca-Cola products. Refills $1.50. Classic Coke, Diet Coke, Sprite, Root Beer, Ginger Ale, Lemonade, Cranberry Juice, Tonic Water, Club Soda.",
+          "price": 3
         }
       ]
     }
   ],
-  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot", "Lemon Pepper", "Garlic Parmesan"]
+  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot", "Hot Honey", "Garlic Parmesan"]
 }
