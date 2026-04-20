@@ -169,8 +169,8 @@
           "price": 13
         },
         {
-          "name": "BBQ Short Rib Loaded Fries or Tots",
-          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our Short Rib braised in-house with our chef's choice of beer, drizzled with BBQ sauce.",
+          "name": "BBQ Pulled Pork Loaded Fries or Tots",
+          "description": "Fresh-cut fries or tots loaded with shredded cheese, caramelized onions, scallions, and our pulled pork braised in-house with our chef's choice of beer, drizzled with BBQ sauce.",
           "price": 15
         }
       ]
@@ -217,32 +217,39 @@
     },
     {
       "category": "Cheesesteaks",
+      "description": "Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2). All cheesesteaks also available as wraps.",
       "items": [
         {
           "name": "Classic Cheesesteak",
-          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Thin-sliced steak, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1).",
           "price": 16
         },
         {
           "name": "Mushroom & Swiss Cheesesteak",
-          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll. Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Thin-sliced steak topped with sautéed mushrooms, grilled onions, and melted Swiss on a toasted roll.",
           "price": 17
         },
         {
           "name": "Classic Chicken Cheesesteak",
-          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Thin-sliced chicken, grilled onions, and melted American cheese piled high on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1).",
           "price": 16
         },
         {
           "name": "Buffalo Chicken Cheesesteak",
-          "description": "Shaved grilled chicken, tossed in classic buffalo sauce, topped with melted American cheese on a toasted roll. Substitute American cheese for Swiss Cheese or our House Beer Cheese (+1). Served with a side of fresh-cut fries. Sub tots (+1) or Side Salad (+2).",
+          "description": "Shaved grilled chicken, tossed in classic buffalo sauce, mixed with crumbled blue cheese on a toasted roll. Substitute our House Beer Cheese (+1).",
           "price": 17
         }
       ]
     },
     {
       "category": "Handhelds",
+      "description": "Served with house tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
       "items": [
+        {
+          "name": "Street Tacos",
+          "description": "Two tacos with your choice of cilantro-lime chicken, chipotle-honey shrimp, or veggie with mushrooms, peppers, and onions, topped with onion, cilantro, and radish, and served with a lime wedge.",
+          "price": 8
+        },
         {
           "name": "Hot Dogs & Fries",
           "description": "Two 1/4 pound hot dogs served with a side of fries. Sub Tots (+1).",
@@ -250,17 +257,17 @@
         },
         {
           "name": "B.A.L.T. Wrap",
-          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips.",
           "price": 14
         },
         {
-          "name": "Smoked Turkey Caesar Wrap",
-          "description": "Smoked turkey breast, romaine, shaved parmesan, sun-dried tomatoes, creamy pesto-caesar dressing, served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "name": "Strawberry Chickpea Wrap",
+          "description": "Fresh strawberries, crisp cucumber, chickpeas, shredded carrot, pepitas, dried cranberries, grated parmesan, and spring mix, wrapped in a flour tortilla with lemon vinaigrette.",
           "price": 14
         },
         {
           "name": "Pesto Chicken Wrap",
-          "description": "Pesto, grilled chicken, arugula, fresh mozzarella, tomato, wrapped in a flour tortilla. Served with house-made tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
+          "description": "Pesto, grilled chicken, arugula, fresh mozzarella, tomato, wrapped in a flour tortilla.",
           "price": 15
         }
       ]
@@ -274,13 +281,13 @@
           "price": 15
         },
         {
-          "name": "Butternut Squash & Goat Cheese",
-          "description": "Roasted butternut squash, caramelized onions, goat cheese, and arugula finished with our maple balsamic glaze on a crisp flatbread.",
+          "name": "Garden Harvest",
+          "description": "Warm flatbread topped with creamy goat cheese, roasted yams, pickled red onion, fresh arugula, and a maple-balsamic drizzle.",
           "price": 16
         },
         {
-          "name": "BBQ Short Rib",
-          "description": "Short Rib braised in-house with our chef's choice of beer, cheddar jack, and caramelized onions over BBQ sauce, finished with scallions and a drizzle of our maple balsamic glaze on a crisp flatbread.",
+          "name": "BBQ Pulled Pork",
+          "description": "Warm flatbread topped with cheddar jack cheese, tender pulled pork, caramelized onions, scallions, BBQ sauce, and a maple-balsamic drizzle.",
           "price": 17
         }
       ]
@@ -289,29 +296,38 @@
       "category": "Salads",
       "items": [
         {
-          "name": "Classic Caesar Salad",
+          "name": "Classic Caesar",
           "description": "Crisp romaine lettuce, shaved Parmesan, garlic croutons, and creamy Caesar dressing. Add grilled chicken (+3) or grilled shrimp (+4).",
           "price": 13
         },
         {
-          "name": "Autumn Brussels & Apple Salad",
-          "description": "Shaved Brussels sprouts, arugula, sliced green apples, bacon crumbles, and shredded cheddar jack tossed in a light maple-dijon vinaigrette.",
+          "name": "Blue Cheese & Pear",
+          "description": "Crisp romaine topped with smoky bacon, blue cheese crumbles, fresh pear, cucumber, and pickled red onion, finished with lemon vinaigrette and a maple-balsamic drizzle.",
           "price": 16
         },
         {
-          "name": "Harvest Maple Salad",
-          "description": "Mixed greens, roasted butternut squash, candied pecans, dried cranberries, goat cheese, served with our maple-dijon vinaigrette.",
-          "price": 17
+          "name": "Spring Berry",
+          "description": "A bright, fresh salad of spring mix, mixed berries, goat cheese, red onion, and candied pecans, finished with strawberry vinaigrette.",
+          "price": 16
         }
       ]
     },
     {
-      "category": "Soups",
+      "category": "Desserts",
       "items": [
         {
-          "name": "Soup du Jour",
-          "description": "A hearty bowl of our chef's latest creation. Ask your server or bartender what is on tap this week!",
-          "price": 8
+          "name": "Scoop of Ice Cream",
+          "description": "Now featuring ice cream from Hangry Bear Creamery in Kennett Square, PA. Choose from Vanilla, Chocolate, or Strawberry. Single - $4 / Double - $6."
+        },
+        {
+          "name": "Soda Float",
+          "description": "A classic treat - a scoop of Hangry Bear vanilla ice cream topped with your choice of root beer, Coke, or Diet Coke.",
+          "price": 7
+        },
+        {
+          "name": "Beer Float",
+          "description": "A grown-up twist on a classic - a scoop of Hangry Bear vanilla ice cream topped with your choice of Tundra Buck or Irish Stout for a rich, creamy finish. *Contains alcohol.",
+          "price": 9
         }
       ]
     }
@@ -451,5 +467,5 @@
       ]
     }
   ],
-  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot", "Lemon Pepper", "Garlic Parmesan"]
+  "sauces": ["Mango Habanero", "Kickin' Bourbon", "Sweet Red Chili", "Classic BBQ", "Classic Buffalo", "Nashville Hot", "Hot Honey", "Garlic Parmesan"]
 }
