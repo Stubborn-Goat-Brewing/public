@@ -326,10 +326,11 @@ export default function MenuPage() {
                                       key={itemIdx}
                                       className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
                                     >
-                                      {item.name} - ${item.price}
+                                      {item.name}
                                     </span>
                                   ))}
                               </div>
+                              <p className="mt-3 text-sm font-bold text-primary">$10 each</p>
                             </div>
                           </div>
                         </CardContent>
