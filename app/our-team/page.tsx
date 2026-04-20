@@ -164,12 +164,12 @@ export default function OurTeamPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {teamMembers.map((member, index) => (
                 <Card key={index} className="overflow-hidden border-2 border-primary/20 hover:border-primary/40 transition-colors">
-                  <div className="aspect-square relative bg-muted overflow-hidden">
+                  <div className="aspect-square relative bg-white overflow-hidden">
                     <Image
                       src={member.image}
                       alt={`${member.firstName} "${member.nickname}" ${member.lastName}`}
                       fill
-                      className="object-cover object-[center_30%] scale-110"
+                      className="object-cover"
                     />
                   </div>
                   <CardContent className="p-6">
