@@ -240,7 +240,7 @@ export default function MenuPage() {
                         <div className="flex flex-col md:flex-row items-center gap-6">
                           <div className="shrink-0">
                             <Image
-                              src="/images/wayvine-logo.jpg"
+                              src="/images/wayvine-logo.webp"
                               alt="Wayvine Winery & Vineyard"
                               width={150}
                               height={150}
