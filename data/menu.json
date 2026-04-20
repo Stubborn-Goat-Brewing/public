@@ -37,14 +37,6 @@
       "fourPackAvailable": true
     },
     {
-      "name": "Crisp",
-      "style": "American-Style Lager",
-      "abv": 4.8,
-      "description": "From New Trail Brewing in Williamsport, PA. A brilliant golden beer that's full-flavored, refreshing, and above all, Crisp.",
-      "category": "guest-tap",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
       "name": "Tundra Buck",
       "style": "Winter Spiced Stout",
       "abv": 7.9,
