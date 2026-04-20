@@ -12,6 +12,7 @@ interface MenuItem {
   name: string
   description: string
   price?: number
+  varieties?: string[]
 }
 
 interface MenuCategory {
@@ -268,6 +269,57 @@ export default function MenuPage() {
                         </div>
                       </CardContent>
                     </Card>
+                  ) : section.category === "Non-Alcoholic" ? (
+                    <div className="space-y-6 max-w-2xl mx-auto">
+                      {section.items.map((item, itemIdx) =>
+                        item.varieties ? (
+                          <Card key={itemIdx} className="bg-card">
+                            <CardContent className="p-6 md:p-8">
+                              <div className="flex flex-col md:flex-row items-center gap-6">
+                                <div className="shrink-0">
+                                  <Image
+                                    src="/images/athletic-brewing-logo.jpg"
+                                    alt="Athletic Brewing Co."
+                                    width={150}
+                                    height={150}
+                                    className="rounded-lg"
+                                  />
+                                </div>
+                                <div className="text-center md:text-left">
+                                  <h4 className="text-xl font-bold mb-2">Athletic Brewing Co.</h4>
+                                  <p className="text-muted-foreground mb-4">{item.description}</p>
+                                  <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                                    {item.varieties.map((variety, varietyIdx) => (
+                                      <span
+                                        key={varietyIdx}
+                                        className="px-4 py-2 bg-primary/10 rounded-full text-sm font-medium"
+                                      >
+                                        {variety}
+                                      </span>
+                                    ))}
+                                  </div>
+                                  {item.price && (
+                                    <p className="mt-4 text-lg font-bold text-primary">${item.price} each</p>
+                                  )}
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ) : (
+                          <Card key={itemIdx} className="bg-card">
+                            <CardHeader>
+                              <div className="flex items-start justify-between">
+                                <CardTitle className="text-lg">{item.name}</CardTitle>
+                                {item.price && <span className="text-lg font-bold text-primary">${item.price}</span>}
+                              </div>
+                            </CardHeader>
+                            <CardContent>
+                              <CardDescription className="text-base">{item.description}</CardDescription>
+                            </CardContent>
+                          </Card>
+                        )
+                      )}
+                    </div>
                   ) : (
                     <div className="grid gap-6 md:grid-cols-2">
                       {section.items.map((item, itemIdx) => (

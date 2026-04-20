@@ -439,9 +439,10 @@
       "category": "Non-Alcoholic",
       "items": [
         {
-          "name": "Athletic Brewing Cans",
-          "description": "Award-winning, craft non-alcoholic beers for those who want the full flavor of a craft brew without the alcohol. Run Wild (IPA), Free Wave (Hazy IPA), Upside Dawn (Golden Ale).",
-          "price": 6
+          "name": "Athletic Brewing",
+          "description": "Award-winning, craft non-alcoholic beers for those who want the full flavor of a craft brew without the alcohol.",
+          "price": 6,
+          "varieties": ["Run Wild (IPA)", "Free Wave (Hazy IPA)", "Upside Dawn (Golden Ale)"]
         },
         {
           "name": "Soft Drinks",
