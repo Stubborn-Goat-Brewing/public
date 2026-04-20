@@ -30,7 +30,7 @@ const teamMembers: TeamMember[] = [
     lastName: "Hildreth",
     image: "/images/team/madison-hildreth.png",
     description:
-      "A Stubborn Goat original, Madison has been a fan favorite of at least 50% of our customers since the early days. Known for her snarky attitude and her signature \"that's not my fault\" approach to conflict resolution, she's become a staple on most nights here at The Goat. When she's not ensuring our customers have an awesome experience, you'll find her picking on her uncle, bossing around her nephews, and using her incredible smile to light up the place each day.",
+      "A Stubborn Goat original, Madison has been a fan favorite of at least 50% of our customers since the early days. Known for her snarky attitude and her signature \"that's not my fault\" approach to conflict resolution, she's become a staple on most nights here at The Goat. When she's not ensuring our customers have an awesome experience, you'll find her picking on her uncle, bossing around her nephews, and using her incredible smile to light up the place each day. Outside of work, Madison cherishes her garden gnomes and runs an underground Magic: The Gathering league.",
   },
 ]
 
