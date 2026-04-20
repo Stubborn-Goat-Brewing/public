@@ -264,9 +264,9 @@ export default function MenuPage() {
                 {menuData.drinks
                   .filter((section) => section.category === "Canned Cocktails")
                   .map((section) => (
-                    <div key="canned-cocktails">
+                    <div key="canned-cocktails" className="flex flex-col">
                       <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Canned Cocktails</h3>
-                      <Card className="bg-card h-full">
+                      <Card className="bg-card flex-1">
                         <CardContent className="p-6">
                           <div className="flex flex-col items-center text-center gap-4">
                             <Image
@@ -303,9 +303,9 @@ export default function MenuPage() {
                 {menuData.drinks
                   .filter((section) => section.category === "Wine")
                   .map((section) => (
-                    <div key="wine">
+                    <div key="wine" className="flex flex-col">
                       <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Wine</h3>
-                      <Card className="bg-card h-full">
+                      <Card className="bg-card flex-1">
                         <CardContent className="p-6">
                           <div className="flex flex-col items-center text-center gap-4">
                             <Image
@@ -346,9 +346,9 @@ export default function MenuPage() {
                     section.items
                       .filter((item) => item.name === "Athletic Brewing")
                       .map((item) => (
-                        <div key="na-beer">
+                        <div key="na-beer" className="flex flex-col">
                           <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Non-Alcoholic Beer</h3>
-                          <Card className="bg-card h-full">
+                          <Card className="bg-card flex-1">
                             <CardContent className="p-6">
                               <div className="flex flex-col items-center text-center gap-4">
                                 <Image
@@ -389,9 +389,9 @@ export default function MenuPage() {
                     section.items
                       .filter((item) => item.name === "Soft Drinks")
                       .map((item) => (
-                        <div key="soft-drinks">
+                        <div key="soft-drinks" className="flex flex-col">
                           <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Soft Drinks</h3>
-                          <Card className="bg-card h-full">
+                          <Card className="bg-card flex-1">
                             <CardContent className="p-6">
                               <div className="flex flex-col items-center text-center gap-4">
                                 <Image
