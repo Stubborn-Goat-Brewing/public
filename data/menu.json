@@ -389,19 +389,12 @@
       "category": "Canned Cocktails",
       "items": [
         {
-          "name": "Vodka Soda (4.5%)",
-          "description": "Light, crisp, and refreshing. These ready-to-drink cocktails blend premium vodka with sparkling soda and natural flavors. Available in: Grapefruit Citrus, Pineapple Mango, Cherry Berry, Orange Citrus, Cranberry Lime.",
-          "price": 9
-        },
-        {
-          "name": "Iced Tea & Vodka (4.5%)",
-          "description": "Rosenberger's iced tea mixed with high quality vodka from Boardroom Spirits.",
-          "price": 9
-        },
-        {
-          "name": "Crimson Crush Lemonade (5%)",
-          "description": "A refreshingly juicy vodka lemonade that is crimson red from a real hibiscus flower infusion.",
-          "price": 9
+          "name": "Boardroom Spirits",
+          "description": "Light, crisp, and refreshing ready-to-drink cocktails crafted by Boardroom Spirits in Lansdale, PA.",
+          "price": 9,
+          "varieties": ["Vodka Soda (4.5%)", "Iced Tea & Vodka (4.5%)", "Crimson Crush Lemonade (5%)"],
+          "logo": "/images/boardroom-spirits-logo.png",
+          "logoAlt": "Boardroom Spirits"
         }
       ]
     },

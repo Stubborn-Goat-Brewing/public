@@ -271,6 +271,39 @@ export default function MenuPage() {
                         </div>
                       </CardContent>
                     </Card>
+                  ) : section.category === "Canned Cocktails" ? (
+                    <Card className="bg-card max-w-2xl mx-auto">
+                      <CardContent className="p-6 md:p-8">
+                        <div className="flex flex-col md:flex-row items-center gap-6">
+                          <div className="shrink-0">
+                            <Image
+                              src={section.items[0]?.logo || "/images/boardroom-spirits-logo.png"}
+                              alt={section.items[0]?.logoAlt || "Boardroom Spirits"}
+                              width={150}
+                              height={150}
+                              className="rounded-lg"
+                            />
+                          </div>
+                          <div className="text-center md:text-left">
+                            <h4 className="text-xl font-bold mb-2">{section.items[0]?.name}</h4>
+                            <p className="text-muted-foreground mb-4">{section.items[0]?.description}</p>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                              {section.items[0]?.varieties?.map((variety, varietyIdx) => (
+                                <span
+                                  key={varietyIdx}
+                                  className="px-4 py-2 bg-primary/10 rounded-full text-sm font-medium"
+                                >
+                                  {variety}
+                                </span>
+                              ))}
+                            </div>
+                            {section.items[0]?.price && (
+                              <p className="mt-4 text-lg font-bold text-primary">${section.items[0].price} each</p>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   ) : section.category === "Non-Alcoholic" ? (
                     <div className="space-y-6 max-w-2xl mx-auto">
                       {section.items.map((item, itemIdx) =>
