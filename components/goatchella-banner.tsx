@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, Clock, Music, Beer, Users, Ticket } from "lucide-react"
+import { Calendar, Clock, MapPin, Music, Beer, Users, Ticket } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function GoatchellaBanner() {
