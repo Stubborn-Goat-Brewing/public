@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, MapPin, Clock, Music, Beer, Users, Sparkles } from "lucide-react"
+import { Calendar, MapPin, Clock, Music, Beer, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function GoatchellaBanner() {
@@ -10,106 +10,73 @@ export function GoatchellaBanner() {
       style={{
         backgroundImage: "url('/images/goatchella-banner.jpg')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center top",
       }}
     >
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
       
-      <div className="relative container px-4 py-12 md:py-16 lg:py-20">
-        {/* Event details card - overlaid on banner */}
-        <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 md:p-8">
-          {/* Header */}
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
-              <Sparkles className="h-4 w-4" />
-              First Anniversary Celebration
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 tracking-tight">
+      <div className="relative container px-4 pt-48 md:pt-56 lg:pt-64 pb-8 md:pb-10">
+        {/* Event details card - positioned at bottom to show logo above */}
+        <div className="max-w-3xl mx-auto bg-black/50 backdrop-blur-md rounded-xl p-5 md:p-6 border border-white/10">
+          {/* Compact Header */}
+          <div className="text-center mb-4">
+            <p className="text-amber-400 font-semibold text-sm uppercase tracking-wider mb-1">
+              First Anniversary Celebration - Free Event
+            </p>
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
               GOATCHELLA
             </h2>
-            <p className="text-amber-700 font-semibold text-lg mt-2">Free Community Event</p>
           </div>
 
-          {/* Key details grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="flex items-center gap-3 bg-amber-50 rounded-lg p-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center">
-                <Calendar className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs text-amber-700 font-medium uppercase tracking-wide">Date</p>
-                <p className="text-zinc-900 font-bold">Saturday, June 6, 2026</p>
-              </div>
+          {/* Key details - inline on larger screens */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 md:gap-6 mb-4 text-white">
+            <div className="flex items-center gap-2 justify-center">
+              <Calendar className="h-4 w-4 text-amber-400" />
+              <span className="text-sm font-medium">Saturday, June 6, 2026</span>
             </div>
-            
-            <div className="flex items-center gap-3 bg-amber-50 rounded-lg p-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center">
-                <Clock className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs text-amber-700 font-medium uppercase tracking-wide">Time</p>
-                <p className="text-zinc-900 font-bold">12:00 PM - 9:00 PM</p>
-              </div>
+            <div className="hidden md:block w-px h-4 bg-white/30" />
+            <div className="flex items-center gap-2 justify-center">
+              <Clock className="h-4 w-4 text-amber-400" />
+              <span className="text-sm font-medium">12:00 PM - 9:00 PM</span>
             </div>
-            
-            <div className="flex items-center gap-3 bg-amber-50 rounded-lg p-4">
-              <div className="flex-shrink-0 w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center">
-                <MapPin className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs text-amber-700 font-medium uppercase tracking-wide">Location</p>
-                <p className="text-zinc-900 font-bold text-sm">West Grove Memorial Park</p>
-                <p className="text-zinc-600 text-xs">West Grove, PA</p>
-              </div>
+            <div className="hidden md:block w-px h-4 bg-white/30" />
+            <div className="flex items-center gap-2 justify-center">
+              <MapPin className="h-4 w-4 text-amber-400" />
+              <span className="text-sm font-medium">West Grove Memorial Park, PA</span>
             </div>
           </div>
 
-          {/* Features */}
-          <div className="border-t border-amber-200 pt-6 mb-6">
-            <h3 className="text-center text-zinc-900 font-bold text-lg mb-4">What to Expect</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-              <div className="bg-zinc-50 rounded-lg p-3">
-                <Music className="h-6 w-6 text-amber-600 mx-auto mb-2" />
-                <p className="text-zinc-900 font-semibold text-sm">Live Music</p>
-              </div>
-              <div className="bg-zinc-50 rounded-lg p-3">
-                <Beer className="h-6 w-6 text-amber-600 mx-auto mb-2" />
-                <p className="text-zinc-900 font-semibold text-sm">Beer Garden</p>
-              </div>
-              <div className="bg-zinc-50 rounded-lg p-3">
-                <Users className="h-6 w-6 text-amber-600 mx-auto mb-2" />
-                <p className="text-zinc-900 font-semibold text-sm">Family Fun</p>
-              </div>
-              <div className="bg-zinc-50 rounded-lg p-3">
-                <svg className="h-6 w-6 text-amber-600 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3" />
-                  <path d="M12 19H4a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-3.83" />
-                  <path d="m3 11 7.77-6.04a2 2 0 0 1 2.46 0L21 11H3Z" />
-                  <path d="M12 19v3" />
-                </svg>
-                <p className="text-zinc-900 font-semibold text-sm">Local Vendors</p>
-              </div>
-            </div>
+          {/* Features - compact row */}
+          <div className="flex flex-wrap justify-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+              <Music className="h-3 w-3 text-amber-400" />
+              Live Music
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+              <Beer className="h-3 w-3 text-amber-400" />
+              Beer Garden
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+              <Users className="h-3 w-3 text-amber-400" />
+              Family Fun
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+              20+ Local Vendors
+            </span>
           </div>
 
-          {/* Description */}
-          <div className="text-center mb-6">
-            <p className="text-zinc-700 leading-relaxed">
-              Join us for an unforgettable day celebrating our first year! Enjoy <strong>live music all day</strong>, 
-              a <strong>beer garden</strong>, and <strong>family-friendly activities</strong> including a bounce house, 
-              dunk tank, and lawn games. Browse <strong>20+ local businesses</strong>, support <strong>Alex&apos;s Lemonade Stand</strong>, 
-              and enjoy plenty of <strong>food and drinks</strong>. Good people, great beer, unforgettable weekend!
-            </p>
-          </div>
+          {/* Compact description */}
+          <p className="text-white/80 text-sm text-center mb-4 max-w-2xl mx-auto leading-relaxed">
+            Bounce house, dunk tank, lawn games, Alex&apos;s Lemonade Stand, food, drinks, and activities all day!
+          </p>
 
           {/* CTA */}
           <div className="text-center">
             <Button 
               asChild 
-              size="lg" 
-              className="bg-amber-600 hover:bg-amber-700 text-white font-bold text-lg px-8 py-6 shadow-lg"
+              size="sm" 
+              className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-6 shadow-lg"
             >
               <a 
                 href="https://www.google.com/maps/search/?api=1&query=West+Grove+Memorial+Park+West+Grove+PA" 
@@ -117,13 +84,10 @@ export function GoatchellaBanner() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
-                <MapPin className="h-5 w-5" />
+                <MapPin className="h-4 w-4" />
                 Get Directions
               </a>
             </Button>
-            <p className="text-amber-700 font-medium mt-3 text-sm">
-              Free Admission - All Are Welcome!
-            </p>
           </div>
         </div>
       </div>
