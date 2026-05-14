@@ -21,7 +21,7 @@ export default function Home() {
         }
       `}</style>
 
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-40 w-full border-b bg-amber-900 text-white">
         {/* <AnnouncementBanner
           message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
           linkText="Show me more"
@@ -78,7 +78,7 @@ export default function Home() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-background/95 backdrop-blur">
+          <div className="md:hidden border-t bg-amber-900">
             <nav className="container py-4 flex flex-col space-y-4">
               <Link
                 href="/menu"
