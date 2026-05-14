@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, MapPin, Clock, Music, Beer, Users, Ticket } from "lucide-react"
+import { Calendar, Clock, Music, Beer, Users, Ticket } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function GoatchellaBanner() {
@@ -82,8 +82,8 @@ export function GoatchellaBanner() {
               plus plenty of food, drinks &amp; activities for the whole family!
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            {/* CTA */}
+            <div className="flex justify-center">
               <Button 
                 asChild 
                 size="lg" 
@@ -95,22 +95,6 @@ export function GoatchellaBanner() {
                 >
                   <Ticket className="h-5 w-5" />
                   Reserve Your Free Tickets
-                </a>
-              </Button>
-              <Button 
-                asChild 
-                size="lg" 
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10"
-              >
-                <a 
-                  href="https://www.google.com/maps/search/?api=1&query=West+Grove+Memorial+Park+West+Grove+PA" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2"
-                >
-                  <MapPin className="h-4 w-4" />
-                  Get Directions
                 </a>
               </Button>
             </div>
