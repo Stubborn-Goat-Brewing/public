@@ -1,7 +1,6 @@
 "use client"
 
-import { Calendar, Clock, MapPin, Music, Beer, Users, Ticket } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Calendar, Clock, MapPin, Music, Beer, Users } from "lucide-react"
 
 export function GoatchellaBanner() {
   return (
@@ -77,27 +76,10 @@ export function GoatchellaBanner() {
             </div>
 
             {/* Description */}
-            <p className="text-white/80 text-sm md:text-base text-center mb-5 md:mb-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/80 text-sm md:text-base text-center max-w-2xl mx-auto leading-relaxed">
               Join us for a day of fun featuring a bounce house, dunk tank, lawn games, Alex&apos;s Lemonade Stand, 
               plus plenty of food, drinks &amp; activities for the whole family!
             </p>
-
-            {/* CTA */}
-            <div className="flex justify-center">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-8 shadow-lg"
-              >
-                <a 
-                  href="#" 
-                  className="flex items-center gap-2"
-                >
-                  <Ticket className="h-5 w-5" />
-                  Reserve Your Free Tickets
-                </a>
-              </Button>
-            </div>
           </div>
         </div>
       </div>
