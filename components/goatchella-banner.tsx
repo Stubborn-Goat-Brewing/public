@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, Clock, MapPin, Music, Beer, Users } from "lucide-react"
+import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed } from "lucide-react"
 
 export function GoatchellaBanner() {
   return (
@@ -69,6 +69,10 @@ export function GoatchellaBanner() {
               <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-sm text-white">
                 <Users className="h-4 w-4 text-amber-400" />
                 Family Fun
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-sm text-white">
+                <UtensilsCrossed className="h-4 w-4 text-amber-400" />
+                Food
               </span>
               <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-sm text-white">
                 20+ Local Vendors
