@@ -31,7 +31,7 @@ export default function Home() {
         <div className="container flex h-16 items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/images/goat-head-new.png"
+              src="/images/goat-head-white.png"
               alt="Stubborn Goat Brewing Logo"
               width={40}
               height={40}
