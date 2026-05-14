@@ -1,30 +1,24 @@
 "use client"
 
-import Image from "next/image"
 import { Calendar, MapPin, Clock, Music, Beer, Users, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function GoatchellaBanner() {
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-amber-950 via-amber-900 to-amber-950">
-      {/* Decorative pennant banner at top */}
-      <div className="absolute top-0 left-0 right-0 h-8 bg-[repeating-linear-gradient(90deg,#dc2626_0px,#dc2626_40px,#2563eb_40px,#2563eb_80px,#16a34a_80px,#16a34a_120px,#eab308_120px,#eab308_160px,#9333ea_160px,#9333ea_200px,#f97316_200px,#f97316_240px)] opacity-80" />
+    <section 
+      className="relative w-full overflow-hidden"
+      style={{
+        backgroundImage: "url('/images/goatchella-banner.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/40" />
       
-      <div className="container px-4 py-8 md:py-12">
-        {/* Main banner image */}
-        <div className="relative rounded-xl overflow-hidden shadow-2xl mb-6 md:mb-8 border-4 border-amber-400/30">
-          <Image
-            src="/images/goatchella-banner.jpg"
-            alt="Goatchella Birthday Celebration - Stubborn Goat Brewing's First Anniversary"
-            width={1200}
-            height={400}
-            priority
-            className="w-full h-auto object-cover"
-          />
-        </div>
-
-        {/* Event details card */}
-        <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur rounded-2xl shadow-xl p-6 md:p-8 border-2 border-amber-400">
+      <div className="relative container px-4 py-12 md:py-16 lg:py-20">
+        {/* Event details card - overlaid on banner */}
+        <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 md:p-8">
           {/* Header */}
           <div className="text-center mb-6">
             <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
@@ -133,9 +127,6 @@ export function GoatchellaBanner() {
           </div>
         </div>
       </div>
-
-      {/* Decorative pennant banner at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-8 bg-[repeating-linear-gradient(90deg,#9333ea_0px,#9333ea_40px,#f97316_40px,#f97316_80px,#eab308_80px,#eab308_120px,#16a34a_120px,#16a34a_160px,#2563eb_160px,#2563eb_200px,#dc2626_200px,#dc2626_240px)] opacity-80" />
     </section>
   )
 }
