@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
+import { GoatchellaBanner } from "@/components/goatchella-banner"
 import { useState } from "react"
 
 export default function Home() {
@@ -129,6 +130,9 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
+        {/* Goatchella Anniversary Event Banner */}
+        <GoatchellaBanner />
+
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 bg-black/40 z-10" />
