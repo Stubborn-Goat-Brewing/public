@@ -2,6 +2,7 @@
 
 import { Calendar, MapPin, Clock, Music, Beer, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 
 export function GoatchellaBanner() {
   return (
@@ -14,23 +15,20 @@ export function GoatchellaBanner() {
       }}
     >
       {/* Subtle overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
       
-      <div className="relative container px-4 pt-48 md:pt-56 lg:pt-64 pb-8 md:pb-10">
-        {/* Event details card - positioned at bottom to show logo above */}
-        <div className="max-w-3xl mx-auto bg-black/50 backdrop-blur-md rounded-xl p-5 md:p-6 border border-white/10">
+      <div className="relative container px-4 pt-56 md:pt-64 lg:pt-72 pb-0">
+        {/* Event details card - positioned at bottom to show logo and Goatchella text above */}
+        <div className="max-w-3xl mx-auto bg-black/40 backdrop-blur-sm rounded-t-xl p-4 md:p-5 border border-white/10 border-b-0">
           {/* Compact Header */}
-          <div className="text-center mb-4">
-            <p className="text-amber-400 font-semibold text-sm uppercase tracking-wider mb-1">
+          <div className="text-center mb-3">
+            <p className="text-amber-400 font-semibold text-xs uppercase tracking-wider mb-1">
               First Anniversary Celebration - Free Event
             </p>
-            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-              GOATCHELLA
-            </h2>
           </div>
 
           {/* Key details - inline on larger screens */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 md:gap-6 mb-4 text-white">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-2 md:gap-5 mb-3 text-white">
             <div className="flex items-center gap-2 justify-center">
               <Calendar className="h-4 w-4 text-amber-400" />
               <span className="text-sm font-medium">Saturday, June 6, 2026</span>
@@ -48,27 +46,27 @@ export function GoatchellaBanner() {
           </div>
 
           {/* Features - compact row */}
-          <div className="flex flex-wrap justify-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+          <div className="flex flex-wrap justify-center gap-2 mb-3">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-2.5 py-0.5 text-xs text-white">
               <Music className="h-3 w-3 text-amber-400" />
               Live Music
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-2.5 py-0.5 text-xs text-white">
               <Beer className="h-3 w-3 text-amber-400" />
               Beer Garden
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-2.5 py-0.5 text-xs text-white">
               <Users className="h-3 w-3 text-amber-400" />
               Family Fun
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-xs text-white">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-2.5 py-0.5 text-xs text-white">
               20+ Local Vendors
             </span>
           </div>
 
           {/* Compact description */}
-          <p className="text-white/80 text-sm text-center mb-4 max-w-2xl mx-auto leading-relaxed">
-            Bounce house, dunk tank, lawn games, Alex&apos;s Lemonade Stand, food, drinks, and activities all day!
+          <p className="text-white/80 text-xs text-center mb-3 max-w-2xl mx-auto leading-relaxed">
+            Bounce house, dunk tank, lawn games, Alex&apos;s Lemonade Stand, food, drinks &amp; activities all day!
           </p>
 
           {/* CTA */}
@@ -76,7 +74,7 @@ export function GoatchellaBanner() {
             <Button 
               asChild 
               size="sm" 
-              className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-6 shadow-lg"
+              className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 shadow-lg h-8 text-xs"
             >
               <a 
                 href="https://www.google.com/maps/search/?api=1&query=West+Grove+Memorial+Park+West+Grove+PA" 
@@ -84,11 +82,16 @@ export function GoatchellaBanner() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-3.5 w-3.5" />
                 Get Directions
               </a>
             </Button>
           </div>
+        </div>
+
+        {/* Upcoming Events Carousel - integrated into the banner */}
+        <div className="max-w-3xl mx-auto">
+          <UpcomingEventsBanner />
         </div>
       </div>
     </section>

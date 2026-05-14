@@ -5,7 +5,6 @@ import Link from "next/link"
 import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
-import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
 import { GoatchellaBanner } from "@/components/goatchella-banner"
 import { useState } from "react"
@@ -136,7 +135,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="relative min-h-[60vh] md:min-h-[80vh] bg-black">
+          <div className="relative min-h-[40vh] md:min-h-[50vh] bg-black">
             <Image
               src="/images/brewery-exterior-sunset.jpg"
               alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
@@ -145,7 +144,7 @@ export default function Home() {
               className="object-cover object-top"
             />
             <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white px-4">
-              <div className="flex flex-col items-center max-w-4xl mx-auto py-8 md:pt-16 md:pb-16 w-full">
+              <div className="flex flex-col items-center max-w-4xl mx-auto py-8 md:pt-12 md:pb-12 w-full">
                 <Image
                   src="/images/full-logo.png"
                   alt="Stubborn Goat Brewing"
@@ -156,9 +155,6 @@ export default function Home() {
                 <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl px-4">
                   Welcome to Stubborn Goat Brewing
                 </h1>
-                <div className="w-full mt-4 md:mt-8 mb-2 md:mb-4 -mx-4">
-                  <UpcomingEventsBanner />
-                </div>
                 <div className="w-full mt-2 md:mt-4 mb-2 md:mb-4 -mx-4">
                   <EventPromoCarousel />
                 </div>
