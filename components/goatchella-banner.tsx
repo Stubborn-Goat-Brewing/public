@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, MapPin, Clock, Music, Beer, Users } from "lucide-react"
+import { Calendar, MapPin, Clock, Music, Beer, Users, Ticket } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function GoatchellaBanner() {
@@ -23,31 +23,37 @@ export function GoatchellaBanner() {
       {/* Extended section with black background for info container */}
       <div className="relative bg-black">
         <div className="container px-4 py-6 md:py-8">
-          {/* Event details card - less compressed */}
+          {/* Event details card */}
           <div className="max-w-3xl mx-auto bg-black/40 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-white/10 -mt-12 md:-mt-16 relative z-10">
             {/* Header */}
             <div className="text-center mb-4 md:mb-6">
               <p className="text-amber-400 font-semibold text-sm md:text-base uppercase tracking-wider mb-2">
                 First Anniversary Celebration
               </p>
-              <p className="text-white/70 text-sm">Free Event - All Are Welcome</p>
+            </div>
+
+            {/* Free admission highlight */}
+            <div className="flex justify-center mb-5 md:mb-6">
+              <div className="bg-gradient-to-r from-amber-500 to-amber-400 text-black font-bold text-base md:text-lg px-6 py-2 rounded-full shadow-lg">
+                FREE ADMISSION - ALL AGES WELCOME
+              </div>
             </div>
 
             {/* Key details */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 md:gap-6 mb-5 md:mb-6 text-white">
               <div className="flex items-center gap-2 justify-center">
-                <Calendar className="h-5 w-5 text-amber-400" />
-                <span className="text-base md:text-lg font-medium">Saturday, June 6, 2026</span>
+                <Calendar className="h-5 w-5 text-amber-400 flex-shrink-0" />
+                <span className="text-base md:text-lg font-medium whitespace-nowrap">Saturday, June 6, 2026</span>
               </div>
               <div className="hidden md:block w-px h-5 bg-white/30" />
               <div className="flex items-center gap-2 justify-center">
-                <Clock className="h-5 w-5 text-amber-400" />
-                <span className="text-base md:text-lg font-medium">12:00 PM - 9:00 PM</span>
+                <Clock className="h-5 w-5 text-amber-400 flex-shrink-0" />
+                <span className="text-base md:text-lg font-medium whitespace-nowrap">12:00 PM - 9:00 PM</span>
               </div>
               <div className="hidden md:block w-px h-5 bg-white/30" />
               <div className="flex items-center gap-2 justify-center">
-                <MapPin className="h-5 w-5 text-amber-400" />
-                <span className="text-base md:text-lg font-medium">West Grove Memorial Park, PA</span>
+                <MapPin className="h-5 w-5 text-amber-400 flex-shrink-0" />
+                <span className="text-base md:text-lg font-medium whitespace-nowrap">West Grove Memorial Park</span>
               </div>
             </div>
 
@@ -76,12 +82,26 @@ export function GoatchellaBanner() {
               plus plenty of food, drinks &amp; activities for the whole family!
             </p>
 
-            {/* CTA */}
-            <div className="text-center">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button 
                 asChild 
-                size="default" 
-                className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-6 shadow-lg"
+                size="lg" 
+                className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-8 shadow-lg"
+              >
+                <a 
+                  href="#" 
+                  className="flex items-center gap-2"
+                >
+                  <Ticket className="h-5 w-5" />
+                  Reserve Your Free Tickets
+                </a>
+              </Button>
+              <Button 
+                asChild 
+                size="lg" 
+                variant="outline"
+                className="border-white/30 text-white hover:bg-white/10"
               >
                 <a 
                   href="https://www.google.com/maps/search/?api=1&query=West+Grove+Memorial+Park+West+Grove+PA" 
