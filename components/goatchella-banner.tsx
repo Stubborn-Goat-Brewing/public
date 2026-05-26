@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed, Star, Heart } from "lucide-react"
+import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed, Star, Heart, Store, Palette, Utensils, HandHeart } from "lucide-react"
 import Image from "next/image"
 
 const artistLineup = [
@@ -10,6 +10,38 @@ const artistLineup = [
   { time: "4:00 - 5:30 PM", name: "Dancing Goats" },
   { time: "6:00 - 9:00 PM", name: "Love Seed Mama Jump Trio", headliner: true },
 ]
+
+const vendors = [
+  { name: "Ruff City Pet, LLC", category: "Craft" },
+  { name: "Sita's Crochet", category: "Craft" },
+  { name: "Lady in the Attic", category: "Craft" },
+  { name: "Billy's Bougie Bee", category: "Craft" },
+  { name: "Scrambled Eggers Art", category: "Craft" },
+  { name: "Trish's Custom Creations", category: "Craft" },
+  { name: "Handmade by Huskey", category: "Craft" },
+  { name: "Chambers Woodworking", category: "Craft" },
+  { name: "Nikki's Crafting Corner", category: "Craft" },
+  { name: "Cwynn Studios", category: "Art" },
+  { name: "Franco's Art", category: "Art" },
+  { name: "Simply Sweet", category: "Food" },
+  { name: "Twelves Grill & Cafe", category: "Food" },
+  { name: "Avon Grove Library", category: "Non-Profit" },
+  { name: "School of Rock", category: "Non-Profit" },
+]
+
+const categoryIcons: Record<string, typeof Store> = {
+  Craft: Store,
+  Art: Palette,
+  Food: Utensils,
+  "Non-Profit": HandHeart,
+}
+
+const categoryColors: Record<string, string> = {
+  Craft: "text-amber-400",
+  Art: "text-purple-400",
+  Food: "text-green-400",
+  "Non-Profit": "text-blue-400",
+}
 
 export function GoatchellaBanner() {
   return (
@@ -157,6 +189,49 @@ export function GoatchellaBanner() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Local Vendors Section */}
+            <div className="border-t border-white/10 pt-6 md:pt-8 mt-6 md:mt-8">
+              <div className="text-center mb-6 md:mb-8">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Local Vendors &amp; Businesses</h3>
+                <p className="text-amber-400 text-sm">20+ Local Businesses in Attendance</p>
+              </div>
+
+              {/* Category legend */}
+              <div className="flex flex-wrap justify-center gap-3 mb-6">
+                {Object.entries(categoryColors).map(([category, colorClass]) => {
+                  const IconComponent = categoryIcons[category]
+                  return (
+                    <span key={category} className="inline-flex items-center gap-1.5 text-xs text-white/70">
+                      <IconComponent className={`h-3.5 w-3.5 ${colorClass}`} />
+                      {category}
+                    </span>
+                  )
+                })}
+              </div>
+
+              {/* Vendors grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {vendors.map((vendor, index) => {
+                  const IconComponent = categoryIcons[vendor.category]
+                  const colorClass = categoryColors[vendor.category]
+                  return (
+                    <div 
+                      key={index}
+                      className="group bg-white/5 rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300"
+                    >
+                      <div className="flex items-start gap-2">
+                        <IconComponent className={`h-4 w-4 ${colorClass} flex-shrink-0 mt-0.5`} />
+                        <div className="min-w-0">
+                          <p className="text-white text-sm font-medium leading-tight truncate">{vendor.name}</p>
+                          <p className={`text-xs ${colorClass} opacity-70`}>{vendor.category}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
             {/* Alex's Lemonade Stand Foundation */}
