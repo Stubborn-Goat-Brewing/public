@@ -1,6 +1,7 @@
 "use client"
 
-import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed, Star } from "lucide-react"
+import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed, Star, Heart } from "lucide-react"
+import Image from "next/image"
 
 const artistLineup = [
   { time: "12:15 - 12:45 PM", name: "Ripe Enough" },
@@ -151,6 +152,49 @@ export function GoatchellaBanner() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Alex's Lemonade Stand Foundation */}
+            <div className="border-t border-white/10 pt-6 md:pt-8 mt-6 md:mt-8">
+              <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#003595]/20 via-[#003595]/10 to-[#fd0]/10 border border-[#fd0]/30 p-6 md:p-8">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#fd0]/10 rounded-bl-full" />
+                <div className="absolute bottom-0 left-0 w-20 h-20 bg-[#003595]/10 rounded-tr-full" />
+                
+                <div className="relative flex flex-col md:flex-row items-center gap-6">
+                  {/* ALSF Badge */}
+                  <div className="flex-shrink-0">
+                    <div className="bg-white rounded-lg p-3 shadow-lg">
+                      <Image 
+                        src="/images/alsf-badge.svg" 
+                        alt="Alex's Lemonade Stand Foundation for Childhood Cancer" 
+                        width={100} 
+                        height={120}
+                        className="h-28 w-auto"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="inline-flex items-center gap-2 bg-[#fd0]/20 text-[#fd0] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-3">
+                      <Heart className="h-3 w-3 fill-current" />
+                      Supporting a Great Cause
+                    </div>
+                    <h4 className="text-xl md:text-2xl font-bold text-white mb-2">
+                      {"Alex's Lemonade Stand Foundation"}
+                    </h4>
+                    <p className="text-white/80 text-sm md:text-base leading-relaxed mb-4">
+                      {"We're proud to partner with Alex's Lemonade Stand Foundation to fight childhood cancer. "}
+                      <span className="text-[#fd0] font-semibold">
+                        All proceeds from the dunk tank will be donated to the foundation.
+                      </span>
+                    </p>
+                    <p className="text-white/60 text-sm">
+                      Come take a splash for a cause and help fund research for childhood cancer cures!
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
