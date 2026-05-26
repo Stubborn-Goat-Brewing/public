@@ -48,7 +48,7 @@ export function GoatchellaBanner() {
             </div>
 
             {/* Key details */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 md:gap-6 mb-5 md:mb-6 text-white">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-3 md:gap-6 mb-4 md:mb-5 text-white">
               <div className="flex items-center gap-2 justify-center">
                 <Calendar className="h-5 w-5 text-amber-400 flex-shrink-0" />
                 <span className="text-base md:text-lg font-medium whitespace-nowrap">Saturday, June 6, 2026</span>
@@ -64,6 +64,11 @@ export function GoatchellaBanner() {
                 <span className="text-base md:text-lg font-medium whitespace-nowrap">West Grove Memorial Park</span>
               </div>
             </div>
+
+            {/* Rain or shine notice */}
+            <p className="text-center text-amber-400 font-semibold text-sm md:text-base mb-5 md:mb-6">
+              Rain or Shine Event
+            </p>
 
             {/* Features */}
             <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-5 md:mb-6">
