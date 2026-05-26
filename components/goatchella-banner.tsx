@@ -95,39 +95,62 @@ export function GoatchellaBanner() {
 
             {/* Artist Lineup */}
             <div className="border-t border-white/10 pt-6 md:pt-8">
-              <div className="text-center mb-5 md:mb-6">
+              <div className="text-center mb-6 md:mb-8">
                 <h3 className="text-xl md:text-2xl font-bold text-white mb-1">2026 Artist Lineup</h3>
                 <p className="text-amber-400 text-sm">Live Music All Day</p>
               </div>
               
-              <div className="space-y-3">
-                {artistLineup.map((artist, index) => (
+              {/* 2x2 Grid for first 4 bands */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                {artistLineup.filter(a => !a.headliner).map((artist, index) => (
                   <div 
                     key={index}
-                    className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg transition-colors ${
-                      artist.headliner 
-                        ? "bg-amber-500/20 border border-amber-500/30" 
-                        : "bg-white/5 hover:bg-white/10"
-                    }`}
+                    className="group relative bg-gradient-to-br from-white/10 to-white/5 rounded-xl p-5 border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10"
                   >
-                    <div className="flex items-center gap-2 min-w-[120px] md:min-w-[140px]">
-                      <Clock className="h-4 w-4 text-amber-400 flex-shrink-0" />
-                      <span className="text-white/70 text-sm md:text-base">{artist.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2 flex-1">
-                      {artist.headliner && <Star className="h-4 w-4 text-amber-400 fill-amber-400 flex-shrink-0" />}
-                      <span className={`font-semibold ${artist.headliner ? "text-amber-400 text-base md:text-lg" : "text-white text-sm md:text-base"}`}>
-                        {artist.name}
-                      </span>
-                      {artist.headliner && (
-                        <span className="hidden sm:inline-block text-xs bg-amber-500/30 text-amber-300 px-2 py-0.5 rounded-full ml-2">
-                          Headliner
-                        </span>
-                      )}
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/10 rounded-bl-full" />
+                    <Music className="h-5 w-5 text-amber-400 mb-3" />
+                    <h4 className="text-white font-bold text-lg mb-2 group-hover:text-amber-400 transition-colors">
+                      {artist.name}
+                    </h4>
+                    <div className="flex items-center gap-2 text-white/60">
+                      <Clock className="h-4 w-4 text-amber-400/70" />
+                      <span className="text-sm">{artist.time}</span>
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* Headliner Card */}
+              {artistLineup.filter(a => a.headliner).map((artist, index) => (
+                <div 
+                  key={index}
+                  className="relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-500/20 via-amber-600/10 to-amber-700/20 border-2 border-amber-500/50 p-6 md:p-8"
+                >
+                  {/* Decorative elements */}
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-amber-500/20 rounded-br-full" />
+                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-amber-500/10 rounded-tl-full" />
+                  <div className="absolute top-4 right-4">
+                    <span className="inline-flex items-center gap-1.5 bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                      <Star className="h-3 w-3 fill-current" />
+                      Headliner
+                    </span>
+                  </div>
+                  
+                  <div className="relative text-center pt-4">
+                    <Music className="h-8 w-8 text-amber-400 mx-auto mb-4" />
+                    <h4 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                      {artist.name}
+                    </h4>
+                    <div className="flex items-center justify-center gap-2 text-amber-400">
+                      <Clock className="h-5 w-5" />
+                      <span className="text-lg font-medium">{artist.time}</span>
+                    </div>
+                    <p className="text-white/60 text-sm mt-4 max-w-md mx-auto">
+                      {"Don't miss the biggest act of the day closing out Goatchella 2026!"}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
