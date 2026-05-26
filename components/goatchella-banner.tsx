@@ -128,7 +128,7 @@ export function GoatchellaBanner() {
             {/* Description */}
             <p className="text-white/80 text-sm md:text-base text-center max-w-2xl mx-auto leading-relaxed mb-6 md:mb-8">
               Join us for a day of fun featuring a bounce house, dunk tank, lawn games, Alex&apos;s Lemonade Stand, 
-              plus plenty of food, drinks &amp; activities for the whole family!
+              plus plenty of food, drinks &amp; activities for the whole family! Feel free to bring your own blankets or chairs.
             </p>
 
             {/* Artist Lineup */}
