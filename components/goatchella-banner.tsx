@@ -1,6 +1,14 @@
 "use client"
 
-import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed } from "lucide-react"
+import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed, Star } from "lucide-react"
+
+const artistLineup = [
+  { time: "12:15 - 12:45 PM", name: "Ripe Enough" },
+  { time: "1:15 - 2:00 PM", name: "Small Talk" },
+  { time: "2:30 - 3:30 PM", name: "Restless Diesel" },
+  { time: "4:00 - 5:30 PM", name: "Dancing Goats" },
+  { time: "6:00 - 9:00 PM", name: "Love Seed Mama Jump Trio", headliner: true },
+]
 
 export function GoatchellaBanner() {
   return (
@@ -80,10 +88,47 @@ export function GoatchellaBanner() {
             </div>
 
             {/* Description */}
-            <p className="text-white/80 text-sm md:text-base text-center max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/80 text-sm md:text-base text-center max-w-2xl mx-auto leading-relaxed mb-6 md:mb-8">
               Join us for a day of fun featuring a bounce house, dunk tank, lawn games, Alex&apos;s Lemonade Stand, 
               plus plenty of food, drinks &amp; activities for the whole family!
             </p>
+
+            {/* Artist Lineup */}
+            <div className="border-t border-white/10 pt-6 md:pt-8">
+              <div className="text-center mb-5 md:mb-6">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-1">2026 Artist Lineup</h3>
+                <p className="text-amber-400 text-sm">Live Music All Day</p>
+              </div>
+              
+              <div className="space-y-3">
+                {artistLineup.map((artist, index) => (
+                  <div 
+                    key={index}
+                    className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-lg transition-colors ${
+                      artist.headliner 
+                        ? "bg-amber-500/20 border border-amber-500/30" 
+                        : "bg-white/5 hover:bg-white/10"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 min-w-[120px] md:min-w-[140px]">
+                      <Clock className="h-4 w-4 text-amber-400 flex-shrink-0" />
+                      <span className="text-white/70 text-sm md:text-base">{artist.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2 flex-1">
+                      {artist.headliner && <Star className="h-4 w-4 text-amber-400 fill-amber-400 flex-shrink-0" />}
+                      <span className={`font-semibold ${artist.headliner ? "text-amber-400 text-base md:text-lg" : "text-white text-sm md:text-base"}`}>
+                        {artist.name}
+                      </span>
+                      {artist.headliner && (
+                        <span className="hidden sm:inline-block text-xs bg-amber-500/30 text-amber-300 px-2 py-0.5 rounded-full ml-2">
+                          Headliner
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
