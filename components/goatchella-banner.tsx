@@ -4,11 +4,11 @@ import { Calendar, Clock, MapPin, Music, Beer, Users, UtensilsCrossed, Star, Hea
 import Image from "next/image"
 
 const artistLineup = [
-  { time: "12:15 - 12:45 PM", name: "Ripe Enough" },
-  { time: "1:15 - 2:00 PM", name: "Small Talk" },
-  { time: "2:30 - 3:30 PM", name: "Restless Diesel" },
-  { time: "4:00 - 5:30 PM", name: "Dancing Goats" },
-  { time: "6:00 - 9:00 PM", name: "Love Seed Mama Jump Trio", headliner: true },
+  { time: "12:15 - 12:45 PM", name: "Ripe Enough", image: "/images/bands/ripe-enough.jpg" },
+  { time: "1:15 - 2:00 PM", name: "Small Talk", image: "/images/bands/small-talk.jpg" },
+  { time: "2:30 - 3:30 PM", name: "Restless Diesel", image: "/images/bands/restless-diesel.jpg" },
+  { time: "4:00 - 5:30 PM", name: "Dancing Goats", image: "/images/bands/dancing-goats.jpg" },
+  { time: "6:00 - 9:00 PM", name: "Love Seed Mama Jump Trio", image: "/images/bands/love-seed.jpg", headliner: true },
 ]
 
 const vendors = [
@@ -143,16 +143,27 @@ export function GoatchellaBanner() {
                 {artistLineup.filter(a => !a.headliner).map((artist, index) => (
                   <div 
                     key={index}
-                    className="group relative bg-gradient-to-br from-white/10 to-white/5 rounded-xl p-5 border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10"
+                    className="group relative bg-gradient-to-br from-white/10 to-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10"
                   >
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/10 rounded-bl-full" />
-                    <Music className="h-5 w-5 text-amber-400 mb-3" />
-                    <h4 className="text-white font-bold text-lg mb-2 group-hover:text-amber-400 transition-colors">
-                      {artist.name}
-                    </h4>
-                    <div className="flex items-center gap-2 text-white/60">
-                      <Clock className="h-4 w-4 text-amber-400/70" />
-                      <span className="text-sm">{artist.time}</span>
+                    {/* Band Image */}
+                    <div className="relative w-full h-40 overflow-hidden">
+                      <Image
+                        src={artist.image}
+                        alt={artist.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    </div>
+                    {/* Content overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h4 className="text-white font-bold text-lg mb-1 group-hover:text-amber-400 transition-colors">
+                        {artist.name}
+                      </h4>
+                      <div className="flex items-center gap-2 text-white/80">
+                        <Clock className="h-4 w-4 text-amber-400/70" />
+                        <span className="text-sm">{artist.time}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -162,11 +173,20 @@ export function GoatchellaBanner() {
               {artistLineup.filter(a => a.headliner).map((artist, index) => (
                 <div 
                   key={index}
-                  className="relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-500/20 via-amber-600/10 to-amber-700/20 border-2 border-amber-500/50 p-6 md:p-8"
+                  className="relative overflow-hidden rounded-xl border-2 border-amber-500/50"
                 >
-                  {/* Decorative elements */}
-                  <div className="absolute top-0 left-0 w-32 h-32 bg-amber-500/20 rounded-br-full" />
-                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-amber-500/10 rounded-tl-full" />
+                  {/* Band Image as background */}
+                  <div className="relative w-full h-64 md:h-80">
+                    <Image
+                      src={artist.image}
+                      alt={artist.name}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
+                  </div>
+                  
+                  {/* Headliner badge */}
                   <div className="absolute top-4 right-4">
                     <span className="inline-flex items-center gap-1.5 bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                       <Star className="h-3 w-3 fill-current" />
@@ -174,8 +194,8 @@ export function GoatchellaBanner() {
                     </span>
                   </div>
                   
-                  <div className="relative text-center pt-4">
-                    <Music className="h-8 w-8 text-amber-400 mx-auto mb-4" />
+                  {/* Content overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-center">
                     <h4 className="text-2xl md:text-3xl font-bold text-white mb-3">
                       {artist.name}
                     </h4>
@@ -183,7 +203,7 @@ export function GoatchellaBanner() {
                       <Clock className="h-5 w-5" />
                       <span className="text-lg font-medium">{artist.time}</span>
                     </div>
-                    <p className="text-white/60 text-sm mt-4 max-w-md mx-auto">
+                    <p className="text-white/70 text-sm mt-4 max-w-md mx-auto">
                       {"Don't miss the biggest act of the day closing out Goatchella 2026!"}
                     </p>
                   </div>
