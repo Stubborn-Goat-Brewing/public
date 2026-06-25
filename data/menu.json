@@ -2,29 +2,13 @@
   "beers": [
     {
       "name": "Goat Lager",
-      "style": "American Lager",
+      "style": "American Light Lager",
       "abv": 4.7,
       "description": "Bright, easy-drinking, and refreshing. This light lager delivers delicate malt notes, a subtle touch of Saaz hops, and a clean, crisp finish that keeps you coming back for more.",
       "category": "easy-drinking",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
       "flagship": true,
       "fourPackAvailable": true
-    },
-    {
-      "name": "Pia, Sweet As",
-      "style": "New Zealand Pilsner",
-      "abv": 6.3,
-      "description": "In the native Maori language of New Zealand, \"Pia\" simply means beer. Pair that with the iconic Kiwi slang \"Sweet As\" used to describe something that is cool, awesome, or perfect. This Pilsner is generously hopped with New Zealand grown Nelson Sauvin. Giving it the perfect hoppy kick while still being light and refreshing.",
-      "category": "easy-drinking",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
-      "name": "Amber Acreage",
-      "style": "Amber Lager",
-      "abv": 5.2,
-      "description": "Built on a robust caramel malt backbone, this lager delivers smooth, toasted notes of biscuit and burnt sugar. A subtle hop bitterness snaps on the back end, perfectly balancing the sweetness.",
-      "category": "easy-drinking",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
       "name": "La Cabra Loca",
@@ -37,28 +21,20 @@
       "fourPackAvailable": true
     },
     {
-      "name": "Tundra Buck",
-      "style": "Winter Spiced Stout",
-      "abv": 7.9,
-      "description": "This deep-ruby stout pours with a creamy head and delivers an intoxicating aroma of the season. We've infused the rich, malty base, featuring notes of roasted coffee and dark chocolate, with a thoughtful blend of winter spices: cinnamon, nutmeg, and a hint of bright ginger.",
-      "category": "seasonal-spiced",
+      "name": "SchwarzBomb",
+      "style": "Schwarzbier",
+      "abv": 5.0,
+      "description": "SchwarzBomb is a premium Schwarzbier (Dark German Lager) that balances intense visual drama with a surprisingly smooth drinkability. Clocking in at 5% ABV, this brew is designed for those who appreciate the depth of a dark beer without the heavy syrupy weight of a stout.",
+      "category": "malty-dark",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
-      "name": "Beast of Burden",
-      "style": "Belgian Tripel",
-      "abv": 9.6,
-      "description": "Beast of Burden is a nod to the hardworking strength required to craft a traditional Belgian Tripel. This \"beast\" hides its power behind a sophisticated profile of spicy phenolics and fruity esters. Brewed with premium Pilsner malt and clear candy sugar, it is effervescent, complex, and deceptively smooth. It carries the weight of its high gravity with the grace of a champion workhorse.",
-      "category": "seasonal-spiced",
-      "pricing": "10oz - $7"
-    },
-    {
-      "name": "Grove Refresher - PB & J",
-      "style": "Sour",
-      "abv": 4.6,
-      "description": "A liquid tribute to the ultimate childhood classic. We've taken a crisp, tart sour base and layered it with creamy roasted peanuts and sweet concord grape puree. It's a whimsical, nostalgic journey that balances savory nuttiness with a bright, puckering finish.",
-      "category": "fruity-tart",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+      "name": "Roxbury Russet",
+      "style": "Cider",
+      "abv": 7.0,
+      "description": "Our latest cider offering from the fine folks at Old Stone Cidery. The sugar content is very high and the sugar/acid balance contributes to its fine flavor.",
+      "category": "cider",
+      "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
     },
     {
       "name": "Strawberry Lime Sour",
@@ -69,14 +45,20 @@
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
-      "name": "Counting Sheep",
-      "style": "Hazy IPA",
-      "abv": 6.9,
-      "description": "Our flagship Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
-      "category": "hoppy-juicy",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
-      "flagship": true,
-      "fourPackAvailable": true
+      "name": "Grove Refresher - Blueberry Lemonade",
+      "style": "Sour",
+      "abv": 5.8,
+      "description": "This beer is the ultimate refresher blending the nostalgic sweetness of a backyard lemonade stand with the sophisticated complexity of a craft sour. The sweetness from the blueberries perfectly balances the sourness.",
+      "category": "fruity-tart",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Lemon Shandy",
+      "style": "Shandy",
+      "abv": 4.6,
+      "description": "Crisp, bright, and utterly refreshing. This sunshine-in-a-glass features a vibrant blend of traditional crisp ale and a house-made citrus soda. Expect a burst of tart lemon and a snappy hint of lime that cuts through the summer heat.",
+      "category": "fruity-tart",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
       "name": "Headbutt",
@@ -91,34 +73,26 @@
     {
       "name": "Rosehill Ram",
       "style": "West Coast IPA",
-      "abv": 6.9,
-      "description": "A modern, high-clarity IPA designed for ultimate drinkability. Built on a lean, light-bodied grain bill, this beer stays out of the way to let a classic trifecta of hops shine. We've utilized Cascade, Columbus, and Nugget to deliver a \"New School\" experience taking those legendary flavors and refining them into a crisp, refreshing profile that trades heavy bitterness for pure hop saturation. It's clean, snappy, and deceptively easy-drinking.",
+      "abv": 6.8,
+      "description": "Rosehill Ram is a modern, high-clarity IPA designed for ultimate drinkability. Built on a lean, light-bodied grain bill, this beer stays out of the way to let a classic trifecta of hops shine. We've utilized Cascade, Columbus, and Nugget to deliver a \"New School\" experience, refining those legendary flavors into a crisp, refreshing profile that trades heavy bitterness for pure hop saturation. It's clean, snappy, and deceptively easy-drinking.",
       "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
-      "name": "Minotaur",
-      "style": "Red IPA",
-      "abv": 7.7,
-      "description": "A bold red IPA with bright citrus and pine hop character layered over rich caramel and toasted malt. Smooth yet assertive, with a clean, lingering bitterness.",
-      "category": "malty-dark",
+      "name": "Hazy IPA",
+      "style": "Hazy IPA",
+      "abv": 6.5,
+      "description": "On the palate, it delivers a remarkably smooth, creamy, and full-bodied mouthfeel that coats the tongue. Flavors of fresh pineapple, stone fruit, and bright grapefruit dominate, while the traditional hop bitterness is kept intentionally low and soft, allowing the lush, juice-forward character to take center stage. It finishes clean, refreshing, and incredibly drinkable with a subtle, lingering fruit sweetness.",
+      "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
-      "name": "King David",
-      "style": "Cider",
-      "abv": 6.8,
-      "description": "Sweet and light, notes of honeysuckle, apple, and pear. From Old Stone Cider in Lewisville, PA.",
-      "category": "cider",
-      "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
-    },
-    {
-      "name": "Old Stone Blend",
-      "style": "Cider",
-      "abv": 7.0,
-      "description": "Light, crisp, and tart with a clean finish. From Old Stone Cider in Lewisville, PA.",
-      "category": "cider",
-      "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
+      "name": "Cold IPA",
+      "style": "Cold IPA",
+      "abv": 4.5,
+      "description": "This Cold IPA pours brilliantly clear and straw-gold with a crisp, effervescent white head. The aroma is sharp and punchy, blasting out a vibrant mix of bright citrus, dank pine, and tropical notes like passionfruit and blueberries.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     }
   ],
   "food": [
@@ -238,16 +212,6 @@
       "description": "Served with house tortilla chips. Sub fries (+3), tots (+4), or side salad (+3).",
       "items": [
         {
-          "name": "Street Tacos",
-          "description": "Two tacos with your choice of cilantro-lime chicken, chipotle-honey shrimp, or veggie with mushrooms, peppers, and onions, topped with onion, cilantro, and radish, and served with a lime wedge.",
-          "price": 8
-        },
-        {
-          "name": "Hot Dogs & Fries",
-          "description": "Two 1/4 pound hot dogs served with a side of fries. Sub Tots (+1).",
-          "price": 13
-        },
-        {
           "name": "B.A.L.T. Wrap",
           "description": "Bacon, avocado, romaine lettuce, tomato, roasted garlic aioli served with house-made tortilla chips.",
           "price": 14
@@ -261,6 +225,21 @@
           "name": "Pesto Chicken Wrap",
           "description": "Pesto, grilled chicken, arugula, fresh mozzarella, tomato, wrapped in a flour tortilla.",
           "price": 15
+        },
+        {
+          "name": "Hot Dogs & Fries",
+          "description": "Two 1/4 pound hot dogs served with a side of fries. Sub Tots (+1).",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "category": "Tacos",
+      "items": [
+        {
+          "name": "Street Tacos",
+          "description": "Two tacos with your choice of cilantro-lime chicken, chipotle-honey shrimp, or veggie with mushrooms, peppers, and onions, topped with onion, cilantro, and radish, and served with a lime wedge.",
+          "price": 8
         }
       ]
     },
@@ -324,6 +303,17 @@
       ]
     }
   ],
+  "kids": {
+    "title": "Little Goats",
+    "description": "All meals served with a side of french fries and a fountain drink.",
+    "price": 12,
+    "items": [
+      { "name": "Mac & Cheese" },
+      { "name": "Cheeseburger Sliders" },
+      { "name": "Hot Dog" },
+      { "name": "Boneless Wings" }
+    ]
+  },
   "drinks": [
     {
       "category": "Specialty Cocktails",
@@ -367,7 +357,12 @@
           "name": "Old Fashioned",
           "description": "A timeless blend of whiskey, bitters, sugar, and citrus—smooth, balanced, and perfectly simple.",
           "price": 14
-        },
+        }
+      ]
+    },
+    {
+      "category": "Martinis",
+      "items": [
         {
           "name": "Classic Martini",
           "description": "Your choice of gin or vodka, served chilled and smooth in a timeless cocktail that can be prepared classic, dirty, or dry to suit your taste.",
@@ -390,11 +385,20 @@
       "items": [
         {
           "name": "Boardroom Spirits",
-          "description": "Light, crisp, and refreshing ready-to-drink cocktails crafted by Boardroom Spirits in Lansdale, PA.",
+          "description": "Light, crisp, and refreshing ready-to-drink cocktails crafted by Boardroom Spirits in Lansdale, PA. Vodka Soda available in Grapefruit Citrus, Pineapple Mango, Cherry Berry, Orange Citrus, and Cranberry Lime.",
           "price": 9,
           "varieties": ["Vodka Soda (4.5%)", "Iced Tea & Vodka (4.5%)", "Crimson Crush Lemonade (5%)"],
           "logo": "/images/boardroom-spirits-logo.png",
           "logoAlt": "Boardroom Spirits"
+        }
+      ]
+    },
+    {
+      "category": "The Classics, Pennsylvania Style",
+      "items": [
+        {
+          "name": "Request Your Classic Cocktail",
+          "description": "If you have a timeless favorite in mind, our bartenders are ready to craft it to perfection. We honor cocktail traditions using a full range of exceptional, Pennsylvania-made spirits - from crisp vodkas and botanical gins to aged bourbons and smooth rums. Simply request your classic cocktail, and we will mix a masterpiece for you."
         }
       ]
     },
@@ -417,6 +421,11 @@
         },
         {
           "name": "Rose Carmine",
+          "description": "From Wayvine Winery & Vineyard.",
+          "price": 10
+        },
+        {
+          "name": "Chardonnay",
           "description": "From Wayvine Winery & Vineyard.",
           "price": 10
         }
