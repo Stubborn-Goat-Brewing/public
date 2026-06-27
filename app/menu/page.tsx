@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { TapList } from "@/components/tap-list"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { UtensilsCrossed, Wine, MenuIcon, X } from "lucide-react"
+import { UtensilsCrossed, Wine, MenuIcon, X, Baby } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -22,9 +22,17 @@ interface MenuCategory {
   items: MenuItem[]
 }
 
+interface KidsMenu {
+  title: string
+  description: string
+  price: number
+  items: { name: string }[]
+}
+
 interface MenuData {
   beers: any[]
   food: MenuCategory[]
+  kids: KidsMenu
   drinks: MenuCategory[]
   sauces: string[]
 }
@@ -222,8 +230,38 @@ export default function MenuPage() {
           </div>
         </section>
 
+        {/* Kids Menu Section */}
+        {menuData.kids && (
+          <section id="kids" className="py-8 md:py-12">
+            <div className="container">
+              <div className="text-center mb-8">
+                <Baby className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                  {menuData.kids.title} Kids Menu
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  {menuData.kids.description} ${menuData.kids.price} per meal.
+                </p>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+                {menuData.kids.items.map((item, itemIdx) => (
+                  <Card key={itemIdx} className="bg-card">
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <CardTitle className="text-lg">{item.name}</CardTitle>
+                        <span className="text-lg font-bold text-primary">${menuData.kids.price}</span>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Drinks Menu Section */}
-        <section id="drinks" className="py-8 md:py-12">
+        <section id="drinks" className="py-8 md:py-12 bg-primary/5">
           <div className="container">
             <div className="text-center mb-8">
               <Wine className="h-12 w-12 mx-auto mb-4 text-primary" />
