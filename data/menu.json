@@ -93,6 +93,30 @@
       "description": "This Cold IPA pours brilliantly clear and straw-gold with a crisp, effervescent white head. The aroma is sharp and punchy, blasting out a vibrant mix of bright citrus, dank pine, and tropical notes like passionfruit and blueberries.",
       "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Minotaur",
+      "style": "Red IPA",
+      "abv": 7.1,
+      "description": "A bold red IPA with bright citrus and pine hop character layered over rich caramel and toasted malt. Smooth yet assertive, with a clean, lingering bitterness.",
+      "category": "malty-dark",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Counting Sheep",
+      "style": "Hazy IPA",
+      "abv": 6.9,
+      "description": "A fresh new Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Little Lamb - Pineapple",
+      "style": "Fruited Hazy IPA",
+      "abv": 5.8,
+      "description": "Don't let the name fool you. This IPA packs a punch of flavor. Little Lamb is a soft, cloud-like Hazy IPA brewed for maximum juiciness and an approachable finish. We've dialed in a heavy dose of bright pineapple puree to lead the charge, offering a sweet burst that's perfectly complemented by a subtle, zesty hop profile. It's light on its feet at 5.8%, making it the perfect companion for an all-day session.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     }
   ],
   "food": [
