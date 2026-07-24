@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LucideBeer } from "lucide-react"
+import Image from "next/image"
 
 interface Beer {
   name: string
@@ -12,6 +13,7 @@ interface Beer {
   pricing?: string
   flagship?: boolean
   fourPackAvailable?: boolean
+  canImage?: string
 }
 
 interface MenuData {
@@ -76,7 +78,20 @@ export function TapList() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-card-foreground leading-relaxed">{beer.description}</p>
+              <div className="flex gap-3">
+                <p className="text-sm text-card-foreground leading-relaxed flex-1">{beer.description}</p>
+                {beer.canImage && (
+                  <div className="shrink-0 self-start">
+                    <Image
+                      src={beer.canImage}
+                      alt={`${beer.name} can`}
+                      width={48}
+                      height={72}
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+              </div>
               {beer.pricing && (
                 <p className="mt-3 text-sm font-medium text-primary">{beer.pricing}</p>
               )}

@@ -8,7 +8,8 @@
       "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
       "flagship": true,
-      "fourPackAvailable": true
+      "fourPackAvailable": true,
+      "canImage": "/images/can-counting-sheep.png"
     },
     {
       "name": "Goat Lager",
@@ -18,7 +19,8 @@
       "category": "easy-drinking",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
       "flagship": true,
-      "fourPackAvailable": true
+      "fourPackAvailable": true,
+      "canImage": "/images/can-goat-lager.png"
     },
     {
       "name": "La Cabra Loca",
@@ -28,7 +30,8 @@
       "category": "easy-drinking",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
       "flagship": true,
-      "fourPackAvailable": true
+      "fourPackAvailable": true,
+      "canImage": "/images/can-la-cabra-loca.png"
     },
     {
       "name": "SchwarzBomb",
@@ -78,7 +81,8 @@
       "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
       "flagship": true,
-      "fourPackAvailable": true
+      "fourPackAvailable": true,
+      "canImage": "/images/can-headbutt.png"
     },
     {
       "name": "Rosehill Ram",
