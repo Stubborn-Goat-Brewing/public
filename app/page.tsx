@@ -149,22 +149,19 @@ export default function Home() {
                   height={150}
                   className="mb-4 md:mb-6 w-24 sm:w-32 md:w-40 lg:w-52"
                 />
-                <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl px-4">
-                  Welcome to Stubborn Goat Brewing
-                </h1>
-                <div className="w-full mt-4 md:mt-6 mb-2 md:mb-4 -mx-4">
-                  <UpcomingEventsBanner />
-                </div>
-                <div className="w-full mt-2 md:mt-4 mb-2 md:mb-4 -mx-4">
-                  <EventPromoCarousel />
-                </div>
-                <p className="mt-2 md:mt-4 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 px-4">
+                <p className="mb-4 md:mb-6 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 px-4">
                   At Stubborn Goat Brewing in West Grove, PA, we're more than just great craft beer (though we've got
                   plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to
                   connect over local brews, PA-made wine and spirits, delicious food, creative mocktails, and an
                   always-fresh lineup of live music and events. Whether you're here for a pint, a plate, or a laid-back
                   outing with the kids, there's something for everyone at The Goat.
                 </p>
+                <div className="w-full mb-2 md:mb-4 -mx-4">
+                  <UpcomingEventsBanner />
+                </div>
+                <div className="w-full mt-2 md:mt-4 mb-2 md:mb-4 -mx-4">
+                  <EventPromoCarousel />
+                </div>
                 <div className="mt-4 md:mt-6 flex justify-center">
                   <Button asChild size="lg">
                     <Link href="#visit">Visit Us</Link>
