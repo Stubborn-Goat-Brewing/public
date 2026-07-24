@@ -104,10 +104,19 @@ export function AgeVerification() {
           {denied ? (
             <div className="text-center space-y-4">
               <p className="text-foreground font-semibold text-lg">
-                We&apos;re sorry.
+                Not quite yet!
               </p>
               <p id="age-verify-desc" className="text-muted-foreground text-sm leading-relaxed">
-                You must be at least {MIN_AGE} years of age to access the Stubborn Goat Brewing website. Please come back when you&apos;re of legal drinking age.
+                It&apos;s our responsibility to limit website access to those of legal drinking age. We look forward to connecting in the future! For more information, please visit{" "}
+                <a
+                  href="https://www.responsibility.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-foreground transition-colors"
+                >
+                  responsibility.org
+                </a>
+                .
               </p>
             </div>
           ) : (
