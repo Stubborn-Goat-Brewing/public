@@ -175,6 +175,18 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Cans To-Go Promo Section */}
+        <section className="w-full">
+          <Image
+            src="/images/available-cans.png"
+            alt="Your favorites now available to-go! Take home Goat Lager, Counting Sheep, Headbutt & ¡La Cabra Loca!"
+            width={1920}
+            height={960}
+            className="w-full h-auto block"
+            priority
+          />
+        </section>
+
         <section className="py-12 md:py-16 bg-primary/5">
           <div className="container px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
