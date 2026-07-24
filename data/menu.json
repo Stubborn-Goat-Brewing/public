@@ -1,6 +1,16 @@
 {
   "beers": [
     {
+      "name": "Counting Sheep",
+      "style": "Hazy IPA",
+      "abv": 6.9,
+      "description": "A fresh new Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
+      "category": "hoppy-juicy",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3",
+      "flagship": true,
+      "fourPackAvailable": true
+    },
+    {
       "name": "Goat Lager",
       "style": "American Light Lager",
       "abv": 4.7,
@@ -100,14 +110,6 @@
       "abv": 7.1,
       "description": "A bold red IPA with bright citrus and pine hop character layered over rich caramel and toasted malt. Smooth yet assertive, with a clean, lingering bitterness.",
       "category": "malty-dark",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
-      "name": "Counting Sheep",
-      "style": "Hazy IPA",
-      "abv": 6.9,
-      "description": "A fresh new Hazy IPA brewed with raw wheat and malted oats giving it a pillowy soft mouthfeel. Heavily hopped with Citra and Mosaic giving this beer a dank, citrusy aroma and flavor.",
-      "category": "hoppy-juicy",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
