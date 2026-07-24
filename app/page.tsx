@@ -150,8 +150,7 @@ export default function Home() {
                   className="mb-4 md:mb-6 w-24 sm:w-32 md:w-40 lg:w-52"
                 />
                 <p className="mb-4 md:mb-6 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 px-4">
-                  At Stubborn Goat Brewing, we're more than just great craft beer (though we've got
-                  plenty of that, too). We've created a space for everyone — families, friends, and neighbors — to
+                  At Stubborn Goat Brewing, we've created a space for everyone — families, friends, and neighbors — to
                   connect over local brews, PA-made wine and spirits, delicious food, and an always-fresh lineup of
                   live music and events. Whether you're here for a pint, a plate, or a laid-back outing with the kids,
                   there's something for everyone at The Goat.
