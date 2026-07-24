@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 const COOKIE_NAME = "sgb_age_verified"
@@ -74,7 +75,7 @@ export function AgeVerification() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-md"
       role="dialog"
       aria-modal="true"
       aria-labelledby="age-verify-title"
@@ -82,10 +83,15 @@ export function AgeVerification() {
     >
       <div className="w-full max-w-md mx-4 rounded-xl border border-border bg-card shadow-2xl overflow-hidden">
         {/* Header band */}
-        <div className="bg-primary px-8 py-6 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/70 mb-1">
-            Stubborn Goat Brewing Co.
-          </p>
+        <div className="bg-primary px-8 pt-8 pb-6 text-center flex flex-col items-center gap-4">
+          <Image
+            src="/images/full-logo.png"
+            alt="Stubborn Goat Brewing logo"
+            width={180}
+            height={80}
+            className="object-contain"
+            priority
+          />
           <h1
             id="age-verify-title"
             className="text-2xl font-bold text-primary-foreground text-balance"
@@ -101,7 +107,7 @@ export function AgeVerification() {
                 We&apos;re sorry.
               </p>
               <p id="age-verify-desc" className="text-muted-foreground text-sm leading-relaxed">
-                You must be at least {MIN_AGE} years of age to access this website. Please come back when you&apos;re of legal drinking age.
+                You must be at least {MIN_AGE} years of age to access the Stubborn Goat Brewing website. Please come back when you&apos;re of legal drinking age.
               </p>
             </div>
           ) : (
@@ -110,7 +116,7 @@ export function AgeVerification() {
                 id="age-verify-desc"
                 className="text-center text-muted-foreground text-sm leading-relaxed mb-6"
               >
-                You must be {MIN_AGE} years of age or older to visit this site. Please enter your date of birth to continue.
+                You must be {MIN_AGE} years of age or older to visit Stubborn Goat Brewing. Please enter your date of birth to continue.
               </p>
 
               <fieldset className="mb-4">
