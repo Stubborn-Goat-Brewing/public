@@ -1,34 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import {
-  Calendar,
-  ChevronRight,
-  Music,
-  HelpCircle,
-  Grid3X3,
-  Hammer,
-  Star,
-  Trophy,
-  UtensilsCrossed,
-  Wine,
-  Users,
-  Lock,
-  XCircle,
-  Heart,
-  DollarSign,
-} from "lucide-react"
+import { Calendar, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
-interface Event {
-  name: string
-  date: string
-  startTime: string
-  endTime: string
-  description: string
-  type: string
-}
+import type { CalendarEvent as Event } from "@/lib/events/types"
+import { compareOccurrences, formatTimeRange, getEventIcon, toDateKey } from "@/lib/events/format"
 
 interface DayEvents {
   date: Date
@@ -37,81 +14,15 @@ interface DayEvents {
   events: Event[]
 }
 
-function getEventTypeIcon(type: string) {
-  switch (type?.toLowerCase()) {
-    case "live music":
-      return <Music className="h-3 w-3 text-amber-600" />
-    case "trivia":
-      return <HelpCircle className="h-3 w-3 text-amber-600" />
-    case "bingo":
-      return <Grid3X3 className="h-3 w-3 text-amber-600" />
-    case "craft":
-      return <Hammer className="h-3 w-3 text-amber-600" />
-    case "sports":
-      return <Trophy className="h-3 w-3 text-amber-600" />
-    case "food special":
-      return <UtensilsCrossed className="h-3 w-3 text-amber-600" />
-    case "drink special":
-      return <Wine className="h-3 w-3 text-amber-600" />
-    case "community event":
-      return <Users className="h-3 w-3 text-amber-600" />
-    case "private event (closed to public)":
-      return <Lock className="h-3 w-3 text-amber-600" />
-    case "closed":
-      return <XCircle className="h-3 w-3 text-amber-600" />
-    case "dine and donate":
-      return <Heart className="h-3 w-3 text-amber-600" />
-    case "fundraiser":
-      return <DollarSign className="h-3 w-3 text-amber-600" />
-    case "general":
-    default:
-      return <Star className="h-3 w-3 text-amber-600" />
-  }
+/** Event type icon tinted with the type's color from the database. */
+function EventTypeIcon({ event }: { event: Event }) {
+  const Icon = getEventIcon(event.icon)
+  return <Icon className="h-3 w-3" style={{ color: event.color }} />
 }
 
 export function UpcomingEventsBanner() {
   const [upcomingDays, setUpcomingDays] = useState<DayEvents[]>([])
   const [loading, setLoading] = useState(true)
-
-  const formatTime12Hour = (time: string | Date, eventDate: string) => {
-    if (!time) return ""
-
-    let hours: number
-    let minutes: string
-
-    // Check if time is a Date object (ISO string from API)
-    if (typeof time === "string" && time.includes("T")) {
-      const timeDate = new Date(time)
-      // Get UTC hours and subtract 5 for EST
-      hours = timeDate.getUTCHours() - 5
-      // Handle negative hours (wrap to previous day)
-      if (hours < 0) hours += 24
-      minutes = timeDate.getUTCMinutes().toString().padStart(2, "0")
-    } else {
-      // Parse regular time format "HH:MM"
-      const timeStr = typeof time === "string" ? time : time.toString()
-      const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})/)
-      if (!timeMatch) return timeStr
-      hours = Number.parseInt(timeMatch[1], 10)
-      minutes = timeMatch[2]
-    }
-
-    // Convert to 12-hour format
-    const period = hours >= 12 ? "PM" : "AM"
-    const displayHours = hours % 12 || 12
-
-    return `${displayHours}:${minutes} ${period}`
-  }
-
-  const formatEventTime = (event: Event) => {
-    const startTime = formatTime12Hour(event.startTime, event.date)
-    const endTime = formatTime12Hour(event.endTime, event.date)
-
-    if (startTime && endTime) {
-      return `${startTime} - ${endTime}`
-    }
-    return startTime || ""
-  }
 
   useEffect(() => {
     async function fetchEvents() {
@@ -138,39 +49,9 @@ export function UpcomingEventsBanner() {
           const date = new Date(today)
           date.setDate(today.getDate() + i)
 
-          const dayEvents = events.filter((event) => {
-            const eventDate = new Date(event.date)
-            eventDate.setHours(0, 0, 0, 0)
-            return eventDate.getTime() === date.getTime()
-          })
-
-          dayEvents.sort((a, b) => {
-            const getEndTimeValue = (time: string | Date) => {
-              if (!time) return 999999 // Events without end time go last
-
-              let hours: number
-              let minutes: number
-
-              // Check if time is a Date object (ISO string from API)
-              if (typeof time === "string" && time.includes("T")) {
-                const timeDate = new Date(time)
-                hours = timeDate.getUTCHours() - 5 // Convert to EST
-                if (hours < 0) hours += 24
-                minutes = timeDate.getUTCMinutes()
-              } else {
-                // Parse regular time format "HH:MM"
-                const timeStr = typeof time === "string" ? time : time.toString()
-                const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})/)
-                if (!timeMatch) return 999999
-                hours = Number.parseInt(timeMatch[1], 10)
-                minutes = Number.parseInt(timeMatch[2], 10)
-              }
-
-              return hours * 60 + minutes // Convert to minutes for comparison
-            }
-
-            return getEndTimeValue(a.endTime) - getEndTimeValue(b.endTime)
-          })
+          // Compare on `YYYY-MM-DD` keys so no timezone shifting can occur.
+          const dateKey = toDateKey(date)
+          const dayEvents = events.filter((event) => event.date === dateKey).sort(compareOccurrences)
 
           next10Days.push({
             date,
@@ -255,13 +136,23 @@ export function UpcomingEventsBanner() {
 
               {day.events.length > 0 ? (
                 <div className="space-y-2">
-                  {day.events.slice(0, 3).map((event, eventIdx) => (
-                    <div key={eventIdx} className="text-left">
+                  {day.events.slice(0, 3).map((event) => (
+                    <div key={event.occurrenceId} className="text-left">
                       <div className="flex items-start gap-1.5 mb-1">
-                        <div className="flex-shrink-0 mt-0.5">{getEventTypeIcon(event.type)}</div>
-                        <p className="text-sm font-semibold text-zinc-900 line-clamp-2 leading-tight">{event.name}</p>
+                        <div className="flex-shrink-0 mt-0.5">
+                          <EventTypeIcon event={event} />
+                        </div>
+                        <p
+                          className={`text-sm font-semibold text-zinc-900 line-clamp-2 leading-tight ${
+                            event.isCancelled ? "line-through opacity-70" : ""
+                          }`}
+                        >
+                          {event.name}
+                        </p>
                       </div>
-                      {event.startTime && <p className="text-xs text-zinc-600 ml-5">{formatEventTime(event)}</p>}
+                      <p className="text-xs text-zinc-600 ml-5">
+                        {formatTimeRange(event.startTime, event.endTime)}
+                      </p>
                     </div>
                   ))}
                   {day.events.length > 3 && (
