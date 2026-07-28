@@ -17,5 +17,11 @@ export function createClient() {
 
   return createSupabaseClient(url, anonKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: {
+      // Next.js caches `fetch` responses by default, which would make the
+      // calendar serve stale data after an event is edited in the database.
+      // Opt every Supabase request out of that cache.
+      fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+    },
   })
 }
