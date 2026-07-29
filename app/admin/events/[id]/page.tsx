@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
 import { requireAdmin } from "@/lib/admin/guard"
+import { AdminShell } from "@/components/admin/admin-shell"
 import { EventForm } from "@/components/admin/event-form"
 import type { EventFormValues } from "@/lib/admin/event-schema"
 import { updateEvent } from "../actions"
@@ -18,7 +19,7 @@ function toTimeInput(value: string | null): string {
 // rather than a promise.
 export default async function EditEventPage({ params }: { params: { id: string } }) {
   const { id } = params
-  const { supabase } = await requireAdmin()
+  const { email, supabase } = await requireAdmin()
 
   const [{ data: event }, options] = await Promise.all([
     supabase
@@ -72,27 +73,29 @@ export default async function EditEventPage({ params }: { params: { id: string }
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <Link
-          href="/admin/events"
-          className="inline-flex w-fit items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-          All events
-        </Link>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">{event.title}</h1>
-        <p className="text-muted-foreground">Changes go live as soon as you save.</p>
-      </div>
+    <AdminShell email={email}>
+      <div className="mx-auto flex max-w-3xl flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <Link
+            href="/admin/events"
+            className="inline-flex w-fit items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+            All events
+          </Link>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">{event.title}</h1>
+          <p className="text-muted-foreground">Changes go live as soon as you save.</p>
+        </div>
 
-      <EventForm
-        mode="edit"
-        eventId={event.id}
-        eventTypes={options.eventTypes}
-        artists={options.artists}
-        initialValues={initialValues}
-        onSubmitAction={updateEvent.bind(null, event.id)}
-      />
-    </div>
+        <EventForm
+          mode="edit"
+          eventId={event.id}
+          eventTypes={options.eventTypes}
+          artists={options.artists}
+          initialValues={initialValues}
+          onSubmitAction={updateEvent.bind(null, event.id)}
+        />
+      </div>
+    </AdminShell>
   )
 }

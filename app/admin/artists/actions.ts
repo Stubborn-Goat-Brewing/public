@@ -125,6 +125,31 @@ export async function updateArtist(input: unknown): Promise<{ ok: boolean; error
   return { ok: true }
 }
 
+/**
+ * Flips just the active flag.
+ *
+ * Kept separate from `updateArtist` so the roster's inline switch cannot
+ * accidentally clobber the bio fields it does not display.
+ */
+export async function setArtistActive(
+  id: string,
+  isActive: boolean,
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getAdminSession()
+  if (!session) return { ok: false, error: UNAUTHORIZED }
+
+  const { error } = await session.supabase
+    .from("artists")
+    .update({ is_active: isActive })
+    .eq("id", id)
+
+  if (error) return { ok: false, error: error.message }
+
+  revalidatePath("/admin/artists")
+  revalidatePath("/admin/events")
+  return { ok: true }
+}
+
 export async function deleteArtist(id: string): Promise<{ ok: boolean; error?: string }> {
   const session = await getAdminSession()
   if (!session) return { ok: false, error: UNAUTHORIZED }

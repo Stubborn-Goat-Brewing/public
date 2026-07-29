@@ -98,10 +98,18 @@ export function EventForm({
   // calendar decides whether to render artists at all.
   const showArtists = selectedType?.detail_table === "artists"
 
-  // Live preview of the computed dates. Runs through the same validation as
-  // submit so a half-filled form previews nothing instead of throwing.
+  // Live preview of the computed dates.
+  //
+  // Validated with a stand-in title and event type so that unrelated empty
+  // fields do not blank the preview: the schedule is usually filled in before
+  // the copy, and "why are no dates showing" is very confusing when the real
+  // cause is an empty title. Only genuine schedule problems suppress it.
   const preview = useMemo(() => {
-    const parsed = eventFormSchema.safeParse(values)
+    const parsed = eventFormSchema.safeParse({
+      ...values,
+      title: values.title.trim() || "Untitled",
+      event_type_id: Number(values.event_type_id) || 1,
+    })
     if (!parsed.success) return null
     try {
       return previewOccurrences(parsed.data, 8)
