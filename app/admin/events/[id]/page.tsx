@@ -4,6 +4,9 @@ import { ChevronLeft } from "lucide-react"
 import { requireAdmin } from "@/lib/admin/guard"
 import { AdminShell } from "@/components/admin/admin-shell"
 import { EventForm } from "@/components/admin/event-form"
+import { OccurrenceOverrides } from "@/components/admin/occurrence-overrides"
+import { listUpcomingOccurrences } from "@/lib/admin/occurrence-list"
+import type { EventRow } from "@/lib/events/recurrence"
 import type { EventFormValues } from "@/lib/admin/event-schema"
 import { updateEvent } from "../actions"
 import { loadFormOptions } from "../form-options"
@@ -31,7 +34,9 @@ export default async function EditEventPage({ params }: { params: { id: string }
          recurrence_day_of_month, recurrence_week_of_month, recurrence_end_date,
          location, price_text, image_url, cta_label, cta_url,
          is_featured, is_cancelled, is_published,
-         event_artists(artist_id, sort_order)`,
+         event_artists(artist_id, sort_order),
+         event_occurrence_overrides(occurrence_date, is_cancelled, override_title,
+           override_start_time, override_end_time, note)`,
       )
       .eq("id", id)
       .maybeSingle(),
@@ -72,6 +77,19 @@ export default async function EditEventPage({ params }: { params: { id: string }
     artist_ids: artistIds,
   }
 
+  // Exceptions only apply to a series; a single-date event is edited directly.
+  const occurrences =
+    event.occurrence_type === "recurring"
+      ? listUpcomingOccurrences(
+          {
+            ...event,
+            event_types: null,
+          } as unknown as EventRow,
+          event.event_occurrence_overrides ?? [],
+          { limit: 24 },
+        )
+      : []
+
   return (
     <AdminShell email={email}>
       <div className="mx-auto flex max-w-3xl flex-col gap-6">
@@ -95,6 +113,20 @@ export default async function EditEventPage({ params }: { params: { id: string }
           initialValues={initialValues}
           onSubmitAction={updateEvent.bind(null, event.id)}
         />
+
+        {event.occurrence_type === "recurring" && (
+          <section className="flex flex-col gap-3 rounded-lg border border-border bg-card p-6">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Individual dates
+            </h2>
+            <OccurrenceOverrides
+              eventId={event.id}
+              occurrences={occurrences}
+              defaultStartTime={event.start_time}
+              defaultEndTime={event.end_time}
+            />
+          </section>
+        )}
       </div>
     </AdminShell>
   )

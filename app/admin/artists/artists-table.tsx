@@ -205,7 +205,9 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
                         }
                       />
                       <Label htmlFor={`active-${artist.id}`} className="sr-only">
-                        {`Mark ${artist.name} active`}
+                        {artist.is_active
+              ? `Mark ${artist.name} inactive`
+              : `Mark ${artist.name} active`}
                       </Label>
                     </div>
                   </TableCell>
@@ -375,7 +377,6 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
               Delete permanently
             </Button>
           </DialogFooter>
-        </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
