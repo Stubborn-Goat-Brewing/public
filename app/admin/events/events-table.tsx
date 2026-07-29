@@ -39,6 +39,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { describeSchedule } from "@/lib/admin/schedule-summary"
 import type { AdminEventRow } from "./page"
 import { deleteEvent, duplicateEvent, setEventCancelled, setEventPublished } from "./actions"
+import { normalizeActionResult } from "@/lib/admin/action-result"
 
 type Filter = "all" | "recurring" | "one_time" | "drafts"
 
@@ -77,9 +78,12 @@ export function EventsTable({
     })
   }, [events, query, filter])
 
-  function run(label: string, fn: () => Promise<{ ok: boolean; error?: string }>) {
+  function run(
+    label: string,
+    fn: () => Promise<{ ok: boolean; error?: string } | undefined>,
+  ) {
     startTransition(async () => {
-      const result = await fn()
+      const result = normalizeActionResult(await fn())
       if (result.ok) {
         toast.success(label)
         router.refresh()

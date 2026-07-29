@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { createClient } from "@/lib/supabase/client"
 import { deletePasskey, type PasskeyListItem } from "@/app/admin/settings/actions"
+import { normalizeActionResult } from "@/lib/admin/action-result"
 
 interface PasskeySectionProps {
   passkeys: PasskeyListItem[]
@@ -63,7 +64,7 @@ export function PasskeySection({ passkeys, enabled }: PasskeySectionProps) {
     const target = pendingDelete
 
     startTransition(async () => {
-      const result = await deletePasskey(target.id)
+      const result = normalizeActionResult(await deletePasskey(target.id))
       if (result.ok) {
         setPendingDelete(null)
         toast.success("Passkey removed.")

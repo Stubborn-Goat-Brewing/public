@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { changePassword } from "@/app/admin/settings/actions"
+import { normalizeActionResult } from "@/lib/admin/action-result"
 
 export function PasswordForm() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -16,7 +17,7 @@ export function PasswordForm() {
   function handleSubmit(formData: FormData) {
     setError(null)
     startTransition(async () => {
-      const result = await changePassword(formData)
+      const result = normalizeActionResult(await changePassword(formData))
       if (result.ok) {
         formRef.current?.reset()
         toast.success("Password updated.")

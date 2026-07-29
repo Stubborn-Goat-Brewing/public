@@ -28,6 +28,7 @@ import {
   type EventFormValues,
 } from "@/lib/admin/event-schema"
 import { previewOccurrences } from "@/lib/admin/preview-dates"
+import { normalizeActionResult, type ActionResultLike } from "@/lib/admin/action-result"
 
 export type EventTypeOption = {
   id: number
@@ -46,9 +47,9 @@ export type EventFormProps = {
   artists: ArtistOption[]
   initialValues: EventFormValues
   eventId?: string
-  onSubmitAction: (
-    values: EventFormValues,
-  ) => Promise<{ ok: boolean; error?: string; fieldErrors?: FieldErrors; id?: string }>
+  // The action can resolve without a value when Next fails to forward the
+  // response, so the result is deliberately typed as possibly undefined.
+  onSubmitAction: (values: EventFormValues) => Promise<ActionResultLike | undefined>
 }
 
 /** Human-readable label for a `YYYY-MM-DD` key, without timezone drift. */
@@ -135,7 +136,7 @@ export function EventForm({
 
     setErrors({})
     startTransition(async () => {
-      const result = await onSubmitAction(values)
+      const result = normalizeActionResult(await onSubmitAction(values))
       if (result.ok) {
         toast.success(mode === "create" ? "Event created." : "Changes saved.")
         router.push("/admin/events")

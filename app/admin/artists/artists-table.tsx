@@ -28,6 +28,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { AdminArtistRow } from "./page"
 import { deleteArtist, setArtistActive, updateArtist } from "./actions"
+import { normalizeActionResult } from "@/lib/admin/action-result"
 
 type Draft = {
   name: string
@@ -67,9 +68,12 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
     )
   }, [artists, query])
 
-  function run(label: string, fn: () => Promise<{ ok: boolean; error?: string }>) {
+  function run(
+    label: string,
+    fn: () => Promise<{ ok: boolean; error?: string } | undefined>,
+  ) {
     startTransition(async () => {
-      const result = await fn()
+      const result = normalizeActionResult(await fn())
       if (result.ok) {
         toast.success(label)
         router.refresh()
@@ -97,7 +101,7 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
     }
     const target = editing
     startTransition(async () => {
-      const result = await updateArtist({ id: target.id, ...draft })
+      const result = normalizeActionResult(await updateArtist({ id: target.id, ...draft }))
       if (result.ok) {
         toast.success("Artist updated.")
         closeEditor()

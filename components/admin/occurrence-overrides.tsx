@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog"
 
 import type { OccurrenceEntry } from "@/lib/admin/occurrence-list"
+import { normalizeActionResult } from "@/lib/admin/action-result"
 import {
   clearOccurrenceOverride,
   saveOccurrenceOverride,
@@ -61,9 +62,12 @@ export function OccurrenceOverrides({
   const [draft, setDraft] = useState<Draft | null>(null)
   const [isPending, startTransition] = useTransition()
 
-  function run(label: string, fn: () => Promise<{ ok: boolean; error?: string }>) {
+  function run(
+    label: string,
+    fn: () => Promise<{ ok: boolean; error?: string } | undefined>,
+  ) {
     startTransition(async () => {
-      const result = await fn()
+      const result = normalizeActionResult(await fn())
       if (result.ok) {
         toast.success(label)
         router.refresh()
@@ -118,15 +122,17 @@ export function OccurrenceOverrides({
     // away everything typed whenever validation rejects the input, forcing the
     // whole exception to be re-entered just to fix one field.
     startTransition(async () => {
-      const result = await saveOccurrenceOverride({
-        eventId,
-        date: target.date,
-        isCancelled: target.isCancelled,
-        overrideTitle: target.overrideTitle,
-        overrideStartTime: target.overrideStartTime,
-        overrideEndTime: target.overrideEndTime,
-        note: target.note,
-      })
+      const result = normalizeActionResult(
+        await saveOccurrenceOverride({
+          eventId,
+          date: target.date,
+          isCancelled: target.isCancelled,
+          overrideTitle: target.overrideTitle,
+          overrideStartTime: target.overrideStartTime,
+          overrideEndTime: target.overrideEndTime,
+          note: target.note,
+        }),
+      )
 
       if (result.ok) {
         setDraft(null)

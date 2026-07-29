@@ -79,10 +79,21 @@ export function ArtistPicker({
 
     startTransition(async () => {
       const result = await createArtist({ name })
+
+      // A server action can resolve with no value at all when Next fails to
+      // forward the action response, so the result is checked for existence
+      // before its fields are read.
+      if (!result) {
+        toast.error(
+          "The server did not confirm the new artist. Reload the page to check whether it was added.",
+        )
+        return
+      }
       if (!result.ok) {
         toast.error(result.error)
         return
       }
+
       const artist = result.artist
       // The action returns an existing row when the name already matched, so
       // guard against inserting a duplicate into the local roster.
