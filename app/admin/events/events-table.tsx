@@ -3,7 +3,16 @@
 import { useMemo, useState, useTransition } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Copy, MoreHorizontal, Pencil, Repeat, Search, Trash2 } from "lucide-react"
+import {
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  MoreHorizontal,
+  Pencil,
+  Repeat,
+  Search,
+  Trash2,
+} from "lucide-react"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -263,6 +272,36 @@ export function EventsTable({
           </TableBody>
         </Table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-sm text-muted-foreground">
+            Page {page} of {totalPages}
+          </span>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" asChild disabled={page <= 1}>
+              <Link
+                href={`/admin/events?scope=${scope}&page=${page - 1}`}
+                aria-disabled={page <= 1}
+                className={page <= 1 ? "pointer-events-none opacity-50" : undefined}
+              >
+                <ChevronLeft className="mr-1 h-4 w-4" aria-hidden="true" />
+                Previous
+              </Link>
+            </Button>
+            <Button variant="outline" size="sm" asChild disabled={page >= totalPages}>
+              <Link
+                href={`/admin/events?scope=${scope}&page=${page + 1}`}
+                aria-disabled={page >= totalPages}
+                className={page >= totalPages ? "pointer-events-none opacity-50" : undefined}
+              >
+                Next
+                <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      )}
 
       <Dialog open={pendingDelete !== null} onOpenChange={(open) => !open && setPendingDelete(null)}>
         <DialogContent>
