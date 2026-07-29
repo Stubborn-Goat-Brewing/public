@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
 const COOKIE_NAME = "sgb_age_verified"
@@ -25,15 +26,22 @@ export function AgeVerification() {
   const [year, setYear] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [denied, setDenied] = useState(false)
+  const pathname = usePathname()
+
+  // The admin portal is a staff tool behind a login, not public-facing
+  // marketing, so the 21+ interstitial would just be an extra click before
+  // every sign-in.
+  const isAdminRoute = pathname === "/admin" || pathname?.startsWith("/admin/")
 
   useEffect(() => {
+    if (isAdminRoute) return
     const verified = getCookie(COOKIE_NAME)
     if (verified !== "true") {
       setVisible(true)
     }
-  }, [])
+  }, [isAdminRoute])
 
-  if (!visible) return null
+  if (isAdminRoute || !visible) return null
 
   function handleVerify() {
     setError(null)
