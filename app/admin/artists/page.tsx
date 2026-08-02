@@ -21,6 +21,8 @@ export interface AdminArtistRow {
   facebook_url: string | null
   instagram_url: string | null
   tiktok_url: string | null
+  youtube_url: string | null
+  apple_music_url: string | null
   is_active: boolean
   /** How many events currently book this artist; blocks deletion when > 0. */
   bookings: number
@@ -35,7 +37,7 @@ export default async function AdminArtistsPage() {
     supabase
       .from("artists")
       .select(
-        "id, name, slug, hometown, description, website_url, image_url, facebook_url, instagram_url, tiktok_url, is_active",
+        "id, name, slug, hometown, description, website_url, image_url, facebook_url, instagram_url, tiktok_url, youtube_url, apple_music_url, is_active",
       )
       .order("name", { ascending: true }),
     supabase.from("event_artists").select("artist_id"),
