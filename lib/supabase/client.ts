@@ -34,10 +34,14 @@ export function createClient(): SupabaseClient {
     },
     cookieOptions: {
       // The Supabase session cookie must stay readable by the browser client,
-      // so it cannot be HttpOnly. Marking it Secure in production keeps it off
-      // plaintext connections at least.
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      // so it cannot be HttpOnly.
+      // SameSite=None; Secure so the cookie is sent when the admin portal is
+      // embedded in a cross-origin iframe (the v0 preview, or any embed). With
+      // the default Lax the browser drops it in that third-party context and the
+      // session is lost on the next navigation. None REQUIRES Secure, which is
+      // satisfied because the preview and Vercel production are both HTTPS.
+      secure: true,
+      sameSite: "none",
     },
   })
 

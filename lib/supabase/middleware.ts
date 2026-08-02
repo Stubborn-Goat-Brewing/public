@@ -21,6 +21,11 @@ export async function updateSession(request: NextRequest) {
   if (!url || !anonKey) return response
 
   const supabase = createServerClient(url, anonKey, {
+    // Keep these in sync with lib/supabase/session.ts and lib/supabase/client.ts.
+    // SameSite=None; Secure lets the refreshed session cookie survive the
+    // cross-origin iframe (v0 preview / embeds); Lax would be dropped there and
+    // silently sign the user out on the next navigation.
+    cookieOptions: { sameSite: "none", secure: true },
     cookies: {
       getAll() {
         return request.cookies.getAll()

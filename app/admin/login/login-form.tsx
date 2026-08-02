@@ -66,8 +66,9 @@ export function LoginForm() {
         return
       }
 
-      router.replace(next)
-      router.refresh()
+      // Full navigation so the freshly-set session cookie is sent with the
+      // next request and the middleware can route the admin onward.
+      window.location.href = next
     } finally {
       setPasskeyBusy(false)
     }

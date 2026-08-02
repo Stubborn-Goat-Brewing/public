@@ -26,7 +26,12 @@ export async function createSessionClient(): Promise<SupabaseClient> {
   const cookieStore = await cookies()
 
   return createServerClient(url, anonKey, {
-    cookieOptions: { secure: process.env.NODE_ENV === "production" },
+    // SameSite=None; Secure so the session cookie is still sent when the app is
+    // rendered inside a cross-origin iframe (the v0 preview, or any embed).
+    // With the default Lax, the browser drops the cookie in that third-party
+    // context and every request looks unauthenticated. None REQUIRES Secure,
+    // and both the preview and Vercel production are served over HTTPS.
+    cookieOptions: { sameSite: "none", secure: true },
     cookies: {
       getAll() {
         return cookieStore.getAll()
