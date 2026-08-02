@@ -21,6 +21,7 @@ import {
   Repeat,
   CalendarRange,
   Ban,
+  Loader2,
 } from "lucide-react"
 import type { CalendarEvent as Event } from "@/lib/events/types"
 import {
@@ -52,11 +53,10 @@ function EventTypeBadge({ event }: { event: Event }) {
   )
 }
 
-async function getEvents(): Promise<Event[]> {
+async function getEvents(from: string, to: string): Promise<Event[]> {
   try {
-    console.log("[v0] Fetching events from API route")
-    const timestamp = Date.now()
-    const response = await fetch(`/api/events?t=${timestamp}`, {
+    const params = new URLSearchParams({ from, to, t: String(Date.now()) })
+    const response = await fetch(`/api/events?${params.toString()}`, {
       cache: "no-store",
       headers: {
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -71,13 +71,30 @@ async function getEvents(): Promise<Event[]> {
     }
 
     const data = await response.json()
-    console.log("[v0] Received events:", data.events?.length || 0)
-
     return data.events || []
   } catch (error) {
     console.error("[v0] Error fetching events:", error)
     return []
   }
+}
+
+/**
+ * The window we request for a given viewing month: a one-month buffer on each
+ * side so multi-day spans crossing boundaries and quick prev/next navigation
+ * are already loaded. Uses UTC so the `YYYY-MM-DD` keys are timezone-stable.
+ */
+function monthRange(year: number, month: number): { from: string; to: string } {
+  const from = new Date(Date.UTC(year, month - 1, 1)).toISOString().slice(0, 10)
+  const to = new Date(Date.UTC(year, month + 2, 0)).toISOString().slice(0, 10)
+  return { from, to }
+}
+
+/** Merges freshly fetched occurrences into the accumulated set, deduped by id. */
+function mergeEvents(prev: Event[], next: Event[]): Event[] {
+  const byId = new Map<string, Event>()
+  for (const event of prev) byId.set(event.occurrenceId, event)
+  for (const event of next) byId.set(event.occurrenceId, event)
+  return Array.from(byId.values())
 }
 
 /** Describes a multi-day span, e.g. "Sep 7 - Sep 13". */
@@ -292,28 +309,16 @@ function ListView({ events, onEventClick }: { events: Event[]; onEventClick: (ev
   )
 }
 
-function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick: (event: Event) => void }) {
+function CalendarView({
+  events,
+  onEventClick,
+  viewingMonth,
+  viewingYear,
+  onPreviousMonth,
+  onNextMonth,
+  isFetching,
+}: MonthNavProps) {
   const today = new Date()
-  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
-  const [viewingYear, setViewingYear] = useState(today.getFullYear())
-
-  const goToPreviousMonth = () => {
-    if (viewingMonth === 0) {
-      setViewingMonth(11)
-      setViewingYear(viewingYear - 1)
-    } else {
-      setViewingMonth(viewingMonth - 1)
-    }
-  }
-
-  const goToNextMonth = () => {
-    if (viewingMonth === 11) {
-      setViewingMonth(0)
-      setViewingYear(viewingYear + 1)
-    } else {
-      setViewingMonth(viewingMonth + 1)
-    }
-  }
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -363,14 +368,15 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">
+        <h2 className="flex items-center gap-2 text-2xl font-bold">
           {monthNames[viewingMonth]} {viewingYear}
+          {isFetching && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" aria-label="Loading events" />}
         </h2>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
+          <Button variant="outline" size="sm" onClick={onPreviousMonth} aria-label="Previous month">
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="sm" onClick={goToNextMonth}>
+          <Button variant="outline" size="sm" onClick={onNextMonth} aria-label="Next month">
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -477,48 +483,38 @@ function EventsLoading() {
   )
 }
 
-interface CalendarViewProps {
+interface MonthNavProps {
   events: Event[]
   onEventClick: (event: Event) => void
+  viewingMonth: number
+  viewingYear: number
+  onPreviousMonth: () => void
+  onNextMonth: () => void
+  isFetching: boolean
 }
 
-function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
+function CompactCalendarView({
+  events,
+  onEventClick,
+  viewingMonth,
+  viewingYear,
+  onPreviousMonth,
+  onNextMonth,
+  isFetching,
+}: MonthNavProps) {
   const today = new Date()
-  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
-  const [viewingYear, setViewingYear] = useState(today.getFullYear())
   const [selectedDay, setSelectedDay] = useState<number | null>(() => {
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
     return isCurrentMonth ? today.getDate() : null
   })
 
-  const goToPreviousMonth = () => {
-    setSelectedDay(null)
-    if (viewingMonth === 0) {
-      setViewingMonth(11)
-      setViewingYear(viewingYear - 1)
-    } else {
-      setViewingMonth(viewingMonth - 1)
-    }
-  }
-
-  const goToNextMonth = () => {
-    setSelectedDay(null)
-    if (viewingMonth === 11) {
-      setViewingMonth(0)
-      setViewingYear(viewingYear + 1)
-    } else {
-      setViewingMonth(viewingMonth + 1)
-    }
-  }
-
+  // The month is controlled by the parent now; reset the selected day whenever
+  // it changes, defaulting to today when the current month is in view.
   useEffect(() => {
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
-    if (isCurrentMonth && selectedDay === null) {
-      setSelectedDay(today.getDate())
-    } else if (!isCurrentMonth && selectedDay === today.getDate()) {
-      setSelectedDay(null)
-    }
-  }, [viewingMonth, viewingYear, today, selectedDay])
+    setSelectedDay(isCurrentMonth ? today.getDate() : null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewingMonth, viewingYear])
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -582,14 +578,17 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">
+            <h2 className="flex items-center gap-2 text-xl font-bold">
               {monthNames[viewingMonth]} {viewingYear}
+              {isFetching && (
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" aria-label="Loading events" />
+              )}
             </h2>
             <div className="flex gap-1">
-              <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
+              <Button variant="outline" size="sm" onClick={onPreviousMonth} aria-label="Previous month">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="sm" onClick={goToNextMonth}>
+              <Button variant="outline" size="sm" onClick={onNextMonth} aria-label="Next month">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
@@ -714,7 +713,23 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
   )
 }
 
-function EventsCalendar({ events }: { events: Event[] }) {
+interface EventsCalendarProps {
+  events: Event[]
+  viewingMonth: number
+  viewingYear: number
+  onPreviousMonth: () => void
+  onNextMonth: () => void
+  isFetching: boolean
+}
+
+function EventsCalendar({
+  events,
+  viewingMonth,
+  viewingYear,
+  onPreviousMonth,
+  onNextMonth,
+  isFetching,
+}: EventsCalendarProps) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -728,27 +743,22 @@ function EventsCalendar({ events }: { events: Event[] }) {
     setSelectedEvent(null)
   }
 
-  if (events.length === 0) {
-    return (
-      <Card>
-        <CardContent className="flex flex-col items-center justify-center py-12">
-          <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-semibold mb-2">No Events Scheduled</h3>
-          <p className="text-muted-foreground text-center">
-            Check back soon for upcoming events at Stubborn Goat Brewing!
-          </p>
-        </CardContent>
-      </Card>
-    )
+  const navProps = {
+    viewingMonth,
+    viewingYear,
+    onPreviousMonth,
+    onNextMonth,
+    isFetching,
+    onEventClick: handleEventClick,
   }
 
   return (
     <>
       <div className="hidden lg:block">
-        <CalendarView events={events} onEventClick={handleEventClick} />
+        <CalendarView events={events} {...navProps} />
       </div>
       <div className="lg:hidden">
-        <CompactCalendarView events={events} onEventClick={handleEventClick} />
+        <CompactCalendarView events={events} {...navProps} />
       </div>
 
       <EventDialog event={selectedEvent} isOpen={isDialogOpen} onClose={handleCloseDialog} />
@@ -757,25 +767,68 @@ function EventsCalendar({ events }: { events: Event[] }) {
 }
 
 function EventsWrapper() {
+  const today = new Date()
+  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
+  const [viewingYear, setViewingYear] = useState(today.getFullYear())
+
   const [events, setEvents] = useState<Event[]>([])
+  const [loadedRanges, setLoadedRanges] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
+  const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const goToPreviousMonth = () => {
+    if (viewingMonth === 0) {
+      setViewingMonth(11)
+      setViewingYear(viewingYear - 1)
+    } else {
+      setViewingMonth(viewingMonth - 1)
+    }
+  }
+
+  const goToNextMonth = () => {
+    if (viewingMonth === 11) {
+      setViewingMonth(0)
+      setViewingYear(viewingYear + 1)
+    } else {
+      setViewingMonth(viewingMonth + 1)
+    }
+  }
+
+  // Fetch the visible month (with buffer) whenever it changes, so recurring
+  // occurrences far in the future - e.g. next year's Christmas closure - are
+  // expanded and shown. Months already loaded are served from state.
   useEffect(() => {
-    console.log("[v0] EventsWrapper useEffect triggered")
-    getEvents()
-      .then((fetchedEvents) => {
-        console.log("[v0] Events fetched:", fetchedEvents.length)
-        setEvents(fetchedEvents)
-        setLoading(false)
+    const rangeKey = `${viewingYear}-${viewingMonth}`
+    if (loadedRanges.has(rangeKey)) return
+
+    const { from, to } = monthRange(viewingYear, viewingMonth)
+    let cancelled = false
+    setIsFetching(true)
+
+    getEvents(from, to)
+      .then((fetched) => {
+        if (cancelled) return
+        setEvents((prev) => mergeEvents(prev, fetched))
+        setLoadedRanges((prev) => new Set(prev).add(rangeKey))
         setError(null)
       })
       .catch((err) => {
-        console.error("[v0] Error in useEffect:", err)
-        setError("Failed to load events")
+        if (cancelled) return
+        console.error("[v0] Error loading events:", err)
+        // Only surface a blocking error if we have nothing to show yet.
+        if (events.length === 0) setError("Failed to load events")
+      })
+      .finally(() => {
+        if (cancelled) return
+        setIsFetching(false)
         setLoading(false)
       })
-  }, [])
+
+    return () => {
+      cancelled = true
+    }
+  }, [viewingMonth, viewingYear, loadedRanges, events.length])
 
   if (loading) {
     return <EventsLoading />
@@ -793,7 +846,16 @@ function EventsWrapper() {
     )
   }
 
-  return <EventsCalendar events={events} />
+  return (
+    <EventsCalendar
+      events={events}
+      viewingMonth={viewingMonth}
+      viewingYear={viewingYear}
+      onPreviousMonth={goToPreviousMonth}
+      onNextMonth={goToNextMonth}
+      isFetching={isFetching}
+    />
+  )
 }
 
 export default function EventsPage() {
