@@ -37,6 +37,9 @@ type Draft = {
   website_url: string
   description: string
   image_url: string
+  facebook_url: string
+  instagram_url: string
+  tiktok_url: string
   is_active: boolean
 }
 
@@ -47,6 +50,9 @@ function toDraft(artist: AdminArtistRow): Draft {
     website_url: artist.website_url ?? "",
     description: artist.description ?? "",
     image_url: artist.image_url ?? "",
+    facebook_url: artist.facebook_url ?? "",
+    instagram_url: artist.instagram_url ?? "",
+    tiktok_url: artist.tiktok_url ?? "",
     is_active: artist.is_active,
   }
 }
@@ -392,6 +398,51 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
                   onChange={(e) => setDraft({ ...draft, description: e.target.value })}
                   rows={4}
                 />
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <span className="text-sm font-medium text-foreground">
+                  Social media <span className="font-normal text-muted-foreground">(optional)</span>
+                </span>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="artist-facebook" className="text-xs text-muted-foreground">
+                    Facebook
+                  </Label>
+                  <Input
+                    id="artist-facebook"
+                    type="url"
+                    inputMode="url"
+                    value={draft.facebook_url}
+                    onChange={(e) => setDraft({ ...draft, facebook_url: e.target.value })}
+                    placeholder="https://facebook.com/..."
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="artist-instagram" className="text-xs text-muted-foreground">
+                    Instagram
+                  </Label>
+                  <Input
+                    id="artist-instagram"
+                    type="url"
+                    inputMode="url"
+                    value={draft.instagram_url}
+                    onChange={(e) => setDraft({ ...draft, instagram_url: e.target.value })}
+                    placeholder="https://instagram.com/..."
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="artist-tiktok" className="text-xs text-muted-foreground">
+                    TikTok
+                  </Label>
+                  <Input
+                    id="artist-tiktok"
+                    type="url"
+                    inputMode="url"
+                    value={draft.tiktok_url}
+                    onChange={(e) => setDraft({ ...draft, tiktok_url: e.target.value })}
+                    placeholder="https://tiktok.com/@..."
+                  />
+                </div>
               </div>
 
               <div className="flex items-center justify-between rounded-md border border-border p-3">

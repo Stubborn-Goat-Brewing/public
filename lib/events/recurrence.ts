@@ -50,6 +50,9 @@ export interface EventRow {
       website_url: string | null
       image_url: string | null
       social_links: Record<string, string> | null
+      facebook_url: string | null
+      instagram_url: string | null
+      tiktok_url: string | null
       artist_genres?: Array<{ genres: { name: string } | null }>
     } | null
   }>
@@ -252,6 +255,10 @@ function mapArtists(event: EventRow): EventArtist[] {
         imageUrl: artist.image_url,
         socialLinks: {
           ...(artist.social_links ?? {}),
+          // Dedicated columns take precedence over any legacy jsonb entries.
+          ...(artist.facebook_url ? { Facebook: artist.facebook_url } : {}),
+          ...(artist.instagram_url ? { Instagram: artist.instagram_url } : {}),
+          ...(artist.tiktok_url ? { TikTok: artist.tiktok_url } : {}),
         },
         genres: (artist.artist_genres ?? []).map((g) => g.genres?.name).filter((n): n is string => Boolean(n)),
         setStartTime: trimTime(link.set_start_time),

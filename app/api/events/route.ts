@@ -51,6 +51,9 @@ const EVENT_SELECT = `
       website_url,
       image_url,
       social_links,
+      facebook_url,
+      instagram_url,
+      tiktok_url,
       artist_genres ( genres ( name ) )
     )
   ),

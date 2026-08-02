@@ -150,6 +150,13 @@ export async function createArtist(input: {
   return { ok: true, artist: data }
 }
 
+const optionalUrl = z
+  .string()
+  .trim()
+  .max(500)
+  .optional()
+  .transform((v) => (v ? v : null))
+
 const updateArtistSchema = createArtistSchema.extend({
   id: z.string().uuid(),
   description: z
@@ -158,12 +165,10 @@ const updateArtistSchema = createArtistSchema.extend({
     .max(4000)
     .optional()
     .transform((v) => (v ? v : null)),
-  image_url: z
-    .string()
-    .trim()
-    .max(500)
-    .optional()
-    .transform((v) => (v ? v : null)),
+  image_url: optionalUrl,
+  facebook_url: optionalUrl,
+  instagram_url: optionalUrl,
+  tiktok_url: optionalUrl,
   is_active: z.boolean().default(true),
 })
 
