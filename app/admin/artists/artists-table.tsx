@@ -1,8 +1,9 @@
 "use client"
 
-import { useMemo, useState, useTransition } from "react"
+import { useMemo, useRef, useState, useTransition } from "react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { ExternalLink, MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react"
+import { ExternalLink, ImageIcon, MoreHorizontal, Pencil, Search, Trash2, Upload, X } from "lucide-react"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -27,7 +28,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { AdminArtistRow } from "./page"
-import { deleteArtist, setArtistActive, updateArtist } from "./actions"
+import { deleteArtist, setArtistActive, updateArtist, uploadArtistImage } from "./actions"
 import { normalizeActionResult } from "@/lib/admin/action-result"
 
 type Draft = {
@@ -57,6 +58,29 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
   const [draft, setDraft] = useState<Draft | null>(null)
   const [pendingDelete, setPendingDelete] = useState<AdminArtistRow | null>(null)
   const [isPending, startTransition] = useTransition()
+  const [isUploading, setIsUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  async function handleImageUpload(file: File) {
+    if (!draft) return
+    setIsUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append("file", file)
+      const result = await uploadArtistImage(formData)
+      if (result.ok) {
+        setDraft((current) => (current ? { ...current, image_url: result.url } : current))
+        toast.success("Image uploaded.")
+      } else {
+        toast.error(result.error)
+      }
+    } catch {
+      toast.error("Could not upload the image.")
+    } finally {
+      setIsUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ""
+    }
+  }
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase()
@@ -293,15 +317,69 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="artist-image">
-                  Image URL <span className="text-muted-foreground">(optional)</span>
+                <Label>
+                  Photo <span className="text-muted-foreground">(optional)</span>
                 </Label>
-                <Input
-                  id="artist-image"
-                  value={draft.image_url}
-                  onChange={(e) => setDraft({ ...draft, image_url: e.target.value })}
-                  placeholder="https://"
-                />
+                <div className="flex items-start gap-4">
+                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
+                    {draft.image_url ? (
+                      <Image
+                        src={draft.image_url || "/placeholder.svg"}
+                        alt="Artist photo preview"
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <ImageIcon className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-1 flex-col gap-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        if (file) void handleImageUpload(file)
+                      }}
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={isUploading}
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <Upload className="mr-2 h-4 w-4" aria-hidden="true" />
+                        {isUploading
+                          ? "Uploading..."
+                          : draft.image_url
+                            ? "Replace photo"
+                            : "Upload photo"}
+                      </Button>
+                      {draft.image_url && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          disabled={isUploading}
+                          onClick={() => setDraft({ ...draft, image_url: "" })}
+                        >
+                          <X className="mr-2 h-4 w-4" aria-hidden="true" />
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                    <p className="text-xs text-muted-foreground">JPG, PNG, WebP, GIF, or AVIF up to 5MB.</p>
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-col gap-2">

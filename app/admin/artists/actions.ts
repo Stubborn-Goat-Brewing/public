@@ -1,9 +1,70 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 import { z } from "zod"
 import { getAdminSession } from "@/lib/admin/guard"
 import { normalizeForCompare, slugify } from "@/lib/admin/slug"
+
+const ARTIST_IMAGE_BUCKET = "artist-images"
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024
+const ALLOWED_IMAGE_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/avif",
+])
+
+export type UploadArtistImageResult = { ok: true; url: string } | { ok: false; error: string }
+
+/**
+ * Uploads an artist photo to Supabase Storage and returns its public URL.
+ *
+ * Uses the service-role key so the upload bypasses storage RLS - the admin
+ * session is already verified here, and the browser client never sees that key.
+ * The returned public URL is what gets saved into artists.image_url.
+ */
+export async function uploadArtistImage(formData: FormData): Promise<UploadArtistImageResult> {
+  const session = await getAdminSession()
+  if (!session) return { ok: false, error: UNAUTHORIZED }
+
+  const file = formData.get("file")
+  if (!(file instanceof File) || file.size === 0) {
+    return { ok: false, error: "Choose an image to upload." }
+  }
+  if (file.size > MAX_IMAGE_BYTES) {
+    return { ok: false, error: "Image must be 5MB or smaller." }
+  }
+  if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+    return { ok: false, error: "Use a JPG, PNG, WebP, GIF, or AVIF image." }
+  }
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !serviceKey) {
+    return { ok: false, error: "Image uploads are not configured." }
+  }
+
+  const admin = createSupabaseClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
+
+  const extension = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg"
+  const path = `${crypto.randomUUID()}.${extension}`
+
+  const { error } = await admin.storage
+    .from(ARTIST_IMAGE_BUCKET)
+    .upload(path, file, { contentType: file.type, upsert: false })
+
+  if (error) return { ok: false, error: error.message }
+
+  const {
+    data: { publicUrl },
+  } = admin.storage.from(ARTIST_IMAGE_BUCKET).getPublicUrl(path)
+
+  return { ok: true, url: publicUrl }
+}
 
 /**
  * These actions use `getAdminSession` rather than `requireAdmin` because they
