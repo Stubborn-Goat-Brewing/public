@@ -27,9 +27,17 @@ export function LoginForm() {
   function handleSubmit(formData: FormData) {
     setError(null)
     startTransition(async () => {
-      // A successful sign-in redirects server-side, so this only returns on error.
       const result = await signInWithPassword(formData)
-      if (result?.error) setError(result.error)
+      if (result?.error) {
+        setError(result.error)
+        return
+      }
+      // Server action returns the destination path; navigate client-side so
+      // the redirect is not swallowed by React's startTransition error handling.
+      if (result?.redirect) {
+        router.replace(result.redirect)
+        router.refresh()
+      }
     })
   }
 

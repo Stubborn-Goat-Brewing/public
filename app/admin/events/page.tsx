@@ -49,15 +49,16 @@ function todayKey(): string {
 export default async function AdminEventsPage({
   searchParams,
 }: {
-  searchParams: { scope?: string; page?: string }
+  searchParams: Promise<{ scope?: string; page?: string }>
 }) {
   const { email, supabase } = await requireAdmin()
+  const { scope: scopeParam, page: pageParam } = await searchParams
 
   // The table holds hundreds of rows going back years. Default to what staff
   // actually manage - upcoming events - and page through the rest, rather than
   // shipping the entire history to the browser on every visit.
-  const scope = searchParams.scope === "past" ? "past" : "upcoming"
-  const page = Math.max(1, Number(searchParams.page) || 1)
+  const scope = scopeParam === "past" ? "past" : "upcoming"
+  const page = Math.max(1, Number(pageParam) || 1)
   const from = (page - 1) * PAGE_SIZE
   const today = todayKey()
 

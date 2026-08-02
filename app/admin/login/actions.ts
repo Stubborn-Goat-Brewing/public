@@ -4,7 +4,11 @@ import { redirect } from "next/navigation"
 import { createSessionClient } from "@/lib/supabase/session"
 
 export interface LoginResult {
-  error: string
+  error?: string
+  /** Returned on success so the client can navigate; using redirect() inside a
+   *  server action throws NEXT_REDIRECT which React swallows inside
+   *  startTransition, making the form re-appear instead of navigating. */
+  redirect?: string
 }
 
 /** Only allow relative in-app paths, so `?next=` cannot be used as an open redirect. */
@@ -64,7 +68,7 @@ export async function signInWithPassword(formData: FormData): Promise<LoginResul
     return { error: "This account does not have admin access." }
   }
 
-  redirect(next)
+  return { redirect: next }
 }
 
 export async function signOut(): Promise<void> {

@@ -18,10 +18,8 @@ function toTimeInput(value: string | null): string {
   return value ? value.slice(0, 5) : ""
 }
 
-// This project is on Next.js 14, where `params` is a plain synchronous object
-// rather than a promise.
-export default async function EditEventPage({ params }: { params: { id: string } }) {
-  const { id } = params
+export default async function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const { email, supabase } = await requireAdmin()
 
   const [{ data: event }, options] = await Promise.all([
