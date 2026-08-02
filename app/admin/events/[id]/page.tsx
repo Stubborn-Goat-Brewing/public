@@ -113,7 +113,10 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
         />
 
         {event.occurrence_type === "recurring" && (
-          <section className="flex flex-col gap-3 rounded-lg border border-border bg-card p-6">
+          <section
+            id="individual-dates"
+            className="flex scroll-mt-6 flex-col gap-3 rounded-lg border border-border bg-card p-6"
+          >
             <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Individual dates
             </h2>

@@ -717,9 +717,12 @@ export function EventForm({
         <Button type="button" variant="outline" asChild disabled={isPending}>
           <Link href="/admin/events">Cancel</Link>
         </Button>
-        {mode === "edit" && eventId && (
+        {mode === "edit" && eventId && values.occurrence_type === "recurring" && (
           <Button type="button" variant="ghost" asChild>
-            <Link href={`/admin/events/${eventId}/dates`}>Manage individual dates</Link>
+            {/* The individual-dates editor is rendered inline on this same page
+                (see #individual-dates on the edit route), so scroll to it rather
+                than navigating to a separate route. */}
+            <a href="#individual-dates">Manage individual dates</a>
           </Button>
         )}
       </div>
