@@ -55,6 +55,8 @@ export interface EventRow {
       tiktok_url: string | null
       youtube_url: string | null
       apple_music_url: string | null
+      spotify_url: string | null
+      soundcloud_url: string | null
       artist_genres?: Array<{ genres: { name: string } | null }>
     } | null
   }>
@@ -263,6 +265,8 @@ function mapArtists(event: EventRow): EventArtist[] {
           ...(artist.tiktok_url ? { TikTok: artist.tiktok_url } : {}),
           ...(artist.youtube_url ? { YouTube: artist.youtube_url } : {}),
           ...(artist.apple_music_url ? { "Apple Music": artist.apple_music_url } : {}),
+          ...(artist.spotify_url ? { Spotify: artist.spotify_url } : {}),
+          ...(artist.soundcloud_url ? { SoundCloud: artist.soundcloud_url } : {}),
         },
         genres: (artist.artist_genres ?? []).map((g) => g.genres?.name).filter((n): n is string => Boolean(n)),
         setStartTime: trimTime(link.set_start_time),

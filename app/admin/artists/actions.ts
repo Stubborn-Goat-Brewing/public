@@ -171,6 +171,8 @@ const updateArtistSchema = createArtistSchema.extend({
   tiktok_url: optionalUrl,
   youtube_url: optionalUrl,
   apple_music_url: optionalUrl,
+  spotify_url: optionalUrl,
+  soundcloud_url: optionalUrl,
   is_active: z.boolean().default(true),
 })
 

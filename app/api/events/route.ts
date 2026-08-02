@@ -56,6 +56,8 @@ const EVENT_SELECT = `
       tiktok_url,
       youtube_url,
       apple_music_url,
+      spotify_url,
+      soundcloud_url,
       artist_genres ( genres ( name ) )
     )
   ),

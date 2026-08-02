@@ -42,6 +42,8 @@ type Draft = {
   tiktok_url: string
   youtube_url: string
   apple_music_url: string
+  spotify_url: string
+  soundcloud_url: string
   is_active: boolean
 }
 
@@ -57,6 +59,8 @@ function toDraft(artist: AdminArtistRow): Draft {
     tiktok_url: artist.tiktok_url ?? "",
     youtube_url: artist.youtube_url ?? "",
     apple_music_url: artist.apple_music_url ?? "",
+    spotify_url: artist.spotify_url ?? "",
+    soundcloud_url: artist.soundcloud_url ?? "",
     is_active: artist.is_active,
   }
 }
@@ -471,6 +475,32 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
                     value={draft.apple_music_url}
                     onChange={(e) => setDraft({ ...draft, apple_music_url: e.target.value })}
                     placeholder="https://music.apple.com/..."
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="artist-spotify" className="text-xs text-muted-foreground">
+                    Spotify
+                  </Label>
+                  <Input
+                    id="artist-spotify"
+                    type="url"
+                    inputMode="url"
+                    value={draft.spotify_url}
+                    onChange={(e) => setDraft({ ...draft, spotify_url: e.target.value })}
+                    placeholder="https://open.spotify.com/artist/..."
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="artist-soundcloud" className="text-xs text-muted-foreground">
+                    SoundCloud
+                  </Label>
+                  <Input
+                    id="artist-soundcloud"
+                    type="url"
+                    inputMode="url"
+                    value={draft.soundcloud_url}
+                    onChange={(e) => setDraft({ ...draft, soundcloud_url: e.target.value })}
+                    placeholder="https://soundcloud.com/..."
                   />
                 </div>
               </div>
