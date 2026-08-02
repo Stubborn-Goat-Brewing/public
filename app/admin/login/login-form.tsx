@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { Fingerprint, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,7 +14,6 @@ import { signInWithPassword } from "./actions"
 const NOT_AUTHORIZED = "This account does not have admin access."
 
 export function LoginForm() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const next = searchParams.get("next") ?? "/admin/events"
 
@@ -32,11 +31,12 @@ export function LoginForm() {
         setError(result.error)
         return
       }
-      // Server action returns the destination path; navigate client-side so
-      // the redirect is not swallowed by React's startTransition error handling.
+      // Session cookie is now set server-side. Use a full page navigation so
+      // the middleware runs with the new cookie and the RSC cache is fully
+      // cleared — router.replace() + router.refresh() can race and silently
+      // cancel each other in Next.js 16.
       if (result?.redirect) {
-        router.replace(result.redirect)
-        router.refresh()
+        window.location.href = result.redirect
       }
     })
   }
