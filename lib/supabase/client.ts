@@ -27,11 +27,6 @@ export function createClient(): SupabaseClient {
   }
 
   cached = createBrowserClient(url, anonKey, {
-    auth: {
-      // The passkey API ships behind an experimental flag in supabase-js
-      // 2.110.x; without this every passkey call throws before doing anything.
-      experimental: { passkey: true },
-    },
     cookieOptions: {
       // The Supabase session cookie must stay readable by the browser client,
       // so it cannot be HttpOnly.

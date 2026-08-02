@@ -2,13 +2,11 @@
 
 import { useState, useTransition } from "react"
 import { useSearchParams } from "next/navigation"
-import { Fingerprint, Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { createClient } from "@/lib/supabase/client"
 import { signInWithPassword } from "./actions"
 
 const NOT_AUTHORIZED = "This account does not have admin access."
@@ -21,7 +19,6 @@ export function LoginForm() {
     searchParams.get("error") === "not_authorized" ? NOT_AUTHORIZED : null,
   )
   const [isPending, startTransition] = useTransition()
-  const [passkeyBusy, setPasskeyBusy] = useState(false)
 
   function handleSubmit(formData: FormData) {
     setError(null)
@@ -41,41 +38,6 @@ export function LoginForm() {
     })
   }
 
-  async function handlePasskey() {
-    setError(null)
-    setPasskeyBusy(true)
-    try {
-      const supabase = createClient()
-      const { error: passkeyError } = await supabase.auth.signInWithPasskey()
-
-      if (passkeyError) {
-        // A cancelled WebAuthn prompt is a normal user action, not an error.
-        const name = (passkeyError as { name?: string }).name
-        if (name === "NotAllowedError" || name === "AbortError") return
-        console.log("[v0] passkey sign-in failed:", passkeyError.message)
-        setError("Passkey sign-in failed. Use your email and password instead.")
-        return
-      }
-
-      // Confirm admin membership before navigating; a valid Supabase session is
-      // not by itself authorization.
-      const { data: adminRow } = await supabase.from("admin_users").select("user_id").maybeSingle()
-      if (!adminRow) {
-        await supabase.auth.signOut()
-        setError(NOT_AUTHORIZED)
-        return
-      }
-
-      // Full navigation so the freshly-set session cookie is sent with the
-      // next request and the middleware can route the admin onward.
-      window.location.href = next
-    } finally {
-      setPasskeyBusy(false)
-    }
-  }
-
-  const busy = isPending || passkeyBusy
-
   return (
     <Card>
       <CardContent className="pt-6">
@@ -88,9 +50,9 @@ export function LoginForm() {
               id="email"
               name="email"
               type="email"
-              autoComplete="username webauthn"
+              autoComplete="username"
               required
-              disabled={busy}
+              disabled={isPending}
               placeholder="you@stubborngoatbrewing.com"
             />
           </div>
@@ -101,9 +63,9 @@ export function LoginForm() {
               id="password"
               name="password"
               type="password"
-              autoComplete="current-password webauthn"
+              autoComplete="current-password"
               required
-              disabled={busy}
+              disabled={isPending}
             />
           </div>
 
@@ -113,36 +75,11 @@ export function LoginForm() {
             </p>
           )}
 
-          <Button type="submit" className="w-full" disabled={busy}>
+          <Button type="submit" className="w-full" disabled={isPending}>
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />}
             Sign in
           </Button>
         </form>
-
-        <div className="my-5 flex items-center gap-3">
-          <Separator className="flex-1" />
-          <span className="text-xs uppercase tracking-wide text-muted-foreground">or</span>
-          <Separator className="flex-1" />
-        </div>
-
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          onClick={handlePasskey}
-          disabled={busy}
-        >
-          {passkeyBusy ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-          ) : (
-            <Fingerprint className="mr-2 h-4 w-4" aria-hidden="true" />
-          )}
-          Sign in with a passkey
-        </Button>
-
-        <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
-          Passkeys must be added from Settings after signing in with your password.
-        </p>
       </CardContent>
     </Card>
   )
