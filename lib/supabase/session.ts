@@ -9,8 +9,13 @@ import { createClient as createSupabaseClient, type SupabaseClient } from "@supa
  * `lib/supabase/server.ts` stays the client for anonymous public-calendar reads;
  * this one carries the user session so RLS `auth.uid()` resolves and the
  * `is_admin()` policies apply.
+ *
+ * IMPORTANT: cookies() is async in Next.js 16 and must be awaited. Calling it
+ * synchronously returns a Promise, so getAll() would return [] and set() would
+ * be a no-op — the session token is never persisted after login and every
+ * subsequent request looks unauthenticated.
  */
-export function createSessionClient(): SupabaseClient {
+export async function createSessionClient(): Promise<SupabaseClient> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
@@ -18,22 +23,25 @@ export function createSessionClient(): SupabaseClient {
     throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY")
   }
 
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
 
   return createServerClient(url, anonKey, {
+    cookieOptions: { secure: process.env.NODE_ENV === "production" },
     cookies: {
       getAll() {
         return cookieStore.getAll()
       },
       setAll(cookiesToSet) {
-        // Server components cannot mutate cookies. Middleware handles refresh,
-        // so swallowing the failure here is safe rather than fatal.
+        // Server components cannot set cookies; the try/catch silences that.
+        // Server actions CAN set cookies, so this path genuinely persists the
+        // session after login and token refreshes.
         try {
           for (const { name, value, options } of cookiesToSet) {
             cookieStore.set(name, value, options)
           }
         } catch {
-          // called from a server component render - ignore
+          // called from a Server Component render — middleware handles the
+          // token refresh there, so dropping the write here is safe.
         }
       },
     },

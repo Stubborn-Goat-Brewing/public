@@ -21,7 +21,7 @@ export interface AdminSession {
  * would be self-grantable by any signed-up user.
  */
 export async function requireAdmin(): Promise<AdminSession> {
-  const supabase = createSessionClient()
+  const supabase = await createSessionClient()
 
   const {
     data: { user },
@@ -54,7 +54,7 @@ export async function requireAdmin(): Promise<AdminSession> {
  * instead of throwing a redirect mid-mutation.
  */
 export async function getAdminSession(): Promise<AdminSession | null> {
-  const supabase = createSessionClient()
+  const supabase = await createSessionClient()
 
   const {
     data: { user },

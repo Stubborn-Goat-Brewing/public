@@ -26,9 +26,14 @@ export async function updateSession(request: NextRequest) {
         return request.cookies.getAll()
       },
       setAll(cookiesToSet) {
+        // Mutate the request cookies so the updated values are visible to
+        // downstream handlers in the same request cycle.
         for (const { name, value } of cookiesToSet) {
           request.cookies.set(name, value)
         }
+        // IMPORTANT: recreate the response WITH { request } so Next.js keeps
+        // the request headers in sync. Omitting it causes the browser and
+        // server to diverge and terminates the session prematurely.
         response = NextResponse.next({ request })
         for (const { name, value, options } of cookiesToSet) {
           response.cookies.set(name, value, options)

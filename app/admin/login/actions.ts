@@ -31,7 +31,7 @@ export async function signInWithPassword(formData: FormData): Promise<LoginResul
     return { error: "Enter your email and password." }
   }
 
-  const supabase = createSessionClient()
+  const supabase = await createSessionClient()
   const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
@@ -68,7 +68,7 @@ export async function signInWithPassword(formData: FormData): Promise<LoginResul
 }
 
 export async function signOut(): Promise<void> {
-  const supabase = createSessionClient()
+  const supabase = await createSessionClient()
   await supabase.auth.signOut()
   redirect("/admin/login")
 }
