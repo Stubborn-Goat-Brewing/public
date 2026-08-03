@@ -1,5 +1,7 @@
 "use client"
 
+import { WEEKLY_HOURS } from "@/lib/hours"
+
 export function HoursCard() {
   const getCurrentDay = () => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -9,19 +11,9 @@ export function HoursCard() {
 
   const currentDay = getCurrentDay()
 
-  const hours = [
-    { day: "Sunday", time: "12pm - 8pm" },
-    { day: "Monday", time: "Closed" },
-    { day: "Tuesday", time: "4pm - 10pm" },
-    { day: "Wednesday", time: "4pm - 10pm" },
-    { day: "Thursday", time: "4pm - 10pm" },
-    { day: "Friday", time: "3pm - 11pm" },
-    { day: "Saturday", time: "12pm - 11pm" },
-  ]
-
   return (
     <div className="space-y-3 md:space-y-4 w-full">
-      {hours.map((item) => (
+      {WEEKLY_HOURS.map((item) => (
         <div
           key={item.day}
           className={`flex justify-between py-2 px-3 md:px-4 rounded-md transition-colors text-sm md:text-base lg:text-lg ${
