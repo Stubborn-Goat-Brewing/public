@@ -17,7 +17,6 @@ import {
   Mail,
   X,
   Menu,
-  Globe,
   Repeat,
   CalendarRange,
   Ban,
@@ -28,8 +27,6 @@ import {
   Link2,
   Facebook,
   Instagram,
-  Youtube,
-  Music2,
 } from "lucide-react"
 import type { CalendarEvent as Event } from "@/lib/events/types"
 import {
@@ -43,6 +40,7 @@ import {
   toDateKey,
   typeColorStyles,
 } from "@/lib/events/format"
+import { SocialLinks } from "@/components/events/social-links"
 
 /** Renders the event type icon in its type color, driven by the database. */
 function EventTypeIcon({ event, className = "h-4 w-4" }: { event: Event; className?: string }) {
@@ -144,26 +142,6 @@ async function copyToClipboard(text: string): Promise<boolean> {
   } catch {
     return false
   }
-}
-
-/** Picks a lucide icon for a social platform label; falls back to a link icon. */
-function ArtistSocialIcon({ label }: { label: string }) {
-  const key = label.toLowerCase()
-  const Icon = key.includes("instagram")
-    ? Instagram
-    : key.includes("facebook")
-      ? Facebook
-      : key.includes("youtube")
-        ? Youtube
-        : key.includes("website")
-          ? Globe
-          : key.includes("spotify") ||
-              key.includes("apple music") ||
-              key.includes("soundcloud") ||
-              key.includes("tiktok")
-            ? Music2
-            : Link2
-  return <Icon className="h-3 w-3" />
 }
 
 /**
@@ -369,31 +347,14 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
                     {artist.description && (
                       <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{artist.description}</p>
                     )}
-                    <div className="flex flex-wrap gap-3 mt-1.5">
-                      {artist.websiteUrl && (
-                        <a
-                          href={artist.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
-                          <Globe className="h-3 w-3" />
-                          Website
-                        </a>
-                      )}
-                      {Object.entries(artist.socialLinks).map(([label, url]) => (
-                        <a
-                          key={label}
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-primary hover:underline capitalize"
-                        >
-                          <ArtistSocialIcon label={label} />
-                          {label}
-                        </a>
-                      ))}
-                    </div>
+                    <SocialLinks
+                      variant="inline"
+                      className="mt-1.5"
+                      links={[
+                        ...(artist.websiteUrl ? [{ label: "Website", url: artist.websiteUrl }] : []),
+                        ...Object.entries(artist.socialLinks).map(([label, url]) => ({ label, url })),
+                      ]}
+                    />
                   </div>
                 </div>
               ))}

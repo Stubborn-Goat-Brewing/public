@@ -2,22 +2,10 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import {
-  ArrowLeft,
-  Ban,
-  Calendar,
-  Clock,
-  Facebook,
-  Globe,
-  Instagram,
-  Link2,
-  MapPin,
-  Music2,
-  Repeat,
-  Youtube,
-} from "lucide-react"
+import { ArrowLeft, Ban, Calendar, Clock, MapPin, Repeat } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { JsonLd } from "@/components/seo/json-ld"
+import { SocialLinks } from "@/components/events/social-links"
 import { fetchEventOccurrence } from "@/lib/events/fetch"
 import {
   eventPath,
@@ -51,26 +39,6 @@ function truncate(text: string, max = 160): string {
   return `${text.slice(0, max - 1).trimEnd()}…`
 }
 
-/** Picks a lucide icon for a social platform label; falls back to a link icon. */
-function SocialIcon({ label }: { label: string }) {
-  const key = label.toLowerCase()
-  const Icon = key.includes("instagram")
-    ? Instagram
-    : key.includes("facebook")
-      ? Facebook
-      : key.includes("youtube")
-        ? Youtube
-        : key.includes("website")
-          ? Globe
-          : key.includes("spotify") ||
-              key.includes("apple music") ||
-              key.includes("soundcloud") ||
-              key.includes("tiktok")
-            ? Music2
-            : Link2
-  return <Icon className="h-3.5 w-3.5" />
-}
-
 /** Derives a friendly platform label from a raw social profile URL. */
 function labelFromUrl(url: string): string {
   try {
@@ -85,27 +53,6 @@ function labelFromUrl(url: string): string {
   } catch {
     return url
   }
-}
-
-/** Renders a wrapping row of social links as labeled pill buttons. */
-function SocialLinkList({ links }: { links: Array<{ label: string; url: string }> }) {
-  if (links.length === 0) return null
-  return (
-    <div className="flex flex-wrap gap-2">
-      {links.map(({ label, url }) => (
-        <a
-          key={`${label}-${url}`}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-        >
-          <SocialIcon label={label} />
-          {label}
-        </a>
-      ))}
-    </div>
-  )
 }
 
 export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
@@ -283,7 +230,7 @@ export default async function EventPage({ params }: EventPageProps) {
                       ]
                       return links.length > 0 ? (
                         <div className="mt-3">
-                          <SocialLinkList links={links} />
+                          <SocialLinks links={links} />
                         </div>
                       ) : null
                     })()}
@@ -307,7 +254,7 @@ export default async function EventPage({ params }: EventPageProps) {
               Stay in the loop on upcoming events and what&apos;s on tap.
             </p>
             <div className="mt-3">
-              <SocialLinkList links={SOCIAL_LINKS.map((url) => ({ label: labelFromUrl(url), url }))} />
+              <SocialLinks links={SOCIAL_LINKS.map((url) => ({ label: labelFromUrl(url), url }))} />
             </div>
           </section>
         </div>
