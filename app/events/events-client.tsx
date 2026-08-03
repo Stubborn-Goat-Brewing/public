@@ -27,6 +27,7 @@ import {
   ExternalLink,
   Link2,
   Facebook,
+  Instagram,
 } from "lucide-react"
 import type { CalendarEvent as Event } from "@/lib/events/types"
 import {
@@ -160,9 +161,6 @@ function ShareEvent({ event }: { event: Event }) {
     setShareUrl(new URL(path, window.location.origin).toString())
   }, [path])
 
-  const shareText = `${event.name} at Stubborn Goat Brewing`
-  const canNativeShare = typeof navigator !== "undefined" && typeof navigator.share === "function"
-
   async function handleCopy() {
     const ok = await copyToClipboard(shareUrl)
     if (ok) {
@@ -171,16 +169,11 @@ function ShareEvent({ event }: { event: Event }) {
     }
   }
 
-  async function handleNativeShare() {
-    try {
-      await navigator.share({ title: event.name, text: shareText, url: shareUrl })
-    } catch {
-      // User dismissed the sheet - nothing to do.
-    }
-  }
-
+  const shareText = `${event.name} at Stubborn Goat Brewing`
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`
+  // Instagram has no URL-based link-sharing endpoint, so the Instagram action
+  // opens the brewery's profile (the standard approach for link sharing).
+  const instagramUrl = "https://instagram.com/stubborngoatbrewing"
   const emailUrl = `mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`
 
   return (
@@ -190,12 +183,6 @@ function ShareEvent({ event }: { event: Event }) {
         <span className="text-sm font-medium text-muted-foreground">Share this event</span>
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        {canNativeShare && (
-          <Button variant="outline" size="sm" onClick={handleNativeShare} className="gap-1.5">
-            <Share2 className="h-4 w-4" />
-            Share
-          </Button>
-        )}
         <Button variant="outline" size="sm" onClick={handleCopy} className="gap-1.5">
           {copied ? <Check className="h-4 w-4 text-primary" /> : <Link2 className="h-4 w-4" />}
           {copied ? "Link copied!" : "Copy link"}
@@ -205,9 +192,9 @@ function ShareEvent({ event }: { event: Event }) {
             <Facebook className="h-4 w-4" />
           </a>
         </Button>
-        <Button variant="outline" size="icon" asChild aria-label="Share on X">
-          <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
-            <X className="h-4 w-4" />
+        <Button variant="outline" size="icon" asChild aria-label="Open our Instagram">
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            <Instagram className="h-4 w-4" />
           </a>
         </Button>
         <Button variant="outline" size="icon" asChild aria-label="Share via email">
