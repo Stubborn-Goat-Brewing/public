@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useState, useEffect } from "react"
+import { Suspense, useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -153,15 +153,25 @@ async function copyToClipboard(text: string): Promise<boolean> {
  */
 function ShareEvent({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false)
+  const [instaCopied, setInstaCopied] = useState(false)
   const path = eventPath(event.id, event.date)
   const [shareUrl, setShareUrl] = useState(path)
+  const urlInputRef = useRef<HTMLInputElement>(null)
 
   // Build the absolute URL on the client where window is available.
   useEffect(() => {
     setShareUrl(new URL(path, window.location.origin).toString())
   }, [path])
 
+  const shareText = `${event.name} at Stubborn Goat Brewing`
+  const caption = `${shareText}\n${shareUrl}`
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
+  const emailUrl = `mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(caption)}`
+
   async function handleCopy() {
+    // Always select the visible field so a manual copy works even when the
+    // programmatic clipboard write is blocked (e.g. inside embedded previews).
+    urlInputRef.current?.select()
     const ok = await copyToClipboard(shareUrl)
     if (ok) {
       setCopied(true)
@@ -169,12 +179,24 @@ function ShareEvent({ event }: { event: Event }) {
     }
   }
 
-  const shareText = `${event.name} at Stubborn Goat Brewing`
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
-  // Instagram has no URL-based link-sharing endpoint, so the Instagram action
-  // opens the brewery's profile (the standard approach for link sharing).
-  const instagramUrl = "https://instagram.com/stubborngoatbrewing"
-  const emailUrl = `mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`
+  // Instagram offers no web share URL that accepts a link, so on devices with a
+  // native share sheet (mobile) we open it with the event info - the user can
+  // then pick Instagram. Elsewhere we copy a ready-to-paste caption + link.
+  async function handleInstagram() {
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title: event.name, text: shareText, url: shareUrl })
+        return
+      } catch {
+        // Fall through to copying the caption.
+      }
+    }
+    const ok = await copyToClipboard(caption)
+    if (ok) {
+      setInstaCopied(true)
+      setTimeout(() => setInstaCopied(false), 2500)
+    }
+  }
 
   return (
     <div className="space-y-2 pt-3 border-t">
@@ -182,20 +204,38 @@ function ShareEvent({ event }: { event: Event }) {
         <Share2 className="h-4 w-4 text-muted-foreground" />
         <span className="text-sm font-medium text-muted-foreground">Share this event</span>
       </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <Button variant="outline" size="sm" onClick={handleCopy} className="gap-1.5">
+
+      {/* Selectable URL + copy button: manual copy always works as a fallback. */}
+      <div className="flex items-center gap-2">
+        <input
+          ref={urlInputRef}
+          type="text"
+          readOnly
+          value={shareUrl}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label="Event link"
+          className="flex-1 min-w-0 rounded-md border bg-muted/50 px-2 py-1.5 text-sm text-muted-foreground"
+        />
+        <Button variant="outline" size="sm" onClick={handleCopy} className="gap-1.5 flex-shrink-0">
           {copied ? <Check className="h-4 w-4 text-primary" /> : <Link2 className="h-4 w-4" />}
-          {copied ? "Link copied!" : "Copy link"}
+          {copied ? "Copied!" : "Copy"}
         </Button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
         <Button variant="outline" size="icon" asChild aria-label="Share on Facebook">
           <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
             <Facebook className="h-4 w-4" />
           </a>
         </Button>
-        <Button variant="outline" size="icon" asChild aria-label="Open our Instagram">
-          <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
-            <Instagram className="h-4 w-4" />
-          </a>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={handleInstagram}
+          aria-label="Share to Instagram"
+          title="Share to Instagram (copies caption on desktop)"
+        >
+          {instaCopied ? <Check className="h-4 w-4 text-primary" /> : <Instagram className="h-4 w-4" />}
         </Button>
         <Button variant="outline" size="icon" asChild aria-label="Share via email">
           <a href={emailUrl}>
@@ -209,6 +249,10 @@ function ShareEvent({ event }: { event: Event }) {
           </Link>
         </Button>
       </div>
+
+      {instaCopied && (
+        <p className="text-xs text-muted-foreground">Caption copied - paste it into your Instagram post or story.</p>
+      )}
     </div>
   )
 }
