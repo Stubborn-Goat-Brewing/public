@@ -1,7 +1,7 @@
 import type React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { CalendarDays, ExternalLink, LogOut, Music, Settings } from "lucide-react"
+import { CalendarDays, ExternalLink, LogOut, Music, Settings, Tags } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { signOut } from "@/app/admin/login/actions"
 import { AdminNavLink } from "./admin-nav-link"
@@ -9,6 +9,7 @@ import { AdminNavLink } from "./admin-nav-link"
 const NAV = [
   { href: "/admin/events", label: "Events", icon: CalendarDays },
   { href: "/admin/artists", label: "Artists", icon: Music },
+  { href: "/admin/event-types", label: "Event Types", icon: Tags },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ]
 

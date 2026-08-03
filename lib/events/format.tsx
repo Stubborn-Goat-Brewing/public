@@ -51,6 +51,9 @@ export function getEventIcon(icon: string | null | undefined): LucideIcon {
   return (icon && ICONS[icon]) || Star
 }
 
+/** Icon names selectable when managing event types (drives the badge icon). */
+export const EVENT_ICON_NAMES = Object.keys(ICONS).sort()
+
 /** Parses a `YYYY-MM-DD` key into a LOCAL date (avoids UTC off-by-one bugs). */
 export function parseDateKey(key: string): Date {
   const [y, m, d] = key.split("-").map(Number)
