@@ -32,6 +32,7 @@ export const SOCIAL_LINKS = [
   "https://instagram.com/StubbornGoatBrewing",
   "https://www.facebook.com/profile.php?id=61575081059536",
   "https://untappd.com/StubbornGoatBrewing",
+  "https://share.google/fORJRGzfKSfRnhGKs",
 ]
 
 /** Logo used in structured data (must be a crawlable absolute URL). */
