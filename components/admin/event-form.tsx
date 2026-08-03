@@ -1,9 +1,10 @@
 "use client"
 
-import { useMemo, useState, useTransition } from "react"
+import { useMemo, useRef, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 import Link from "next/link"
-import { CalendarClock, Loader2, Repeat } from "lucide-react"
+import { CalendarClock, ImageIcon, Loader2, Repeat, Upload, X } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -29,6 +30,7 @@ import {
 } from "@/lib/admin/event-schema"
 import { previewOccurrences } from "@/lib/admin/preview-dates"
 import { normalizeActionResult, type ActionResultLike } from "@/lib/admin/action-result"
+import { uploadEventImage } from "@/app/admin/events/actions"
 
 export type EventTypeOption = {
   id: number
@@ -76,6 +78,28 @@ export function EventForm({
   const [values, setValues] = useState<EventFormValues>(initialValues)
   const [errors, setErrors] = useState<FieldErrors>({})
   const [isPending, startTransition] = useTransition()
+  const [isUploading, setIsUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  async function handleImageUpload(file: File) {
+    setIsUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append("file", file)
+      const result = await uploadEventImage(formData)
+      if (result.ok) {
+        set("image_url", result.url)
+        toast.success("Image uploaded.")
+      } else {
+        toast.error(result.error)
+      }
+    } catch {
+      toast.error("Could not upload the image.")
+    } finally {
+      setIsUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ""
+    }
+  }
 
   function set<K extends keyof EventFormValues>(key: K, value: EventFormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }))
@@ -638,16 +662,78 @@ export function EventForm({
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="image_url">
-            Image URL <span className="text-muted-foreground">(optional)</span>
+          <Label>
+            Image <span className="text-muted-foreground">(optional)</span>
           </Label>
-          <Input
-            id="image_url"
-            value={values.image_url ?? ""}
-            onChange={(e) => set("image_url", e.target.value)}
-            placeholder="/images/event.jpg"
-            aria-invalid={Boolean(errors.image_url)}
-          />
+          <div className="flex items-start gap-4">
+            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
+              {values.image_url ? (
+                <Image
+                  src={values.image_url || "/placeholder.svg"}
+                  alt="Event image preview"
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                  unoptimized
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <ImageIcon className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-1 flex-col gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) void handleImageUpload(file)
+                }}
+              />
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={isUploading}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Upload className="mr-2 h-4 w-4" aria-hidden="true" />
+                  {isUploading ? "Uploading..." : values.image_url ? "Replace image" : "Upload image"}
+                </Button>
+                {values.image_url && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    disabled={isUploading}
+                    onClick={() => set("image_url", "")}
+                  >
+                    <X className="mr-2 h-4 w-4" aria-hidden="true" />
+                    Remove
+                  </Button>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground">JPG, PNG, WebP, GIF, or AVIF up to 5MB.</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="image_url" className="text-xs text-muted-foreground">
+              Or paste an image URL
+            </Label>
+            <Input
+              id="image_url"
+              value={values.image_url ?? ""}
+              onChange={(e) => set("image_url", e.target.value)}
+              placeholder="/images/event.jpg"
+              aria-invalid={Boolean(errors.image_url)}
+            />
+          </div>
           {err("image_url")}
         </div>
       </section>
