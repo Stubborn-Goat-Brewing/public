@@ -99,7 +99,9 @@ function getEventJsonLd(event: CalendarEvent): Record<string, unknown> | null {
     ...(event.imageUrl ? { image: [event.imageUrl] } : {}),
     location: {
       "@type": "Place",
-      name: event.location || SITE_NAME,
+      // Events are always hosted at the brewery, so anchor the Place to the
+      // venue (not the source data's free-text location string like "West Grove").
+      name: SITE_NAME,
       address: {
         "@type": "PostalAddress",
         streetAddress: BUSINESS.streetAddress,
