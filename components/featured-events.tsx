@@ -81,7 +81,7 @@ export function FeaturedEvents() {
               </p>
             </div>
             <Button asChild variant="outline" size="sm" className="flex-shrink-0">
-              <Link href="/events" className="flex items-center gap-1">
+              <Link href="/events#calendar" className="flex items-center gap-1">
                 View calendar
                 <ChevronRight className="h-4 w-4" />
               </Link>
