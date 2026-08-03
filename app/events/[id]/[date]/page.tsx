@@ -131,7 +131,7 @@ export default async function EventPage({ params }: EventPageProps) {
       <main className="container flex-1 py-8 md:py-12">
         <div className="mx-auto max-w-2xl">
           <Link
-            href="/events"
+            href="/events#calendar"
             className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
