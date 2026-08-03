@@ -4,6 +4,9 @@ import { useMemo, useState, useTransition } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
   ChevronLeft,
   ChevronRight,
   Copy,
@@ -43,6 +46,32 @@ import { normalizeActionResult } from "@/lib/admin/action-result"
 
 type Filter = "all" | "recurring" | "one_time" | "drafts"
 
+type SortKey = "title" | "schedule" | "type" | "live"
+type SortDir = "asc" | "desc"
+
+/** Sort keys that fall back to the event's start_date, so the "Schedule"
+ * column sorts chronologically and everything else uses date as a tiebreaker. */
+function scheduleValue(event: AdminEventRow): string {
+  return event.start_date ?? ""
+}
+
+function compareEvents(a: AdminEventRow, b: AdminEventRow, key: SortKey): number {
+  switch (key) {
+    case "title":
+      return a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+    case "type":
+      return (a.event_types?.name ?? "").localeCompare(b.event_types?.name ?? "", undefined, {
+        sensitivity: "base",
+      })
+    case "live":
+      // Published first when ascending.
+      return Number(b.is_published) - Number(a.is_published)
+    case "schedule":
+    default:
+      return scheduleValue(a).localeCompare(scheduleValue(b))
+  }
+}
+
 export function EventsTable({
   events,
   scope,
@@ -59,13 +88,17 @@ export function EventsTable({
   const router = useRouter()
   const [query, setQuery] = useState("")
   const [filter, setFilter] = useState<Filter>("all")
+  const [sort, setSort] = useState<{ key: SortKey; dir: SortDir }>({
+    key: "schedule",
+    dir: scope === "past" ? "desc" : "asc",
+  })
   const [pendingDelete, setPendingDelete] = useState<AdminEventRow | null>(null)
   const [isPending, startTransition] = useTransition()
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase()
 
-    return events.filter((event) => {
+    const filtered = events.filter((event) => {
       if (filter === "recurring" && event.occurrence_type !== "recurring") return false
       if (filter === "one_time" && event.occurrence_type === "recurring") return false
       if (filter === "drafts" && event.is_published) return false
@@ -76,7 +109,36 @@ export function EventsTable({
         (event.event_types?.name ?? "").toLowerCase().includes(needle)
       )
     })
-  }, [events, query, filter])
+
+    const sorted = [...filtered].sort((a, b) => compareEvents(a, b, sort.key))
+    return sort.dir === "asc" ? sorted : sorted.reverse()
+  }, [events, query, filter, sort])
+
+  // Clicking a header toggles direction, or switches to that column ascending.
+  function toggleSort(key: SortKey) {
+    setSort((prev) =>
+      prev.key === key ? { key, dir: prev.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" },
+    )
+  }
+
+  function SortButton({ column, label }: { column: SortKey; label: string }) {
+    const active = sort.key === column
+    const Icon = !active ? ArrowUpDown : sort.dir === "asc" ? ArrowUp : ArrowDown
+    return (
+      <button
+        type="button"
+        onClick={() => toggleSort(column)}
+        className="-ml-1 inline-flex items-center gap-1 rounded px-1 py-0.5 font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        aria-label={`Sort by ${label}${active ? (sort.dir === "asc" ? ", ascending" : ", descending") : ""}`}
+      >
+        {label}
+        <Icon
+          className={`h-3.5 w-3.5 ${active ? "text-primary" : "text-muted-foreground"}`}
+          aria-hidden="true"
+        />
+      </button>
+    )
+  }
 
   function run(
     label: string,
@@ -143,10 +205,18 @@ export function EventsTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Event</TableHead>
-              <TableHead className="hidden md:table-cell">Schedule</TableHead>
-              <TableHead className="hidden sm:table-cell">Type</TableHead>
-              <TableHead>Live</TableHead>
+              <TableHead>
+                <SortButton column="title" label="Event" />
+              </TableHead>
+              <TableHead className="hidden md:table-cell">
+                <SortButton column="schedule" label="Schedule" />
+              </TableHead>
+              <TableHead className="hidden sm:table-cell">
+                <SortButton column="type" label="Type" />
+              </TableHead>
+              <TableHead>
+                <SortButton column="live" label="Live" />
+              </TableHead>
               <TableHead className="w-[52px]">
                 <span className="sr-only">Actions</span>
               </TableHead>
