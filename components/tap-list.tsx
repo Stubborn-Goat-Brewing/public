@@ -92,9 +92,6 @@ export function TapList() {
                   </div>
                 )}
               </div>
-              {beer.pricing && (
-                <p className="mt-3 text-sm font-medium text-primary">{beer.pricing}</p>
-              )}
             </CardContent>
           </Card>
         ))}
