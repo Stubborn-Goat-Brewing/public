@@ -196,7 +196,10 @@ function ShareEvent({ event }: { event: Event }) {
           Share
         </Button>
       ) : (
-        <DropdownMenu>
+        // modal={false} is required because this menu is nested inside the modal
+        // event Dialog; otherwise the Dialog's pointer-events lock prevents the
+        // menu from opening or its items from being clickable.
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="gap-1.5">
               {copied ? <Check className="h-4 w-4 text-primary" /> : <Share2 className="h-4 w-4" />}
