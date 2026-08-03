@@ -5,7 +5,7 @@ import { Calendar, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import type { CalendarEvent as Event } from "@/lib/events/types"
-import { compareOccurrences, formatTimeRange, getEventIcon, toDateKey } from "@/lib/events/format"
+import { compareOccurrences, eventPath, formatTimeRange, getEventIcon, toDateKey } from "@/lib/events/format"
 
 interface DayEvents {
   date: Date
@@ -137,7 +137,11 @@ export function UpcomingEventsBanner() {
               {day.events.length > 0 ? (
                 <div className="space-y-2">
                   {day.events.slice(0, 3).map((event) => (
-                    <div key={event.occurrenceId} className="text-left">
+                    <Link
+                      key={event.occurrenceId}
+                      href={eventPath(event.id, event.date)}
+                      className="block text-left rounded-md -mx-1 px-1 py-0.5 transition-colors hover:bg-amber-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                    >
                       <div className="flex items-start gap-1.5 mb-1">
                         <div className="flex-shrink-0 mt-0.5">
                           <EventTypeIcon event={event} />
@@ -153,7 +157,7 @@ export function UpcomingEventsBanner() {
                       <p className="text-xs text-zinc-600 ml-5">
                         {formatTimeRange(event.startTime, event.endTime)}
                       </p>
-                    </div>
+                    </Link>
                   ))}
                   {day.events.length > 3 && (
                     <p className="text-xs text-zinc-500 italic">+{day.events.length - 3} more</p>

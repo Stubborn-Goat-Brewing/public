@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
+import { FeaturedEvents } from "@/components/featured-events"
 import { useState } from "react"
 
 export function HomeClient() {
@@ -173,6 +174,9 @@ export function HomeClient() {
             </div>
           </div>
         </section>
+
+        {/* Upcoming Events Section */}
+        <FeaturedEvents />
 
         {/* Cans To-Go Promo Section */}
         <section className="w-full">
