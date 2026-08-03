@@ -614,12 +614,19 @@ export function EventForm({
             <Label htmlFor="location">
               Location <span className="text-muted-foreground">(optional)</span>
             </Label>
-            <Input
-              id="location"
+            <Select
               value={values.location ?? ""}
-              onChange={(e) => set("location", e.target.value)}
-              placeholder="Taproom"
-            />
+              onValueChange={(value) => set("location", value)}
+            >
+              <SelectTrigger id="location">
+                <SelectValue placeholder="Choose a location" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="West Grove">West Grove</SelectItem>
+                <SelectItem value="Kennett Square">Kennett Square</SelectItem>
+                <SelectItem value="All Locations">All Locations</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="price_text">
