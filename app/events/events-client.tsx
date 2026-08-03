@@ -7,6 +7,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
   Calendar,
   MapPin,
   ChevronLeft,
@@ -25,6 +31,8 @@ import {
   Share2,
   Check,
   ExternalLink,
+  Link2,
+  Facebook,
 } from "lucide-react"
 import type { CalendarEvent as Event } from "@/lib/events/types"
 import {
@@ -111,45 +119,116 @@ function formatSpan(event: Event): string | null {
 }
 
 /**
- * Share controls for an event: a native share sheet where supported (mobile),
- * with a copy-link fallback, plus a direct link to the event's own page.
+ * Copies text to the clipboard, with a fallback for browsers/iframes where the
+ * async Clipboard API is unavailable or blocked (common in embedded previews).
+ * Returns whether the copy succeeded so the UI can always show feedback.
+ */
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    if (typeof navigator !== "undefined" && navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text)
+      return true
+    }
+  } catch {
+    // Fall through to the execCommand fallback below.
+  }
+
+  try {
+    const textarea = document.createElement("textarea")
+    textarea.value = text
+    textarea.setAttribute("readonly", "")
+    textarea.style.position = "fixed"
+    textarea.style.opacity = "0"
+    document.body.appendChild(textarea)
+    textarea.select()
+    const ok = document.execCommand("copy")
+    document.body.removeChild(textarea)
+    return ok
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Share controls for an event. On mobile with Web Share support this opens the
+ * native share sheet; everywhere else (including desktop laptops, where
+ * `navigator.share` is undefined) it opens a dropdown with explicit targets so
+ * the button always produces a visible result.
  */
 function ShareEvent({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false)
   const path = eventPath(event.id, event.date)
+  const [shareUrl, setShareUrl] = useState(path)
 
-  async function handleShare() {
-    const url = typeof window !== "undefined" ? new URL(path, window.location.origin).toString() : path
-    const shareData = {
-      title: event.name,
-      text: `${event.name} at Stubborn Goat Brewing`,
-      url,
-    }
+  // Build the absolute URL on the client where window is available.
+  useEffect(() => {
+    setShareUrl(new URL(path, window.location.origin).toString())
+  }, [path])
 
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share(shareData)
-        return
-      } catch {
-        // User dismissed the sheet, or share failed - fall back to copy below.
-      }
-    }
+  const shareText = `${event.name} at Stubborn Goat Brewing`
+  const canNativeShare = typeof navigator !== "undefined" && typeof navigator.share === "function"
 
-    try {
-      await navigator.clipboard.writeText(url)
+  async function handleCopy() {
+    const ok = await copyToClipboard(shareUrl)
+    if (ok) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
-    } catch {
-      console.log("[v0] Unable to copy event link")
     }
   }
 
+  async function handleNativeShare() {
+    try {
+      await navigator.share({ title: event.name, text: shareText, url: shareUrl })
+    } catch {
+      // User dismissed the sheet - nothing to do.
+    }
+  }
+
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`
+  const emailUrl = `mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`
+
   return (
     <div className="flex flex-wrap items-center gap-2 pt-2 border-t">
-      <Button variant="outline" size="sm" onClick={handleShare} className="gap-1.5">
-        {copied ? <Check className="h-4 w-4 text-primary" /> : <Share2 className="h-4 w-4" />}
-        {copied ? "Link copied" : "Share"}
-      </Button>
+      {canNativeShare ? (
+        <Button variant="outline" size="sm" onClick={handleNativeShare} className="gap-1.5">
+          <Share2 className="h-4 w-4" />
+          Share
+        </Button>
+      ) : (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="gap-1.5">
+              {copied ? <Check className="h-4 w-4 text-primary" /> : <Share2 className="h-4 w-4" />}
+              {copied ? "Link copied" : "Share"}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-48">
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()} onClick={handleCopy}>
+              <Link2 className="mr-2 h-4 w-4" />
+              {copied ? "Link copied!" : "Copy link"}
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+                <Facebook className="mr-2 h-4 w-4" />
+                Share on Facebook
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
+                <X className="mr-2 h-4 w-4" />
+                Share on X
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href={emailUrl}>
+                <Mail className="mr-2 h-4 w-4" />
+                Share via email
+              </a>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
       <Button variant="ghost" size="sm" asChild className="gap-1.5">
         <Link href={path}>
           View event page
