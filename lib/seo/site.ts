@@ -29,7 +29,7 @@ export const BUSINESS = {
 } as const
 
 export const SOCIAL_LINKS = [
-  "https://instagram.com/StubbornGoatBrewing",
+  "https://instagram.com/stubborngoatbrewing",
   "https://www.facebook.com/profile.php?id=61575081059536",
   "https://untappd.com/StubbornGoatBrewing",
   "https://share.google/fORJRGzfKSfRnhGKs",
