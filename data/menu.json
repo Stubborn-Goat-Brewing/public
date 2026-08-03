@@ -474,7 +474,7 @@
         },
         {
           "name": "Soft Drinks",
-          "description": "We serve a variety of Coca-Cola products. Refills $1.50.",
+          "description": "We serve a variety of Coca-Cola products. Refills are $1.50.",
           "price": 3,
           "varieties": ["Classic Coke", "Diet Coke", "Sprite", "Root Beer", "Ginger Ale", "Lemonade", "Cranberry Juice", "Tonic Water", "Club Soda"],
           "logo": "/images/coca-cola-logo.png",

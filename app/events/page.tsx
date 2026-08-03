@@ -5,84 +5,58 @@ import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import {
   Calendar,
   MapPin,
-  Music,
-  HelpCircle,
-  Grid3X3,
-  Hammer,
-  Star,
   ChevronLeft,
   ChevronRight,
   Clock,
-  Trophy,
-  UtensilsCrossed,
-  Wine,
-  Users,
-  Lock,
-  XCircle,
-  Heart,
-  DollarSign,
   Utensils,
   Beer,
   Mail,
   X,
   Menu,
+  Globe,
+  Repeat,
+  CalendarRange,
+  Ban,
+  Loader2,
 } from "lucide-react"
+import type { CalendarEvent as Event } from "@/lib/events/types"
+import {
+  compareOccurrences,
+  formatDateLong,
+  formatTime,
+  formatTimeRange,
+  getEventIcon,
+  parseDateKey,
+  toDateKey,
+  typeColorStyles,
+} from "@/lib/events/format"
 
-interface Event {
-  name: string
-  date: string
-  startTime: string
-  endTime: string
-  description: string
-  type: string
+/** Renders the event type icon in its type color, driven by the database. */
+function EventTypeIcon({ event, className = "h-4 w-4" }: { event: Event; className?: string }) {
+  const Icon = getEventIcon(event.icon)
+  return <Icon className={className} style={{ color: event.color }} />
 }
 
-function getEventTypeIcon(type: string) {
-  switch (type?.toLowerCase()) {
-    case "live music":
-      return <Music className="h-4 w-4 text-primary" />
-    case "trivia":
-      return <HelpCircle className="h-4 w-4 text-primary" />
-    case "bingo":
-      return <Grid3X3 className="h-4 w-4 text-primary" />
-    case "craft":
-      return <Hammer className="h-4 w-4 text-primary" />
-    case "sports":
-      return <Trophy className="h-4 w-4 text-primary" />
-    case "food special":
-      return <UtensilsCrossed className="h-4 w-4 text-primary" />
-    case "drink special":
-      return <Wine className="h-4 w-4 text-primary" />
-    case "community event":
-      return <Users className="h-4 w-4 text-primary" />
-    case "private event (closed to public)":
-      return <Lock className="h-4 w-4 text-primary" />
-    case "closed":
-      return <XCircle className="h-4 w-4 text-primary" />
-    case "dine and donate":
-      return <Heart className="h-4 w-4 text-primary" />
-    case "fundraiser":
-      return <DollarSign className="h-4 w-4 text-primary" />
-    case "general":
-    default:
-      return <Star className="h-4 w-4 text-primary" />
-  }
+/** Small colored pill showing the event type name. */
+function EventTypeBadge({ event }: { event: Event }) {
+  return (
+    <div
+      className="flex-shrink-0 px-2 py-1 text-xs rounded-full border font-medium"
+      style={typeColorStyles(event.color)}
+    >
+      {event.type}
+    </div>
+  )
 }
 
-function getEventTypeLabel(type: string) {
-  if (!type) return ""
-  return type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()
-}
-
-async function getEvents(): Promise<Event[]> {
+async function getEvents(from: string, to: string): Promise<Event[]> {
   try {
-    console.log("[v0] Fetching events from API route")
-    const timestamp = Date.now()
-    const response = await fetch(`/api/events?t=${timestamp}`, {
+    const params = new URLSearchParams({ from, to, t: String(Date.now()) })
+    const response = await fetch(`/api/events?${params.toString()}`, {
       cache: "no-store",
       headers: {
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -97,8 +71,6 @@ async function getEvents(): Promise<Event[]> {
     }
 
     const data = await response.json()
-    console.log("[v0] Received events:", data.events?.length || 0)
-
     return data.events || []
   } catch (error) {
     console.error("[v0] Error fetching events:", error)
@@ -106,74 +78,169 @@ async function getEvents(): Promise<Event[]> {
   }
 }
 
-function formatTime(timeString: string): string {
-  if (!timeString) return ""
-
-  try {
-    // Parse datetime string and extract just the time portion
-    const date = new Date(timeString)
-    return date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    })
-  } catch {
-    return timeString
-  }
+/**
+ * The window we request for a given viewing month: a one-month buffer on each
+ * side so multi-day spans crossing boundaries and quick prev/next navigation
+ * are already loaded. Uses UTC so the `YYYY-MM-DD` keys are timezone-stable.
+ */
+function monthRange(year: number, month: number): { from: string; to: string } {
+  const from = new Date(Date.UTC(year, month - 1, 1)).toISOString().slice(0, 10)
+  const to = new Date(Date.UTC(year, month + 2, 0)).toISOString().slice(0, 10)
+  return { from, to }
 }
 
-function formatDate(dateString: string): string {
-  if (!dateString) return ""
+/** Merges freshly fetched occurrences into the accumulated set, deduped by id. */
+function mergeEvents(prev: Event[], next: Event[]): Event[] {
+  const byId = new Map<string, Event>()
+  for (const event of prev) byId.set(event.occurrenceId, event)
+  for (const event of next) byId.set(event.occurrenceId, event)
+  return Array.from(byId.values())
+}
 
-  try {
-    const date = new Date(dateString)
-    return date.toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  } catch {
-    return dateString
-  }
+/** Describes a multi-day span, e.g. "Sep 7 - Sep 13". */
+function formatSpan(event: Event): string | null {
+  if (!event.spanStartDate || !event.spanEndDate) return null
+  const opts: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" }
+  const start = parseDateKey(event.spanStartDate).toLocaleDateString("en-US", opts)
+  const end = parseDateKey(event.spanEndDate).toLocaleDateString("en-US", opts)
+  return `${start} - ${end}`
 }
 
 function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: boolean; onClose: () => void }) {
   if (!event) return null
 
+  const span = formatSpan(event)
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            {getEventTypeIcon(event.type)}
+          <DialogTitle className="flex items-center gap-2 text-left">
+            <EventTypeIcon event={event} className="h-5 w-5 flex-shrink-0" />
             {event.name}
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            {`${event.type} on ${formatDateLong(event.date)}, ${formatTimeRange(event.startTime, event.endTime)}`}
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Calendar className="h-4 w-4" />
-            {formatDate(event.date)}
+          <div className="flex flex-wrap items-center gap-2">
+            <EventTypeBadge event={event} />
+            {event.isCancelled && (
+              <div className="flex items-center gap-1 px-2 py-1 text-xs rounded-full border border-destructive/40 bg-destructive/10 text-destructive font-medium">
+                <Ban className="h-3 w-3" />
+                Cancelled
+              </div>
+            )}
+            {event.isRecurring && (
+              <div className="flex items-center gap-1 px-2 py-1 text-xs rounded-full border bg-muted text-muted-foreground">
+                <Repeat className="h-3 w-3" />
+                Recurring
+              </div>
+            )}
+            {span && (
+              <div className="flex items-center gap-1 px-2 py-1 text-xs rounded-full border bg-muted text-muted-foreground">
+                <CalendarRange className="h-3 w-3" />
+                {span}
+              </div>
+            )}
           </div>
 
-          {(event.startTime || event.endTime) && (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar className="h-4 w-4 flex-shrink-0" />
+            {formatDateLong(event.date)}
+          </div>
+
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Clock className="h-4 w-4 flex-shrink-0" />
+            {formatTimeRange(event.startTime, event.endTime)}
+          </div>
+
+          {event.location && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4" />
-              {event.startTime && formatTime(event.startTime)}
-              {event.startTime && event.endTime && " - "}
-              {event.endTime && formatTime(event.endTime)}
+              <MapPin className="h-4 w-4 flex-shrink-0" />
+              {event.location}
             </div>
           )}
-
-          <div className="inline-block px-2 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-            {getEventTypeLabel(event.type)}
-          </div>
 
           {event.description && (
             <div
               className="text-sm text-muted-foreground leading-relaxed prose prose-sm prose-neutral dark:prose-invert max-w-none [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
               dangerouslySetInnerHTML={{ __html: event.description }}
             />
+          )}
+
+          {event.artists.length > 0 && (
+            <div className="space-y-3 pt-2 border-t">
+              <h4 className="text-sm font-semibold">
+                {event.artists.length > 1 ? "Performing Artists" : "About the Artist"}
+              </h4>
+              {event.artists.map((artist) => (
+                <div key={artist.id} className="flex gap-3">
+                  {artist.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={artist.imageUrl || "/placeholder.svg"}
+                      alt={artist.name}
+                      className="h-16 w-16 rounded-md object-cover flex-shrink-0"
+                    />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-sm">{artist.name}</p>
+                    {artist.hometown && <p className="text-xs text-muted-foreground">{artist.hometown}</p>}
+                    {artist.genres.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {artist.genres.map((genre) => (
+                          <span key={genre} className="px-1.5 py-0.5 text-xs rounded bg-muted text-muted-foreground">
+                            {genre}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {(artist.setStartTime || artist.setEndTime) && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Set: {formatTimeRange(artist.setStartTime, artist.setEndTime)}
+                      </p>
+                    )}
+                    {artist.description && (
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{artist.description}</p>
+                    )}
+                    <div className="flex flex-wrap gap-3 mt-1.5">
+                      {artist.websiteUrl && (
+                        <a
+                          href={artist.websiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                        >
+                          <Globe className="h-3 w-3" />
+                          Website
+                        </a>
+                      )}
+                      {Object.entries(artist.socialLinks).map(([label, url]) => (
+                        <a
+                          key={label}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary hover:underline capitalize"
+                        >
+                          {label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {event.ctaUrl && (
+            <Button asChild className="w-full">
+              <a href={event.ctaUrl} target="_blank" rel="noopener noreferrer">
+                {event.ctaLabel || "Learn More"}
+              </a>
+            </Button>
           )}
         </div>
       </DialogContent>
@@ -182,7 +249,8 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
 }
 
 function ListView({ events, onEventClick }: { events: Event[]; onEventClick: (event: Event) => void }) {
-  const upcomingEvents = events.filter((event) => new Date(event.date) >= new Date())
+  const todayKey = toDateKey(new Date())
+  const upcomingEvents = events.filter((event) => event.date >= todayKey)
 
   return (
     <div className="space-y-8">
@@ -190,41 +258,39 @@ function ListView({ events, onEventClick }: { events: Event[]; onEventClick: (ev
         <div>
           <h2 className="text-2xl font-bold mb-6">Upcoming Events</h2>
           <div className="space-y-4">
-            {upcomingEvents.map((event, index) => (
+            {upcomingEvents.map((event) => (
               <Card
-                key={index}
-                className="cursor-pointer hover:shadow-md transition-shadow"
+                key={event.occurrenceId}
+                className="cursor-pointer hover:shadow-md transition-shadow border-l-4"
+                style={{ borderLeftColor: event.color }}
                 onClick={() => onEventClick(event)}
               >
                 <CardContent className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0">{getEventTypeIcon(event.type)}</div>
+                    <div className="flex-shrink-0">
+                      <EventTypeIcon event={event} />
+                    </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <h3 className="font-semibold text-lg leading-tight">{event.name}</h3>
-                        <div className="flex-shrink-0 px-2 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-                          {getEventTypeLabel(event.type)}
-                        </div>
+                        <EventTypeBadge event={event} />
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-2">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-3 w-3" />
-                          {formatDate(event.date)}
+                          {formatDateLong(event.date)}
                         </div>
-                        {event.startTime && (
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            {formatTime(event.startTime)}
-                            {event.endTime && ` - ${formatTime(event.endTime)}`}
-                          </div>
-                        )}
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {formatTimeRange(event.startTime, event.endTime)}
+                        </div>
                       </div>
-{event.description && (
-                                        <div
-                                          className="text-sm text-muted-foreground line-clamp-2 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
-                                          dangerouslySetInnerHTML={{ __html: event.description }}
-                                        />
-                                      )}
+                      {event.description && (
+                        <div
+                          className="text-sm text-muted-foreground line-clamp-2 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                          dangerouslySetInnerHTML={{ __html: event.description }}
+                        />
+                      )}
                     </div>
                   </div>
                 </CardContent>
@@ -243,28 +309,16 @@ function ListView({ events, onEventClick }: { events: Event[]; onEventClick: (ev
   )
 }
 
-function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick: (event: Event) => void }) {
+function CalendarView({
+  events,
+  onEventClick,
+  viewingMonth,
+  viewingYear,
+  onPreviousMonth,
+  onNextMonth,
+  isFetching,
+}: MonthNavProps) {
   const today = new Date()
-  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
-  const [viewingYear, setViewingYear] = useState(today.getFullYear())
-
-  const goToPreviousMonth = () => {
-    if (viewingMonth === 0) {
-      setViewingMonth(11)
-      setViewingYear(viewingYear - 1)
-    } else {
-      setViewingMonth(viewingMonth - 1)
-    }
-  }
-
-  const goToNextMonth = () => {
-    if (viewingMonth === 11) {
-      setViewingMonth(0)
-      setViewingYear(viewingYear + 1)
-    } else {
-      setViewingMonth(viewingMonth + 1)
-    }
-  }
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -283,7 +337,7 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
 
   const eventsByDate = events.reduce(
     (acc, event) => {
-      const eventDate = new Date(event.date)
+      const eventDate = parseDateKey(event.date)
       if (eventDate.getMonth() === viewingMonth && eventDate.getFullYear() === viewingYear) {
         const day = eventDate.getDate()
         if (!acc[day]) acc[day] = []
@@ -314,14 +368,15 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">
+        <h2 className="flex items-center gap-2 text-2xl font-bold">
           {monthNames[viewingMonth]} {viewingYear}
+          {isFetching && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" aria-label="Loading events" />}
         </h2>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
+          <Button variant="outline" size="sm" onClick={onPreviousMonth} aria-label="Previous month">
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="sm" onClick={goToNextMonth}>
+          <Button variant="outline" size="sm" onClick={onNextMonth} aria-label="Next month">
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -357,20 +412,26 @@ function CalendarView({ events, onEventClick }: { events: Event[]; onEventClick:
                       <div className={`text-sm font-medium mb-1 ${isToday ? "text-primary font-bold" : ""}`}>{day}</div>
                       {eventsByDate[day] && (
                         <div className="space-y-1">
-                          {eventsByDate[day].slice(0, 3).map((event, eventIndex) => (
-                            <div
-                              key={eventIndex}
-                              className="text-xs p-1 rounded bg-primary/10 text-primary border border-primary/20 cursor-pointer hover:bg-primary/20 transition-colors"
+                          {eventsByDate[day].slice(0, 3).map((event) => (
+                            <button
+                              key={event.occurrenceId}
+                              type="button"
+                              className="w-full text-left text-xs p-1 rounded border cursor-pointer hover:brightness-95 transition-all"
+                              style={typeColorStyles(event.color)}
                               onClick={() => onEventClick(event)}
                             >
-                              <div className="flex items-center gap-1 mb-1">
-                                {getEventTypeIcon(event.type)}
-                                <span className="font-medium truncate">{event.name}</span>
+                              <div className="flex items-center gap-1">
+                                <EventTypeIcon event={event} className="h-3 w-3 flex-shrink-0" />
+                                <span
+                                  className={`font-medium truncate ${event.isCancelled ? "line-through opacity-70" : ""}`}
+                                >
+                                  {event.name}
+                                </span>
                               </div>
-                              {event.startTime && (
-                                <div className="text-xs text-muted-foreground">{formatTime(event.startTime)}</div>
-                              )}
-                            </div>
+                              <div className="text-[11px] opacity-80">
+                                {event.startTime ? formatTime(event.startTime) : "All Day"}
+                              </div>
+                            </button>
                           ))}
                           {eventsByDate[day].length > 3 && (
                             <div
@@ -422,48 +483,38 @@ function EventsLoading() {
   )
 }
 
-interface CalendarViewProps {
+interface MonthNavProps {
   events: Event[]
   onEventClick: (event: Event) => void
+  viewingMonth: number
+  viewingYear: number
+  onPreviousMonth: () => void
+  onNextMonth: () => void
+  isFetching: boolean
 }
 
-function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
+function CompactCalendarView({
+  events,
+  onEventClick,
+  viewingMonth,
+  viewingYear,
+  onPreviousMonth,
+  onNextMonth,
+  isFetching,
+}: MonthNavProps) {
   const today = new Date()
-  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
-  const [viewingYear, setViewingYear] = useState(today.getFullYear())
   const [selectedDay, setSelectedDay] = useState<number | null>(() => {
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
     return isCurrentMonth ? today.getDate() : null
   })
 
-  const goToPreviousMonth = () => {
-    setSelectedDay(null)
-    if (viewingMonth === 0) {
-      setViewingMonth(11)
-      setViewingYear(viewingYear - 1)
-    } else {
-      setViewingMonth(viewingMonth - 1)
-    }
-  }
-
-  const goToNextMonth = () => {
-    setSelectedDay(null)
-    if (viewingMonth === 11) {
-      setViewingMonth(0)
-      setViewingYear(viewingYear + 1)
-    } else {
-      setViewingMonth(viewingMonth + 1)
-    }
-  }
-
+  // The month is controlled by the parent now; reset the selected day whenever
+  // it changes, defaulting to today when the current month is in view.
   useEffect(() => {
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
-    if (isCurrentMonth && selectedDay === null) {
-      setSelectedDay(today.getDate())
-    } else if (!isCurrentMonth && selectedDay === today.getDate()) {
-      setSelectedDay(null)
-    }
-  }, [viewingMonth, viewingYear, today, selectedDay])
+    setSelectedDay(isCurrentMonth ? today.getDate() : null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewingMonth, viewingYear])
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -480,7 +531,7 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
 
   const eventsByDate = events.reduce(
     (acc, event) => {
-      const eventDate = new Date(event.date)
+      const eventDate = parseDateKey(event.date)
       if (eventDate.getMonth() === viewingMonth && eventDate.getFullYear() === viewingYear) {
         const day = eventDate.getDate()
         if (!acc[day]) acc[day] = []
@@ -510,7 +561,7 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
 
   const filteredEvents = selectedDay
     ? events.filter((event) => {
-        const eventDate = new Date(event.date)
+        const eventDate = parseDateKey(event.date)
         return (
           eventDate.getMonth() === viewingMonth &&
           eventDate.getFullYear() === viewingYear &&
@@ -518,7 +569,7 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
         )
       })
     : events.filter((event) => {
-        const eventDate = new Date(event.date)
+        const eventDate = parseDateKey(event.date)
         return eventDate.getMonth() === viewingMonth && eventDate.getFullYear() === viewingYear
       })
 
@@ -527,14 +578,17 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">
+            <h2 className="flex items-center gap-2 text-xl font-bold">
               {monthNames[viewingMonth]} {viewingYear}
+              {isFetching && (
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" aria-label="Loading events" />
+              )}
             </h2>
             <div className="flex gap-1">
-              <Button variant="outline" size="sm" onClick={goToPreviousMonth}>
+              <Button variant="outline" size="sm" onClick={onPreviousMonth} aria-label="Previous month">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="sm" onClick={goToNextMonth}>
+              <Button variant="outline" size="sm" onClick={onNextMonth} aria-label="Next month">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
@@ -543,8 +597,8 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
 
         <CardContent className="p-4">
           <div className="grid grid-cols-7 mb-2">
-            {dayNames.map((day) => (
-              <div key={day} className="p-2 text-center text-xs font-medium text-muted-foreground">
+            {dayNames.map((day, dayIndex) => (
+              <div key={dayIndex} className="p-2 text-center text-xs font-medium text-muted-foreground">
                 {day}
               </div>
             ))}
@@ -573,8 +627,12 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
                       <div className={`text-sm font-medium ${isToday ? "text-primary font-bold" : ""}`}>{day}</div>
                       {hasEvents && (
                         <div className="mt-1 flex gap-0.5">
-                          {eventsByDate[day].slice(0, 3).map((_, i) => (
-                            <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          {eventsByDate[day].slice(0, 3).map((event) => (
+                            <div
+                              key={event.occurrenceId}
+                              className="w-1.5 h-1.5 rounded-full"
+                              style={{ backgroundColor: event.color }}
+                            />
                           ))}
                         </div>
                       )}
@@ -599,55 +657,50 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
       )}
 
       <div className="space-y-3">
-        {filteredEvents
-          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-          .map((event, index) => (
+        {[...filteredEvents].sort(compareOccurrences).map((event) => {
+          const eventDate = parseDateKey(event.date)
+          return (
             <Card
-              key={index}
-              className="cursor-pointer hover:shadow-md transition-shadow"
+              key={event.occurrenceId}
+              className="cursor-pointer hover:shadow-md transition-shadow border-l-4"
+              style={{ borderLeftColor: event.color }}
               onClick={() => onEventClick(event)}
             >
               <CardContent className="p-3">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 text-center">
-                    <div className="bg-primary/10 text-primary rounded-lg p-2 border border-primary/20">
+                    <div className="rounded-lg p-2 border" style={typeColorStyles(event.color)}>
                       <div className="text-xs font-medium">
-                        {new Date(event.date).toLocaleDateString("en-US", { month: "short" })}
+                        {eventDate.toLocaleDateString("en-US", { month: "short" })}
                       </div>
-                      <div className="text-lg font-bold">{new Date(event.date).getDate()}</div>
-                      <div className="text-xs">
-                        {new Date(event.date).toLocaleDateString("en-US", { weekday: "short" })}
-                      </div>
+                      <div className="text-lg font-bold">{eventDate.getDate()}</div>
+                      <div className="text-xs">{eventDate.toLocaleDateString("en-US", { weekday: "short" })}</div>
                     </div>
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-2">
                       <h3 className="font-semibold text-base leading-tight">{event.name}</h3>
-                      <div className="flex-shrink-0 px-2 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-                        {getEventTypeLabel(event.type)}
-                      </div>
+                      <EventTypeBadge event={event} />
                     </div>
 
-                    {event.startTime && (
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
-                        <Clock className="h-3 w-3" />
-                        {formatTime(event.startTime)}
-                        {event.endTime && ` - ${formatTime(event.endTime)}`}
-                      </div>
-                    )}
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
+                      <Clock className="h-3 w-3" />
+                      {formatTimeRange(event.startTime, event.endTime)}
+                    </div>
 
-{event.description && (
-                                      <div
-                                        className="text-sm text-muted-foreground line-clamp-2 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
-                                        dangerouslySetInnerHTML={{ __html: event.description }}
-                                      />
-                                    )}
+                    {event.description && (
+                      <div
+                        className="text-sm text-muted-foreground line-clamp-2 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                        dangerouslySetInnerHTML={{ __html: event.description }}
+                      />
+                    )}
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
+          )
+        })}
 
         {selectedDay && filteredEvents.length === 0 && (
           <div className="text-center py-8">
@@ -660,7 +713,23 @@ function CompactCalendarView({ events, onEventClick }: CalendarViewProps) {
   )
 }
 
-function EventsCalendar({ events }: { events: Event[] }) {
+interface EventsCalendarProps {
+  events: Event[]
+  viewingMonth: number
+  viewingYear: number
+  onPreviousMonth: () => void
+  onNextMonth: () => void
+  isFetching: boolean
+}
+
+function EventsCalendar({
+  events,
+  viewingMonth,
+  viewingYear,
+  onPreviousMonth,
+  onNextMonth,
+  isFetching,
+}: EventsCalendarProps) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -674,27 +743,22 @@ function EventsCalendar({ events }: { events: Event[] }) {
     setSelectedEvent(null)
   }
 
-  if (events.length === 0) {
-    return (
-      <Card>
-        <CardContent className="flex flex-col items-center justify-center py-12">
-          <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-semibold mb-2">No Events Scheduled</h3>
-          <p className="text-muted-foreground text-center">
-            Check back soon for upcoming events at Stubborn Goat Brewing!
-          </p>
-        </CardContent>
-      </Card>
-    )
+  const navProps = {
+    viewingMonth,
+    viewingYear,
+    onPreviousMonth,
+    onNextMonth,
+    isFetching,
+    onEventClick: handleEventClick,
   }
 
   return (
     <>
       <div className="hidden lg:block">
-        <CalendarView events={events} onEventClick={handleEventClick} />
+        <CalendarView events={events} {...navProps} />
       </div>
       <div className="lg:hidden">
-        <CompactCalendarView events={events} onEventClick={handleEventClick} />
+        <CompactCalendarView events={events} {...navProps} />
       </div>
 
       <EventDialog event={selectedEvent} isOpen={isDialogOpen} onClose={handleCloseDialog} />
@@ -703,25 +767,68 @@ function EventsCalendar({ events }: { events: Event[] }) {
 }
 
 function EventsWrapper() {
+  const today = new Date()
+  const [viewingMonth, setViewingMonth] = useState(today.getMonth())
+  const [viewingYear, setViewingYear] = useState(today.getFullYear())
+
   const [events, setEvents] = useState<Event[]>([])
+  const [loadedRanges, setLoadedRanges] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
+  const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const goToPreviousMonth = () => {
+    if (viewingMonth === 0) {
+      setViewingMonth(11)
+      setViewingYear(viewingYear - 1)
+    } else {
+      setViewingMonth(viewingMonth - 1)
+    }
+  }
+
+  const goToNextMonth = () => {
+    if (viewingMonth === 11) {
+      setViewingMonth(0)
+      setViewingYear(viewingYear + 1)
+    } else {
+      setViewingMonth(viewingMonth + 1)
+    }
+  }
+
+  // Fetch the visible month (with buffer) whenever it changes, so recurring
+  // occurrences far in the future - e.g. next year's Christmas closure - are
+  // expanded and shown. Months already loaded are served from state.
   useEffect(() => {
-    console.log("[v0] EventsWrapper useEffect triggered")
-    getEvents()
-      .then((fetchedEvents) => {
-        console.log("[v0] Events fetched:", fetchedEvents.length)
-        setEvents(fetchedEvents)
-        setLoading(false)
+    const rangeKey = `${viewingYear}-${viewingMonth}`
+    if (loadedRanges.has(rangeKey)) return
+
+    const { from, to } = monthRange(viewingYear, viewingMonth)
+    let cancelled = false
+    setIsFetching(true)
+
+    getEvents(from, to)
+      .then((fetched) => {
+        if (cancelled) return
+        setEvents((prev) => mergeEvents(prev, fetched))
+        setLoadedRanges((prev) => new Set(prev).add(rangeKey))
         setError(null)
       })
       .catch((err) => {
-        console.error("[v0] Error in useEffect:", err)
-        setError("Failed to load events")
+        if (cancelled) return
+        console.error("[v0] Error loading events:", err)
+        // Only surface a blocking error if we have nothing to show yet.
+        if (events.length === 0) setError("Failed to load events")
+      })
+      .finally(() => {
+        if (cancelled) return
+        setIsFetching(false)
         setLoading(false)
       })
-  }, [])
+
+    return () => {
+      cancelled = true
+    }
+  }, [viewingMonth, viewingYear, loadedRanges, events.length])
 
   if (loading) {
     return <EventsLoading />
@@ -739,7 +846,16 @@ function EventsWrapper() {
     )
   }
 
-  return <EventsCalendar events={events} />
+  return (
+    <EventsCalendar
+      events={events}
+      viewingMonth={viewingMonth}
+      viewingYear={viewingYear}
+      onPreviousMonth={goToPreviousMonth}
+      onNextMonth={goToNextMonth}
+      isFetching={isFetching}
+    />
+  )
 }
 
 export default function EventsPage() {
