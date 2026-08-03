@@ -157,8 +157,8 @@ const optionalUrl = z
   .optional()
   .transform((v) => (v ? v : null))
 
-const updateArtistSchema = createArtistSchema.extend({
-  id: z.string().uuid(),
+/** Full detail fields shared by the roster create and update forms. */
+const artistDetailSchema = createArtistSchema.extend({
   description: z
     .string()
     .trim()
@@ -175,6 +175,55 @@ const updateArtistSchema = createArtistSchema.extend({
   soundcloud_url: optionalUrl,
   is_active: z.boolean().default(true),
 })
+
+const updateArtistSchema = artistDetailSchema.extend({
+  id: z.string().uuid(),
+})
+
+/**
+ * Creates a roster artist with the full detail form (bio, photo, socials).
+ *
+ * Unlike `createArtist` - which reuses an existing row on a name match to keep
+ * the event picker's quick-add idempotent - this refuses a duplicate name so an
+ * admin filling out full details never silently edits a different artist.
+ */
+export async function createArtistFull(input: unknown): Promise<{ ok: boolean; error?: string }> {
+  const session = await getAdminSession()
+  if (!session) return { ok: false, error: UNAUTHORIZED }
+  const { supabase } = session
+
+  const parsed = artistDetailSchema.safeParse(input)
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid artist details." }
+  }
+  const fields = parsed.data
+
+  const { data: existing } = await supabase.from("artists").select("slug, name")
+  const target = normalizeForCompare(fields.name)
+  if ((existing ?? []).some((a) => normalizeForCompare(a.name) === target)) {
+    return { ok: false, error: "An artist with that name already exists." }
+  }
+
+  const taken = new Set((existing ?? []).map((a) => a.slug))
+  let slug = slugify(fields.name)
+  if (taken.has(slug)) {
+    let n = 2
+    while (taken.has(`${slug}-${n}`)) n += 1
+    slug = `${slug}-${n}`
+  }
+
+  const { error } = await supabase.from("artists").insert({ ...fields, slug })
+  if (error) {
+    if (error.code === "23505") {
+      return { ok: false, error: "That artist was just added. Refresh and try again." }
+    }
+    return { ok: false, error: error.message }
+  }
+
+  revalidatePath("/admin/artists")
+  revalidatePath("/admin/events")
+  return { ok: true }
+}
 
 export async function updateArtist(input: unknown): Promise<{ ok: boolean; error?: string }> {
   const session = await getAdminSession()
