@@ -1,4 +1,12 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+import { pageMetadata } from "@/lib/seo/site"
+
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service",
+  description: "The terms and conditions for using the Stubborn Goat Brewing website.",
+  path: "/terms",
+})
 
 export default function TermsOfService() {
   return (
