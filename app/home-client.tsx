@@ -138,7 +138,7 @@ export function HomeClient() {
               alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
               fill
               priority
-              className="object-cover object-top"
+              className="object-cover object-center"
             />
             <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white px-4">
               <div className="flex flex-col items-center max-w-4xl mx-auto py-8 md:pt-12 md:pb-12 w-full">
