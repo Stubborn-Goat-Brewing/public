@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState, useTransition } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { ExternalLink, ImageIcon, MoreHorizontal, Pencil, Search, Trash2, Upload, X } from "lucide-react"
+import { ExternalLink, ImageIcon, MoreHorizontal, Pencil, Plus, Search, Trash2, Upload, X } from "lucide-react"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import type { AdminArtistRow } from "./page"
-import { deleteArtist, setArtistActive, updateArtist, uploadArtistImage } from "./actions"
+import { createArtistFull, deleteArtist, setArtistActive, updateArtist, uploadArtistImage } from "./actions"
 import { normalizeActionResult } from "@/lib/admin/action-result"
 
 type Draft = {
@@ -65,10 +65,29 @@ function toDraft(artist: AdminArtistRow): Draft {
   }
 }
 
+function emptyDraft(): Draft {
+  return {
+    name: "",
+    hometown: "",
+    website_url: "",
+    description: "",
+    image_url: "",
+    facebook_url: "",
+    instagram_url: "",
+    tiktok_url: "",
+    youtube_url: "",
+    apple_music_url: "",
+    spotify_url: "",
+    soundcloud_url: "",
+    is_active: true,
+  }
+}
+
 export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
   const router = useRouter()
   const [query, setQuery] = useState("")
   const [editing, setEditing] = useState<AdminArtistRow | null>(null)
+  const [isCreating, setIsCreating] = useState(false)
   const [draft, setDraft] = useState<Draft | null>(null)
   const [pendingDelete, setPendingDelete] = useState<AdminArtistRow | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -122,26 +141,40 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
   }
 
   function openEditor(artist: AdminArtistRow) {
+    setIsCreating(false)
     setEditing(artist)
     setDraft(toDraft(artist))
   }
 
+  function openCreate() {
+    setIsCreating(true)
+    setEditing(null)
+    setDraft(emptyDraft())
+  }
+
   function closeEditor() {
     setEditing(null)
+    setIsCreating(false)
     setDraft(null)
   }
 
-  function saveEditor() {
-    if (!editing || !draft) return
+  function saveDraft() {
+    if (!draft) return
     if (!draft.name.trim()) {
       toast.error("Enter the artist's name.")
       return
     }
     const target = editing
     startTransition(async () => {
-      const result = normalizeActionResult(await updateArtist({ id: target.id, ...draft }))
+      const result = normalizeActionResult(
+        isCreating
+          ? await createArtistFull(draft)
+          : target
+            ? await updateArtist({ id: target.id, ...draft })
+            : undefined,
+      )
       if (result.ok) {
-        toast.success("Artist updated.")
+        toast.success(isCreating ? "Artist added." : "Artist updated.")
         closeEditor()
         router.refresh()
       } else {
@@ -150,20 +183,28 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
     })
   }
 
+  const dialogOpen = isCreating || editing !== null
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative max-w-sm">
-        <Search
-          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-          aria-hidden="true"
-        />
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search artists"
-          className="pl-9"
-          aria-label="Search artists by name or hometown"
-        />
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-[200px] max-w-sm">
+          <Search
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search artists"
+            className="pl-9"
+            aria-label="Search artists by name or hometown"
+          />
+        </div>
+        <Button onClick={openCreate}>
+          <Plus className="mr-1.5 h-4 w-4" aria-hidden="true" />
+          New artist
+        </Button>
       </div>
 
       <p className="text-sm text-muted-foreground">
@@ -190,7 +231,7 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
               <TableRow>
                 <TableCell colSpan={5} className="py-10 text-center text-sm text-muted-foreground">
                   {artists.length === 0
-                    ? "No artists yet. Add one while booking a live music event."
+                    ? 'No artists yet. Use "New artist" to add one, or add them while booking a live music event.'
                     : "No artists match that search."}
                 </TableCell>
               </TableRow>
@@ -285,10 +326,10 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
         </Table>
       </div>
 
-      <Dialog open={editing !== null} onOpenChange={(open) => !open && closeEditor()}>
+      <Dialog open={dialogOpen} onOpenChange={(open) => !open && closeEditor()}>
         <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Edit artist</DialogTitle>
+            <DialogTitle>{isCreating ? "New artist" : "Edit artist"}</DialogTitle>
             <DialogDescription>
               These details show on the public event page when this artist is booked.
             </DialogDescription>
@@ -525,8 +566,8 @@ export function ArtistsTable({ artists }: { artists: AdminArtistRow[] }) {
             <Button variant="outline" onClick={closeEditor} disabled={isPending}>
               Cancel
             </Button>
-            <Button onClick={saveEditor} disabled={isPending}>
-              {isPending ? "Saving..." : "Save artist"}
+            <Button onClick={saveDraft} disabled={isPending}>
+              {isPending ? "Saving..." : isCreating ? "Add artist" : "Save artist"}
             </Button>
           </DialogFooter>
         </DialogContent>
