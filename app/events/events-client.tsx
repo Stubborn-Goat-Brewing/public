@@ -1184,9 +1184,13 @@ export default function EventsPage() {
             </div>
           </div>
 
-          <Suspense fallback={<EventsLoading />}>
-            <EventsWrapper />
-          </Suspense>
+          {/* Anchor target so "Back to all events" lands on the calendar.
+              scroll-mt clears the sticky header (h-16) when jumped to via #calendar. */}
+          <div id="calendar" className="scroll-mt-24">
+            <Suspense fallback={<EventsLoading />}>
+              <EventsWrapper />
+            </Suspense>
+          </div>
         </div>
       </div>
     </div>
