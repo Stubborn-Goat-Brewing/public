@@ -2,9 +2,10 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, Ban, Calendar, Clock, Globe, MapPin, Repeat } from "lucide-react"
+import { ArrowLeft, Ban, Calendar, Clock, MapPin, Repeat } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { JsonLd } from "@/components/seo/json-ld"
+import { SocialLinks } from "@/components/events/social-links"
 import { fetchEventOccurrence } from "@/lib/events/fetch"
 import {
   eventPath,
@@ -14,7 +15,7 @@ import {
   typeColorStyles,
 } from "@/lib/events/format"
 import { getEventJsonLd } from "@/lib/seo/structured-data"
-import { SITE_NAME, absoluteUrl } from "@/lib/seo/site"
+import { SITE_NAME, SOCIAL_LINKS, absoluteUrl } from "@/lib/seo/site"
 
 // Events are edited in the admin, so revalidate periodically rather than caching forever.
 export const revalidate = 600
@@ -36,6 +37,22 @@ function toPlainText(html: string): string {
 function truncate(text: string, max = 160): string {
   if (text.length <= max) return text
   return `${text.slice(0, max - 1).trimEnd()}…`
+}
+
+/** Derives a friendly platform label from a raw social profile URL. */
+function labelFromUrl(url: string): string {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "")
+    if (host.includes("instagram")) return "Instagram"
+    if (host.includes("facebook")) return "Facebook"
+    if (host.includes("untappd")) return "Untappd"
+    if (host.includes("google")) return "Google"
+    if (host.includes("youtube")) return "YouTube"
+    if (host.includes("tiktok")) return "TikTok"
+    return host
+  } catch {
+    return url
+  }
 }
 
 export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
@@ -206,17 +223,17 @@ export default async function EventPage({ params }: EventPageProps) {
                         {artist.description}
                       </p>
                     )}
-                    {artist.websiteUrl && (
-                      <a
-                        href={artist.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                      >
-                        <Globe className="h-3.5 w-3.5" />
-                        Website
-                      </a>
-                    )}
+                    {(() => {
+                      const links = [
+                        ...(artist.websiteUrl ? [{ label: "Website", url: artist.websiteUrl }] : []),
+                        ...Object.entries(artist.socialLinks).map(([label, url]) => ({ label, url })),
+                      ]
+                      return links.length > 0 ? (
+                        <div className="mt-3">
+                          <SocialLinks links={links} />
+                        </div>
+                      ) : null
+                    })()}
                   </div>
                 </div>
               ))}
@@ -230,6 +247,16 @@ export default async function EventPage({ params }: EventPageProps) {
               </a>
             </Button>
           )}
+
+          <section className="mt-10 border-t pt-6">
+            <h2 className="text-lg font-semibold">Follow {SITE_NAME}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Stay in the loop on upcoming events and what&apos;s on tap.
+            </p>
+            <div className="mt-3">
+              <SocialLinks links={SOCIAL_LINKS.map((url) => ({ label: labelFromUrl(url), url }))} />
+            </div>
+          </section>
         </div>
       </main>
     </div>

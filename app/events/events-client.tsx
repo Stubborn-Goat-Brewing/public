@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useState, useEffect } from "react"
+import { Suspense, useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -17,7 +17,6 @@ import {
   Mail,
   X,
   Menu,
-  Globe,
   Repeat,
   CalendarRange,
   Ban,
@@ -25,6 +24,9 @@ import {
   Share2,
   Check,
   ExternalLink,
+  Link2,
+  Facebook,
+  Instagram,
 } from "lucide-react"
 import type { CalendarEvent as Event } from "@/lib/events/types"
 import {
@@ -38,6 +40,7 @@ import {
   toDateKey,
   typeColorStyles,
 } from "@/lib/events/format"
+import { SocialLinks } from "@/components/events/social-links"
 
 /** Renders the event type icon in its type color, driven by the database. */
 function EventTypeIcon({ event, className = "h-4 w-4" }: { event: Event; className?: string }) {
@@ -111,51 +114,136 @@ function formatSpan(event: Event): string | null {
 }
 
 /**
- * Share controls for an event: a native share sheet where supported (mobile),
- * with a copy-link fallback, plus a direct link to the event's own page.
+ * Copies text to the clipboard, with a fallback for browsers/iframes where the
+ * async Clipboard API is unavailable or blocked (common in embedded previews).
+ * Returns whether the copy succeeded so the UI can always show feedback.
+ */
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    if (typeof navigator !== "undefined" && navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text)
+      return true
+    }
+  } catch {
+    // Fall through to the execCommand fallback below.
+  }
+
+  try {
+    const textarea = document.createElement("textarea")
+    textarea.value = text
+    textarea.setAttribute("readonly", "")
+    textarea.style.position = "fixed"
+    textarea.style.opacity = "0"
+    document.body.appendChild(textarea)
+    textarea.select()
+    const ok = document.execCommand("copy")
+    document.body.removeChild(textarea)
+    return ok
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Share controls for an event, rendered inline (always visible) inside the
+ * event dialog. Inline buttons are used instead of a dropdown because a Radix
+ * dropdown nested in the modal Dialog conflicts with the Dialog's
+ * pointer-events lock and often fails to open. This approach works everywhere,
+ * including desktop browsers with no Web Share support.
  */
 function ShareEvent({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false)
   const path = eventPath(event.id, event.date)
+  const [shareUrl, setShareUrl] = useState(path)
+  const urlInputRef = useRef<HTMLInputElement>(null)
+  // Native share is only available on mobile browsers; Instagram sharing only
+  // works through that sheet, so the Instagram button is gated on this flag.
+  // Detected after mount to avoid a hydration mismatch.
+  const [canNativeShare, setCanNativeShare] = useState(false)
 
-  async function handleShare() {
-    const url = typeof window !== "undefined" ? new URL(path, window.location.origin).toString() : path
-    const shareData = {
-      title: event.name,
-      text: `${event.name} at Stubborn Goat Brewing`,
-      url,
-    }
+  // Build the absolute URL on the client where window is available.
+  useEffect(() => {
+    setShareUrl(new URL(path, window.location.origin).toString())
+  }, [path])
 
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share(shareData)
-        return
-      } catch {
-        // User dismissed the sheet, or share failed - fall back to copy below.
-      }
-    }
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function")
+  }, [])
 
-    try {
-      await navigator.clipboard.writeText(url)
+  const shareText = `${event.name} at Stubborn Goat Brewing`
+  const caption = `${shareText}\n${shareUrl}`
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
+  const emailUrl = `mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(caption)}`
+
+  async function handleCopy() {
+    // Always select the visible field so a manual copy works even when the
+    // programmatic clipboard write is blocked (e.g. inside embedded previews).
+    urlInputRef.current?.select()
+    const ok = await copyToClipboard(shareUrl)
+    if (ok) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  // Instagram offers no web share URL that accepts a link. The only way to pass
+  // event info to Instagram is the mobile native share sheet, so this handler
+  // (and its button) is only used when native share is available.
+  async function handleInstagram() {
+    try {
+      await navigator.share({ title: event.name, text: shareText, url: shareUrl })
     } catch {
-      console.log("[v0] Unable to copy event link")
+      // User dismissed the sheet - nothing to do.
     }
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 pt-2 border-t">
-      <Button variant="outline" size="sm" onClick={handleShare} className="gap-1.5">
-        {copied ? <Check className="h-4 w-4 text-primary" /> : <Share2 className="h-4 w-4" />}
-        {copied ? "Link copied" : "Share"}
-      </Button>
-      <Button variant="ghost" size="sm" asChild className="gap-1.5">
-        <Link href={path}>
-          View event page
-          <ExternalLink className="h-4 w-4" />
-        </Link>
-      </Button>
+    <div className="space-y-2 pt-3 border-t">
+      <div className="flex items-center gap-2">
+        <Share2 className="h-4 w-4 text-muted-foreground" />
+        <span className="text-sm font-medium text-muted-foreground">Share this event</span>
+      </div>
+
+      {/* Selectable URL + copy button: manual copy always works as a fallback. */}
+      <div className="flex items-center gap-2">
+        <input
+          ref={urlInputRef}
+          type="text"
+          readOnly
+          value={shareUrl}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label="Event link"
+          className="flex-1 min-w-0 rounded-md border bg-muted/50 px-2 py-1.5 text-sm text-muted-foreground"
+        />
+        <Button variant="outline" size="sm" onClick={handleCopy} className="gap-1.5 flex-shrink-0">
+          {copied ? <Check className="h-4 w-4 text-primary" /> : <Link2 className="h-4 w-4" />}
+          {copied ? "Copied!" : "Copy"}
+        </Button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <Button variant="outline" size="icon" asChild aria-label="Share on Facebook">
+          <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+            <Facebook className="h-4 w-4" />
+          </a>
+        </Button>
+        {canNativeShare && (
+          <Button variant="outline" size="icon" onClick={handleInstagram} aria-label="Share to Instagram">
+            <Instagram className="h-4 w-4" />
+          </Button>
+        )}
+        <Button variant="outline" size="icon" asChild aria-label="Share via email">
+          <a href={emailUrl}>
+            <Mail className="h-4 w-4" />
+          </a>
+        </Button>
+        <Button variant="ghost" size="sm" asChild className="gap-1.5">
+          <Link href={path}>
+            View event page
+            <ExternalLink className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
     </div>
   )
 }
@@ -259,30 +347,14 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
                     {artist.description && (
                       <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{artist.description}</p>
                     )}
-                    <div className="flex flex-wrap gap-3 mt-1.5">
-                      {artist.websiteUrl && (
-                        <a
-                          href={artist.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
-                          <Globe className="h-3 w-3" />
-                          Website
-                        </a>
-                      )}
-                      {Object.entries(artist.socialLinks).map(([label, url]) => (
-                        <a
-                          key={label}
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-primary hover:underline capitalize"
-                        >
-                          {label}
-                        </a>
-                      ))}
-                    </div>
+                    <SocialLinks
+                      variant="inline"
+                      className="mt-1.5"
+                      links={[
+                        ...(artist.websiteUrl ? [{ label: "Website", url: artist.websiteUrl }] : []),
+                        ...Object.entries(artist.socialLinks).map(([label, url]) => ({ label, url })),
+                      ]}
+                    />
                   </div>
                 </div>
               ))}
