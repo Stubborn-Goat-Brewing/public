@@ -122,6 +122,11 @@ export function compareOccurrences(
   return a.startTime.localeCompare(b.startTime)
 }
 
+/** Canonical path to a single event occurrence's shareable detail page. */
+export function eventPath(id: string, date: string): string {
+  return `/events/${id}/${date}`
+}
+
 /** Converts a `#RRGGBB` type color into subtle background/border/text styles. */
 export function typeColorStyles(color: string | null | undefined) {
   const base = color || "#57534E"

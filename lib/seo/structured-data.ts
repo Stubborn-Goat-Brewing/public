@@ -74,8 +74,14 @@ function toDateTime(date: string, time: string): string {
 /**
  * Event structured data for a single occurrence. Returns null for occurrences
  * that should not be surfaced (e.g. missing a name).
+ *
+ * `canonicalUrl` is the event's own detail page; when provided it is used for
+ * schema.org `url` (preferred over the CTA link) and the share image.
  */
-function getEventJsonLd(event: CalendarEvent): Record<string, unknown> | null {
+export function getEventJsonLd(
+  event: CalendarEvent,
+  canonicalUrl?: string,
+): Record<string, unknown> | null {
   if (!event.name) return null
 
   const startDate = toDateTime(event.date, event.startTime)
@@ -96,7 +102,9 @@ function getEventJsonLd(event: CalendarEvent): Record<string, unknown> | null {
       : "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     ...(event.description ? { description: event.description } : {}),
-    ...(event.imageUrl ? { image: [event.imageUrl] } : {}),
+    // Prefer the event's own photo; otherwise fall back to its branded share
+    // image so every event has a valid schema image for rich results.
+    image: [event.imageUrl ?? (canonicalUrl ? `${canonicalUrl}/opengraph-image` : absoluteUrl(BUSINESS_IMAGE_PATH))],
     location: {
       "@type": "Place",
       // Events are always hosted at the brewery, so anchor the Place to the
@@ -117,7 +125,8 @@ function getEventJsonLd(event: CalendarEvent): Record<string, unknown> | null {
       name: SITE_NAME,
       url: SITE_URL,
     },
-    ...(event.ctaUrl ? { url: event.ctaUrl } : {}),
+    ...(canonicalUrl ? { url: canonicalUrl } : event.ctaUrl ? { url: event.ctaUrl } : {}),
+    ...(event.ctaUrl ? { offers: { "@type": "Offer", url: event.ctaUrl, availability: "https://schema.org/InStock" } } : {}),
   }
 }
 
@@ -134,6 +143,6 @@ export function getUpcomingEventsJsonLd(
   return events
     .filter((event) => event.date >= todayKey && !event.isCancelled)
     .slice(0, limit)
-    .map(getEventJsonLd)
+    .map((event) => getEventJsonLd(event))
     .filter((schema): schema is Record<string, unknown> => schema !== null)
 }

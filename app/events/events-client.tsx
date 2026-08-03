@@ -22,10 +22,14 @@ import {
   CalendarRange,
   Ban,
   Loader2,
+  Share2,
+  Check,
+  ExternalLink,
 } from "lucide-react"
 import type { CalendarEvent as Event } from "@/lib/events/types"
 import {
   compareOccurrences,
+  eventPath,
   formatDateLong,
   formatTime,
   formatTimeRange,
@@ -104,6 +108,56 @@ function formatSpan(event: Event): string | null {
   const start = parseDateKey(event.spanStartDate).toLocaleDateString("en-US", opts)
   const end = parseDateKey(event.spanEndDate).toLocaleDateString("en-US", opts)
   return `${start} - ${end}`
+}
+
+/**
+ * Share controls for an event: a native share sheet where supported (mobile),
+ * with a copy-link fallback, plus a direct link to the event's own page.
+ */
+function ShareEvent({ event }: { event: Event }) {
+  const [copied, setCopied] = useState(false)
+  const path = eventPath(event.id, event.date)
+
+  async function handleShare() {
+    const url = typeof window !== "undefined" ? new URL(path, window.location.origin).toString() : path
+    const shareData = {
+      title: event.name,
+      text: `${event.name} at Stubborn Goat Brewing`,
+      url,
+    }
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share(shareData)
+        return
+      } catch {
+        // User dismissed the sheet, or share failed - fall back to copy below.
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      console.log("[v0] Unable to copy event link")
+    }
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-2 pt-2 border-t">
+      <Button variant="outline" size="sm" onClick={handleShare} className="gap-1.5">
+        {copied ? <Check className="h-4 w-4 text-primary" /> : <Share2 className="h-4 w-4" />}
+        {copied ? "Link copied" : "Share"}
+      </Button>
+      <Button variant="ghost" size="sm" asChild className="gap-1.5">
+        <Link href={path}>
+          View event page
+          <ExternalLink className="h-4 w-4" />
+        </Link>
+      </Button>
+    </div>
+  )
 }
 
 function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: boolean; onClose: () => void }) {
@@ -242,6 +296,8 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
               </a>
             </Button>
           )}
+
+          <ShareEvent event={event} />
         </div>
       </DialogContent>
     </Dialog>

@@ -145,3 +145,33 @@ export async function fetchCalendarData(fromParam?: string | null, toParam?: str
     range: { from, to },
   }
 }
+
+/**
+ * Fetches a single event row and expands it to the one occurrence on `date`.
+ *
+ * Used by the standalone event detail page (`/events/[id]/[date]`) and its
+ * dynamic share image. Returns null when the id is unknown or no occurrence of
+ * that event falls on the requested date (e.g. a bad or tampered share URL).
+ */
+export async function fetchEventOccurrence(id: string, date: string): Promise<CalendarEvent | null> {
+  if (!isDateKey(date)) return null
+
+  const supabase = createClient()
+
+  const { data, error } = await supabase.from("events").select(EVENT_SELECT).eq("id", id).limit(1)
+
+  if (error) {
+    console.error("[v0] Supabase error fetching event:", error.message)
+    return null
+  }
+  if (!data || data.length === 0) return null
+
+  // Expand a generous window around the target date so recurring and multi-day
+  // occurrences are produced, then match the exact occurrence by its id:date key.
+  const [y, m] = date.split("-").map(Number)
+  const from = toKey(new Date(Date.UTC(y, (m ?? 1) - 2, 1)))
+  const to = toKey(new Date(Date.UTC(y, (m ?? 1) + 1, 0)))
+
+  const occurrences = expandEvents(data as unknown as EventRow[], from, to)
+  return occurrences.find((occurrence) => occurrence.occurrenceId === `${id}:${date}`) ?? null
+}
