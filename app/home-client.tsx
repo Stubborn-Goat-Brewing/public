@@ -152,9 +152,11 @@ export function HomeClient() {
                   height={150}
                   className="mb-4 w-24 sm:w-28 md:w-36"
                 />
-                <p className="mb-5 max-w-[600px] text-sm sm:text-base md:text-lg text-white/90 text-balance">
-                  Local brews, PA-made wine &amp; spirits, great food, and live music — there&apos;s something for
-                  everyone at The Goat.
+                <p className="mb-5 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 text-pretty">
+                  At Stubborn Goat Brewing, we&apos;ve created a space for everyone — families, friends, and neighbors —
+                  to connect over local brews, PA-made wine and spirits, delicious food, and an always-fresh lineup of
+                  live music and events. Whether you&apos;re here for a pint, a plate, or a laid-back outing with the
+                  kids, there&apos;s something for everyone at The Goat.
                 </p>
                 <div className="flex justify-center">
                   <Button asChild size="lg">
