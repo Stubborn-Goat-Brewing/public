@@ -95,11 +95,6 @@ export function TapList() {
               {beer.pricing && (
                 <p className="mt-3 text-sm font-medium text-primary">{beer.pricing}</p>
               )}
-              {beer.fourPackAvailable && (
-                <p className="mt-2 text-sm font-medium text-primary">
-                  Now available in 4-packs to-go!
-                </p>
-              )}
             </CardContent>
           </Card>
         ))}
