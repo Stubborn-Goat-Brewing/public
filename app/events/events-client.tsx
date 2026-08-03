@@ -153,15 +153,22 @@ async function copyToClipboard(text: string): Promise<boolean> {
  */
 function ShareEvent({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false)
-  const [instaCopied, setInstaCopied] = useState(false)
   const path = eventPath(event.id, event.date)
   const [shareUrl, setShareUrl] = useState(path)
   const urlInputRef = useRef<HTMLInputElement>(null)
+  // Native share is only available on mobile browsers; Instagram sharing only
+  // works through that sheet, so the Instagram button is gated on this flag.
+  // Detected after mount to avoid a hydration mismatch.
+  const [canNativeShare, setCanNativeShare] = useState(false)
 
   // Build the absolute URL on the client where window is available.
   useEffect(() => {
     setShareUrl(new URL(path, window.location.origin).toString())
   }, [path])
+
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function")
+  }, [])
 
   const shareText = `${event.name} at Stubborn Goat Brewing`
   const caption = `${shareText}\n${shareUrl}`
@@ -179,22 +186,14 @@ function ShareEvent({ event }: { event: Event }) {
     }
   }
 
-  // Instagram offers no web share URL that accepts a link, so on devices with a
-  // native share sheet (mobile) we open it with the event info - the user can
-  // then pick Instagram. Elsewhere we copy a ready-to-paste caption + link.
+  // Instagram offers no web share URL that accepts a link. The only way to pass
+  // event info to Instagram is the mobile native share sheet, so this handler
+  // (and its button) is only used when native share is available.
   async function handleInstagram() {
-    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-      try {
-        await navigator.share({ title: event.name, text: shareText, url: shareUrl })
-        return
-      } catch {
-        // Fall through to copying the caption.
-      }
-    }
-    const ok = await copyToClipboard(caption)
-    if (ok) {
-      setInstaCopied(true)
-      setTimeout(() => setInstaCopied(false), 2500)
+    try {
+      await navigator.share({ title: event.name, text: shareText, url: shareUrl })
+    } catch {
+      // User dismissed the sheet - nothing to do.
     }
   }
 
@@ -228,15 +227,11 @@ function ShareEvent({ event }: { event: Event }) {
             <Facebook className="h-4 w-4" />
           </a>
         </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleInstagram}
-          aria-label="Share to Instagram"
-          title="Share to Instagram (copies caption on desktop)"
-        >
-          {instaCopied ? <Check className="h-4 w-4 text-primary" /> : <Instagram className="h-4 w-4" />}
-        </Button>
+        {canNativeShare && (
+          <Button variant="outline" size="icon" onClick={handleInstagram} aria-label="Share to Instagram">
+            <Instagram className="h-4 w-4" />
+          </Button>
+        )}
         <Button variant="outline" size="icon" asChild aria-label="Share via email">
           <a href={emailUrl}>
             <Mail className="h-4 w-4" />
@@ -249,10 +244,6 @@ function ShareEvent({ event }: { event: Event }) {
           </Link>
         </Button>
       </div>
-
-      {instaCopied && (
-        <p className="text-xs text-muted-foreground">Caption copied - paste it into your Instagram post or story.</p>
-      )}
     </div>
   )
 }
