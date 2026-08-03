@@ -5,7 +5,6 @@ import Link from "next/link"
 import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
-import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
 import { FeaturedEvents } from "@/components/featured-events"
 import { useState } from "react"
@@ -163,9 +162,6 @@ export function HomeClient() {
                   <Button asChild size="lg">
                     <Link href="#visit">Visit Us</Link>
                   </Button>
-                </div>
-                <div className="w-full mb-2 md:mb-4 -mx-4">
-                  <UpcomingEventsBanner />
                 </div>
                 <div className="w-full mt-2 md:mt-4 mb-2 md:mb-4 -mx-4">
                   <EventPromoCarousel />
