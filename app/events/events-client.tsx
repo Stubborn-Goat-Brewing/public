@@ -7,12 +7,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
   Calendar,
   MapPin,
   ChevronLeft,
@@ -150,10 +144,11 @@ async function copyToClipboard(text: string): Promise<boolean> {
 }
 
 /**
- * Share controls for an event. On mobile with Web Share support this opens the
- * native share sheet; everywhere else (including desktop laptops, where
- * `navigator.share` is undefined) it opens a dropdown with explicit targets so
- * the button always produces a visible result.
+ * Share controls for an event, rendered inline (always visible) inside the
+ * event dialog. Inline buttons are used instead of a dropdown because a Radix
+ * dropdown nested in the modal Dialog conflicts with the Dialog's
+ * pointer-events lock and often fails to open. This approach works everywhere,
+ * including desktop browsers with no Web Share support.
  */
 function ShareEvent({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false)
@@ -189,55 +184,44 @@ function ShareEvent({ event }: { event: Event }) {
   const emailUrl = `mailto:?subject=${encodeURIComponent(event.name)}&body=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`
 
   return (
-    <div className="flex flex-wrap items-center gap-2 pt-2 border-t">
-      {canNativeShare ? (
-        <Button variant="outline" size="sm" onClick={handleNativeShare} className="gap-1.5">
-          <Share2 className="h-4 w-4" />
-          Share
+    <div className="space-y-2 pt-3 border-t">
+      <div className="flex items-center gap-2">
+        <Share2 className="h-4 w-4 text-muted-foreground" />
+        <span className="text-sm font-medium text-muted-foreground">Share this event</span>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        {canNativeShare && (
+          <Button variant="outline" size="sm" onClick={handleNativeShare} className="gap-1.5">
+            <Share2 className="h-4 w-4" />
+            Share
+          </Button>
+        )}
+        <Button variant="outline" size="sm" onClick={handleCopy} className="gap-1.5">
+          {copied ? <Check className="h-4 w-4 text-primary" /> : <Link2 className="h-4 w-4" />}
+          {copied ? "Link copied!" : "Copy link"}
         </Button>
-      ) : (
-        // modal={false} is required because this menu is nested inside the modal
-        // event Dialog; otherwise the Dialog's pointer-events lock prevents the
-        // menu from opening or its items from being clickable.
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-1.5">
-              {copied ? <Check className="h-4 w-4 text-primary" /> : <Share2 className="h-4 w-4" />}
-              {copied ? "Link copied" : "Share"}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-48">
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()} onClick={handleCopy}>
-              <Link2 className="mr-2 h-4 w-4" />
-              {copied ? "Link copied!" : "Copy link"}
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
-                <Facebook className="mr-2 h-4 w-4" />
-                Share on Facebook
-              </a>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
-                <X className="mr-2 h-4 w-4" />
-                Share on X
-              </a>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <a href={emailUrl}>
-                <Mail className="mr-2 h-4 w-4" />
-                Share via email
-              </a>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
-      <Button variant="ghost" size="sm" asChild className="gap-1.5">
-        <Link href={path}>
-          View event page
-          <ExternalLink className="h-4 w-4" />
-        </Link>
-      </Button>
+        <Button variant="outline" size="icon" asChild aria-label="Share on Facebook">
+          <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+            <Facebook className="h-4 w-4" />
+          </a>
+        </Button>
+        <Button variant="outline" size="icon" asChild aria-label="Share on X">
+          <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
+            <X className="h-4 w-4" />
+          </a>
+        </Button>
+        <Button variant="outline" size="icon" asChild aria-label="Share via email">
+          <a href={emailUrl}>
+            <Mail className="h-4 w-4" />
+          </a>
+        </Button>
+        <Button variant="ghost" size="sm" asChild className="gap-1.5">
+          <Link href={path}>
+            View event page
+            <ExternalLink className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
     </div>
   )
 }
