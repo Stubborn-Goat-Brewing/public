@@ -5,7 +5,6 @@ import Link from "next/link"
 import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
-import { UpcomingEventsBanner } from "@/components/upcoming-events-banner"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
 import { FeaturedEvents } from "@/components/featured-events"
 import { useState } from "react"
@@ -133,16 +132,16 @@ export function HomeClient() {
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="relative min-h-[40vh] md:min-h-[50vh] bg-black">
+          <div className="relative min-h-[280px] md:min-h-[340px] bg-black">
             <Image
               src="/images/brewery-exterior-sunset.jpg"
               alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
               fill
               priority
-              className="object-cover object-top"
+              className="object-cover object-center"
             />
-            <div className="container relative z-20 flex h-full flex-col items-center justify-center text-center text-white px-4">
-              <div className="flex flex-col items-center max-w-4xl mx-auto py-8 md:pt-12 md:pb-12 w-full">
+            <div className="container relative z-20 flex h-full min-h-[280px] md:min-h-[340px] flex-col items-center justify-center text-center text-white px-4">
+              <div className="flex flex-col items-center max-w-3xl mx-auto py-8 w-full">
                 <h1 className="sr-only">
                   Stubborn Goat Brewing — Craft Beer, Food &amp; Live Music in West Grove, PA
                 </h1>
@@ -151,24 +150,18 @@ export function HomeClient() {
                   alt="Stubborn Goat Brewing"
                   width={300}
                   height={150}
-                  className="mb-4 md:mb-6 w-24 sm:w-32 md:w-40 lg:w-52"
+                  className="mb-4 w-24 sm:w-28 md:w-36"
                 />
-                <p className="mb-4 md:mb-6 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 px-4">
-                  At Stubborn Goat Brewing, we've created a space for everyone — families, friends, and neighbors — to
-                  connect over local brews, PA-made wine and spirits, delicious food, and an always-fresh lineup of
-                  live music and events. Whether you're here for a pint, a plate, or a laid-back outing with the kids,
-                  there's something for everyone at The Goat.
+                <p className="mb-5 max-w-[700px] text-sm sm:text-base md:text-lg text-white/90 text-pretty">
+                  At Stubborn Goat Brewing, we&apos;ve created a space for everyone — families, friends, and neighbors —
+                  to connect over local brews, PA-made wine and spirits, delicious food, and an always-fresh lineup of
+                  live music and events. Whether you&apos;re here for a pint, a plate, or a laid-back outing with the
+                  kids, there&apos;s something for everyone at The Goat.
                 </p>
-                <div className="mb-4 md:mb-6 flex justify-center">
+                <div className="flex justify-center">
                   <Button asChild size="lg">
                     <Link href="#visit">Visit Us</Link>
                   </Button>
-                </div>
-                <div className="w-full mb-2 md:mb-4 -mx-4">
-                  <UpcomingEventsBanner />
-                </div>
-                <div className="w-full mt-2 md:mt-4 mb-2 md:mb-4 -mx-4">
-                  <EventPromoCarousel />
                 </div>
               </div>
             </div>
@@ -177,6 +170,11 @@ export function HomeClient() {
 
         {/* Upcoming Events Section */}
         <FeaturedEvents />
+
+        {/* Event Promos */}
+        <section className="bg-primary/5 pb-10 md:pb-14">
+          <EventPromoCarousel />
+        </section>
 
         {/* Cans To-Go Promo Section */}
         <section className="w-full">
