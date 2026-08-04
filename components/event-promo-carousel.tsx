@@ -94,7 +94,7 @@ export function EventPromoCarousel() {
   if (count === 0) return null
 
   return (
-    <div className="w-full bg-zinc-900/80 backdrop-blur-sm border-t border-white/10 py-4 md:py-6">
+    <div className="w-full bg-primary/90 backdrop-blur-sm border-t border-primary-foreground/10 py-4 md:py-6">
       <div className="container px-4">
         {/* Carousel viewport */}
         <div className="relative overflow-hidden rounded-lg">

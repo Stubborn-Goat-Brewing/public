@@ -74,10 +74,10 @@ export function UpcomingEventsBanner() {
 
   if (loading) {
     return (
-      <div className="w-full bg-zinc-900/80 backdrop-blur-sm border-t border-white/10 py-4">
+      <div className="w-full bg-primary/90 backdrop-blur-sm border-t border-primary-foreground/10 py-4">
         <div className="container">
           <div className="flex items-center justify-center">
-            <p className="text-white/60 text-sm">Loading upcoming events...</p>
+            <p className="text-primary-foreground/60 text-sm">Loading upcoming events...</p>
           </div>
         </div>
       </div>
@@ -91,18 +91,18 @@ export function UpcomingEventsBanner() {
   }
 
   return (
-    <div className="w-full bg-zinc-900/80 backdrop-blur-sm border-t border-white/10 py-4 md:py-6">
+    <div className="w-full bg-primary/90 backdrop-blur-sm border-t border-primary-foreground/10 py-4 md:py-6">
       <div className="container px-4">
         <div className="flex items-center justify-between mb-3 md:mb-4">
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-amber-400" />
-            <h3 className="text-white font-semibold text-sm md:text-lg">Coming Up</h3>
+            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-brass" />
+            <h3 className="text-primary-foreground font-semibold text-sm md:text-lg">Coming Up</h3>
           </div>
           <Button
             asChild
             variant="ghost"
             size="sm"
-            className="text-white hover:text-amber-400 hover:bg-white/10 text-xs md:text-sm"
+            className="text-primary-foreground hover:text-brass hover:bg-primary-foreground/10 text-xs md:text-sm"
           >
             <Link href="/events" className="flex items-center gap-1">
               See All
@@ -116,19 +116,19 @@ export function UpcomingEventsBanner() {
             <div
               key={idx}
               className={`flex-shrink-0 w-[85vw] sm:w-[45vw] md:w-[30vw] lg:w-40 xl:w-44 snap-center rounded-lg border ${
-                day.events.length > 0 ? "bg-white/95 border-amber-400/50" : "bg-white/5 border-white/10"
+                day.events.length > 0 ? "bg-card border-brass/50" : "bg-primary-foreground/5 border-primary-foreground/10"
               } p-3 md:p-4 transition-all hover:scale-105`}
             >
-              <div className="flex flex-col items-center mb-2 md:mb-3 pb-2 md:pb-3 border-b border-zinc-200">
+              <div className="flex flex-col items-center mb-2 md:mb-3 pb-2 md:pb-3 border-b border-border">
                 <p
                   className={`text-xs font-semibold uppercase tracking-wide ${
-                    day.events.length > 0 ? "text-amber-600" : "text-white/40"
+                    day.events.length > 0 ? "text-copper" : "text-primary-foreground/40"
                   }`}
                 >
                   {day.dayName}
                 </p>
                 <p
-                  className={`text-xl md:text-2xl font-bold ${day.events.length > 0 ? "text-zinc-900" : "text-white/60"}`}
+                  className={`text-xl md:text-2xl font-bold ${day.events.length > 0 ? "text-primary" : "text-primary-foreground/60"}`}
                 >
                   {day.monthDay}
                 </p>
@@ -140,31 +140,31 @@ export function UpcomingEventsBanner() {
                     <Link
                       key={event.occurrenceId}
                       href={eventPath(event.id, event.date)}
-                      className="block text-left rounded-md -mx-1 px-1 py-0.5 transition-colors hover:bg-amber-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                      className="block text-left rounded-md -mx-1 px-1 py-0.5 transition-colors hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
                       <div className="flex items-start gap-1.5 mb-1">
                         <div className="flex-shrink-0 mt-0.5">
                           <EventTypeIcon event={event} />
                         </div>
                         <p
-                          className={`text-sm font-semibold text-zinc-900 line-clamp-2 leading-tight ${
+                          className={`text-sm font-semibold text-card-foreground line-clamp-2 leading-tight ${
                             event.isCancelled ? "line-through opacity-70" : ""
                           }`}
                         >
                           {event.name}
                         </p>
                       </div>
-                      <p className="text-xs text-zinc-600 ml-5">
+                      <p className="text-xs text-muted-foreground ml-5">
                         {formatTimeRange(event.startTime, event.endTime)}
                       </p>
                     </Link>
                   ))}
                   {day.events.length > 3 && (
-                    <p className="text-xs text-zinc-500 italic">+{day.events.length - 3} more</p>
+                    <p className="text-xs text-muted-foreground italic">+{day.events.length - 3} more</p>
                   )}
                 </div>
               ) : (
-                <p className="text-xs text-white/40 text-center italic">No events</p>
+                <p className="text-xs text-primary-foreground/40 text-center italic">No events</p>
               )}
             </div>
           ))}

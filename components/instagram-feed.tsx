@@ -63,7 +63,7 @@ export function InstagramFeed({ username }: { username: string }) {
   return (
     <div>
       {error && (
-        <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-md text-amber-700 text-sm flex items-center">
+        <div className="mb-6 p-4 bg-secondary border border-brass/40 rounded-md text-secondary-foreground text-sm flex items-center">
           <AlertCircle className="h-4 w-4 mr-2 flex-shrink-0" />
           <p>{error}</p>
         </div>

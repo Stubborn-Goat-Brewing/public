@@ -18,12 +18,12 @@ export function HoursCard() {
           key={item.day}
           className={`flex justify-between py-2 px-3 md:px-4 rounded-md transition-colors text-sm md:text-base lg:text-lg ${
             item.day === currentDay
-              ? "bg-amber-100 border border-amber-300 font-semibold text-amber-900"
+              ? "bg-secondary border border-brass/50 font-semibold text-secondary-foreground"
               : "text-muted-foreground hover:bg-muted/50"
           }`}
         >
           <span className="flex-shrink-0">{item.day}:</span>
-          <span className={`ml-4 md:ml-8 ${item.time === "Closed" ? "text-red-600" : ""}`}>{item.time}</span>
+          <span className={`ml-4 md:ml-8 ${item.time === "Closed" ? "text-destructive" : ""}`}>{item.time}</span>
         </div>
       ))}
       <div className="pt-3 md:pt-4 mt-3 md:mt-4 border-t border-border">

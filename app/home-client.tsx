@@ -20,7 +20,7 @@ export function HomeClient() {
         }
       `}</style>
 
-      <header className="sticky top-0 z-40 w-full border-b bg-zinc-900 text-white">
+      <header className="sticky top-0 z-40 w-full border-b border-primary/40 bg-primary text-primary-foreground">
         {/* <AnnouncementBanner
           message="Buy $50.00 or more in gift cards and get a bonus card for $5.00 off your next visit."
           linkText="Show me more"
@@ -77,7 +77,7 @@ export function HomeClient() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-zinc-900">
+          <div className="md:hidden border-t border-primary-foreground/15 bg-primary">
             <nav className="container py-4 flex flex-col space-y-4">
               <Link
                 href="/menu"

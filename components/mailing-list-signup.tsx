@@ -80,14 +80,14 @@ export function MailingListSignup() {
       </div>
 
       {status.type === "success" && (
-        <div className="flex items-center text-sm text-green-600">
+        <div className="flex items-center text-sm text-hop">
           <CheckCircle className="mr-1 h-4 w-4" />
           {status.message}
         </div>
       )}
 
       {status.type === "error" && (
-        <div className="flex items-center text-sm text-red-600">
+        <div className="flex items-center text-sm text-destructive">
           <AlertCircle className="mr-1 h-4 w-4" />
           {status.message}
         </div>

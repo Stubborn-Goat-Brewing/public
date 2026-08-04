@@ -117,7 +117,7 @@ export function ContactForm() {
           )}
         </Button>
         {isSubmitted && (
-          <div className="flex items-center text-sm text-green-600">
+          <div className="flex items-center text-sm text-hop">
             <CheckCircle className="mr-1 h-4 w-4" />
             Message sent successfully!
           </div>
