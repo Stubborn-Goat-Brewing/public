@@ -19,6 +19,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
+import { RichTextEditor } from "./rich-text-editor"
 import type { OccurrenceEntry } from "@/lib/admin/occurrence-list"
 import { normalizeActionResult } from "@/lib/admin/action-result"
 import {
@@ -278,14 +279,12 @@ export function OccurrenceOverrides({
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="override-description">Description for this date</Label>
-                <Textarea
+                <RichTextEditor
                   id="override-description"
+                  ariaLabel="Description for this date"
                   value={draft.overrideDescription}
-                  onChange={(e) =>
-                    setDraft({ ...draft, overrideDescription: e.target.value })
-                  }
-                  rows={3}
-                  placeholder="Series default"
+                  onChange={(html) => setDraft({ ...draft, overrideDescription: html })}
+                  placeholder="Leave blank to use the series description."
                 />
                 <p className="text-xs text-muted-foreground">
                   Shown publicly for this date only. Leave blank to use the series

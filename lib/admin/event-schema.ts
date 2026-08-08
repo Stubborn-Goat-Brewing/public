@@ -33,6 +33,18 @@ const nullableText = z
   .optional()
   .transform((v) => (v ? v : null))
 
+/**
+ * Like `nullableText` but with more headroom, since rich-text descriptions
+ * carry HTML markup (tags, hrefs) on top of the visible copy. The server
+ * sanitizes this HTML on save; this only guards raw length.
+ */
+const nullableRichText = z
+  .string()
+  .trim()
+  .max(8000, "That description is too long.")
+  .optional()
+  .transform((v) => (v ? v : null))
+
 const urlField = z
   .string()
   .trim()
@@ -75,7 +87,7 @@ export const eventFormSchema = z
       .max(160, "Keep the teaser under 160 characters.")
       .optional()
       .transform((v) => (v ? v : null)),
-    description: nullableText,
+    description: nullableRichText,
     event_type_id: z.coerce.number().int().positive("Choose an event type."),
 
     occurrence_type: z.enum(occurrenceTypes),
