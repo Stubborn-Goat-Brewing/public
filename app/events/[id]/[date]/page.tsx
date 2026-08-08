@@ -184,28 +184,9 @@ export default async function EventPage({ params }: EventPageProps) {
               {event.location || SITE_NAME}
             </div>
           </div>
-            </div>
-
-            {heroImage && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={heroImage || "/placeholder.svg"}
-                alt={heroArtist?.name || event.name}
-                className="aspect-[4/5] w-full rounded-xl border object-cover shadow-sm lg:sticky lg:top-24"
-              />
-            )}
-          </div>
-
-          <div className="mt-8 max-w-2xl">
-          {event.description && (
-            <div
-              className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
-              dangerouslySetInnerHTML={{ __html: event.description }}
-            />
-          )}
 
           {event.artists.length > 0 && (
-            <section className="mt-8 space-y-4 border-t pt-6">
+            <section className="mt-6 space-y-4 border-t pt-6">
               <h2 className="text-lg font-semibold">
                 {event.artists.length > 1 ? "Performing Artists" : "About the Artist"}
               </h2>
@@ -256,6 +237,25 @@ export default async function EventPage({ params }: EventPageProps) {
                 </div>
               ))}
             </section>
+          )}
+            </div>
+
+            {heroImage && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={heroImage || "/placeholder.svg"}
+                alt={heroArtist?.name || event.name}
+                className="aspect-[4/5] w-full rounded-xl border object-cover shadow-sm lg:sticky lg:top-24"
+              />
+            )}
+          </div>
+
+          <div className="mt-8 max-w-2xl">
+          {event.description && (
+            <div
+              className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
           )}
 
           {event.ctaUrl && (

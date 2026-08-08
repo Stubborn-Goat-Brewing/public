@@ -309,24 +309,6 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
               {event.location}
             </div>
           )}
-            </div>
-
-            {heroImage && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={heroImage || "/placeholder.svg"}
-                alt={heroArtist?.name || event.name}
-                className="aspect-[4/5] w-full rounded-lg border object-cover shadow-sm"
-              />
-            )}
-          </div>
-
-          {event.description && (
-            <div
-              className="text-sm text-muted-foreground leading-relaxed prose prose-sm prose-neutral dark:prose-invert max-w-none [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
-              dangerouslySetInnerHTML={{ __html: event.description }}
-            />
-          )}
 
           {event.artists.length > 0 && (
             <div className="space-y-3 pt-2 border-t">
@@ -375,6 +357,24 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
                 </div>
               ))}
             </div>
+          )}
+            </div>
+
+            {heroImage && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={heroImage || "/placeholder.svg"}
+                alt={heroArtist?.name || event.name}
+                className="aspect-[4/5] w-full rounded-lg border object-cover shadow-sm"
+              />
+            )}
+          </div>
+
+          {event.description && (
+            <div
+              className="text-sm text-muted-foreground leading-relaxed prose prose-sm prose-neutral dark:prose-invert max-w-none [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
           )}
 
           {event.ctaUrl && (
