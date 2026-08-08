@@ -252,10 +252,13 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
   if (!event) return null
 
   const span = formatSpan(event)
+  // The first artist with an image becomes the large hero image shown top-right.
+  const heroArtist = event.artists.find((a) => a.imageUrl)
+  const heroImage = heroArtist?.imageUrl
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto">
+      <DialogContent className="max-w-md sm:max-w-2xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-left">
             <EventTypeIcon event={event} className="h-5 w-5 flex-shrink-0" />
@@ -266,6 +269,8 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_190px] sm:items-start">
+            <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
             <EventTypeBadge event={event} />
             {event.isCancelled && (
@@ -305,13 +310,6 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
             </div>
           )}
 
-          {event.description && (
-            <div
-              className="text-sm text-muted-foreground leading-relaxed prose prose-sm prose-neutral dark:prose-invert max-w-none [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
-              dangerouslySetInnerHTML={{ __html: event.description }}
-            />
-          )}
-
           {event.artists.length > 0 && (
             <div className="space-y-3 pt-2 border-t">
               <h4 className="text-sm font-semibold">
@@ -319,7 +317,7 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
               </h4>
               {event.artists.map((artist) => (
                 <div key={artist.id} className="flex gap-3">
-                  {artist.imageUrl && (
+                  {artist.imageUrl && artist.id !== heroArtist?.id && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={artist.imageUrl || "/placeholder.svg"}
@@ -359,6 +357,24 @@ function EventDialog({ event, isOpen, onClose }: { event: Event | null; isOpen: 
                 </div>
               ))}
             </div>
+          )}
+            </div>
+
+            {heroImage && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={heroImage || "/placeholder.svg"}
+                alt={heroArtist?.name || event.name}
+                className="aspect-[4/5] w-full rounded-lg border object-cover shadow-sm"
+              />
+            )}
+          </div>
+
+          {event.description && (
+            <div
+              className="text-sm text-muted-foreground leading-relaxed prose prose-sm prose-neutral dark:prose-invert max-w-none [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
           )}
 
           {event.ctaUrl && (

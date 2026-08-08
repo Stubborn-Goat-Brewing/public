@@ -64,6 +64,7 @@ const EVENT_SELECT = `
     occurrence_date,
     is_cancelled,
     override_title,
+    override_description,
     override_start_time,
     override_end_time
   )

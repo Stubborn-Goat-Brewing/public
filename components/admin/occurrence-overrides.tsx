@@ -41,6 +41,7 @@ function formatDate(key: string) {
 type Draft = {
   date: string
   overrideTitle: string
+  overrideDescription: string
   overrideStartTime: string
   overrideEndTime: string
   note: string
@@ -83,7 +84,11 @@ export function OccurrenceOverrides({
     // Un-cancelling a date that has no other customisation removes the row
     // outright rather than leaving an all-null exception behind.
     const isBareCancellation =
-      !next && !entry.overrideTitle && !entry.overrideStartTime && !entry.note
+      !next &&
+      !entry.overrideTitle &&
+      !entry.overrideDescription &&
+      !entry.overrideStartTime &&
+      !entry.note
 
     if (isBareCancellation) {
       run("Date restored.", () => clearOccurrenceOverride(eventId, entry.date))
@@ -96,6 +101,7 @@ export function OccurrenceOverrides({
         date: entry.date,
         isCancelled: next,
         overrideTitle: entry.overrideTitle ?? "",
+        overrideDescription: entry.overrideDescription ?? "",
         overrideStartTime: (entry.overrideStartTime ?? "").slice(0, 5),
         overrideEndTime: (entry.overrideEndTime ?? "").slice(0, 5),
         note: entry.note ?? "",
@@ -107,6 +113,7 @@ export function OccurrenceOverrides({
     setDraft({
       date: entry.date,
       overrideTitle: entry.overrideTitle ?? "",
+      overrideDescription: entry.overrideDescription ?? "",
       overrideStartTime: (entry.overrideStartTime ?? "").slice(0, 5),
       overrideEndTime: (entry.overrideEndTime ?? "").slice(0, 5),
       note: entry.note ?? "",
@@ -128,6 +135,7 @@ export function OccurrenceOverrides({
           date: target.date,
           isCancelled: target.isCancelled,
           overrideTitle: target.overrideTitle,
+          overrideDescription: target.overrideDescription,
           overrideStartTime: target.overrideStartTime,
           overrideEndTime: target.overrideEndTime,
           note: target.note,
@@ -184,7 +192,10 @@ export function OccurrenceOverrides({
                   )}
                 </div>
 
-                {(entry.overrideTitle || customTime || entry.note) && (
+                {(entry.overrideTitle ||
+                  entry.overrideDescription ||
+                  customTime ||
+                  entry.note) && (
                   <p className="truncate text-xs text-muted-foreground">
                     {[
                       entry.overrideTitle,
@@ -195,6 +206,7 @@ export function OccurrenceOverrides({
                               : ""
                           }`
                         : null,
+                      entry.overrideDescription ? "Custom description" : null,
                       entry.note,
                     ]
                       .filter(Boolean)
@@ -262,6 +274,23 @@ export function OccurrenceOverrides({
                   onChange={(e) => setDraft({ ...draft, overrideTitle: e.target.value })}
                   placeholder="Series default"
                 />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="override-description">Description for this date</Label>
+                <Textarea
+                  id="override-description"
+                  value={draft.overrideDescription}
+                  onChange={(e) =>
+                    setDraft({ ...draft, overrideDescription: e.target.value })
+                  }
+                  rows={3}
+                  placeholder="Series default"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Shown publicly for this date only. Leave blank to use the series
+                  description.
+                </p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
