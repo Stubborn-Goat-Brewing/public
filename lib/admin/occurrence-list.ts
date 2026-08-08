@@ -5,6 +5,7 @@ export type OccurrenceEntry = {
   date: string
   isCancelled: boolean
   overrideTitle: string | null
+  overrideDescription: string | null
   overrideStartTime: string | null
   overrideEndTime: string | null
   note: string | null
@@ -15,6 +16,7 @@ export type StoredOverride = {
   occurrence_date: string
   is_cancelled: boolean
   override_title: string | null
+  override_description: string | null
   override_start_time: string | null
   override_end_time: string | null
   note: string | null
@@ -60,6 +62,7 @@ export function listUpcomingOccurrences(
       date,
       isCancelled: o?.is_cancelled ?? false,
       overrideTitle: o?.override_title ?? null,
+      overrideDescription: o?.override_description ?? null,
       overrideStartTime: o?.override_start_time ?? null,
       overrideEndTime: o?.override_end_time ?? null,
       note: o?.note ?? null,

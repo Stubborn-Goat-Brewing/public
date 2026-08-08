@@ -64,6 +64,7 @@ export interface EventRow {
     occurrence_date: string
     is_cancelled: boolean
     override_title: string | null
+    override_description: string | null
     override_start_time: string | null
     override_end_time: string | null
   }>
@@ -309,7 +310,7 @@ export function expandEvents(events: EventRow[], rangeStartKey: string, rangeEnd
         date: key,
         startTime,
         endTime,
-        description: event.description ?? "",
+        description: override?.override_description ?? event.description ?? "",
         type: type?.name ?? "General",
         typeSlug: type?.slug ?? "general",
         color: type?.color_hex ?? "#57534E",

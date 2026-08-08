@@ -34,7 +34,7 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
          is_featured, is_cancelled, is_published,
          event_artists(artist_id, sort_order),
          event_occurrence_overrides(occurrence_date, is_cancelled, override_title,
-           override_start_time, override_end_time, note)`,
+           override_description, override_start_time, override_end_time, note)`,
       )
       .eq("id", id)
       .maybeSingle(),
