@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 import { getAdminSession } from "@/lib/admin/guard"
 import { eventFormSchema, toEventRow, type EventFormValues } from "@/lib/admin/event-schema"
+import { sanitizeHtml } from "@/lib/sanitize-html"
 
 export interface ActionResult {
   ok: boolean
@@ -163,9 +164,12 @@ export async function createEvent(values: EventFormValues): Promise<ActionResult
     return { ok: false, error: "Please fix the highlighted fields.", fieldErrors }
   }
 
+  const createRow = toEventRow(parsed.data)
+  createRow.description = sanitizeHtml(createRow.description)
+
   const { data, error } = await session.supabase
     .from("events")
-    .insert(toEventRow(parsed.data))
+    .insert(createRow)
     .select("id")
     .single()
 
@@ -199,6 +203,7 @@ export async function updateEvent(eventId: string, values: EventFormValues): Pro
   }
 
   const row = toEventRow(parsed.data)
+  row.description = sanitizeHtml(row.description)
 
   const { error } = await session.supabase.from("events").update(row).eq("id", eventId)
   if (error) return { ok: false, error: describeDbError(error) }

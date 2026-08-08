@@ -9,7 +9,6 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -22,6 +21,7 @@ import {
 } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArtistPicker, type ArtistOption } from "./artist-picker"
+import { RichTextEditor } from "./rich-text-editor"
 import {
   WEEKDAYS,
   eventFormSchema,
@@ -241,16 +241,17 @@ export function EventForm({
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="description">
-            Description <span className="text-muted-foreground">(optional)</span>
-          </Label>
-          <Textarea
-            id="description"
-            value={values.description ?? ""}
-            onChange={(e) => set("description", e.target.value)}
-            rows={4}
-          />
-          {err("description")}
+            <Label htmlFor="description">
+              Description <span className="text-muted-foreground">(optional)</span>
+            </Label>
+            <RichTextEditor
+              id="description"
+              ariaLabel="Event description"
+              value={values.description ?? ""}
+              onChange={(html) => set("description", html)}
+              placeholder="Add details, and use the toolbar for bold text, lists, or inline links."
+            />
+            {err("description")}
         </div>
       </section>
 

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
 import { getAdminSession } from "@/lib/admin/guard"
+import { sanitizeHtml } from "@/lib/sanitize-html"
 
 const UNAUTHORIZED = "Your session expired. Sign in again." as const
 
@@ -22,7 +23,7 @@ const overrideSchema = z
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date"),
     isCancelled: z.boolean(),
     overrideTitle: z.string().trim().max(200).optional().or(z.literal("")),
-    overrideDescription: z.string().trim().max(2000).optional().or(z.literal("")),
+    overrideDescription: z.string().trim().max(8000).optional().or(z.literal("")),
     overrideStartTime: timeField,
     overrideEndTime: timeField,
     note: z.string().trim().max(500).optional().or(z.literal("")),
@@ -64,7 +65,7 @@ export async function saveOccurrenceOverride(input: unknown): Promise<Result> {
       occurrence_date: v.date,
       is_cancelled: v.isCancelled,
       override_title: v.overrideTitle || null,
-      override_description: v.overrideDescription || null,
+      override_description: sanitizeHtml(v.overrideDescription || null),
       override_start_time: v.overrideStartTime || null,
       override_end_time: v.overrideEndTime || null,
       note: v.note || null,
