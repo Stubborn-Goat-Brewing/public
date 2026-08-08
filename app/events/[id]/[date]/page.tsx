@@ -245,7 +245,7 @@ export default async function EventPage({ params }: EventPageProps) {
               <img
                 src={heroImage || "/placeholder.svg"}
                 alt={heroArtist?.name || event.name}
-                className="aspect-[4/5] w-full rounded-xl border object-cover shadow-sm lg:sticky lg:top-24"
+                className="aspect-[4/5] w-full rounded-xl border object-cover shadow-sm"
               />
             )}
           </div>
