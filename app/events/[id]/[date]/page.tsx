@@ -101,6 +101,10 @@ export default async function EventPage({ params }: EventPageProps) {
   const canonicalUrl = absoluteUrl(eventPath(event.id, event.date))
   const schema = getEventJsonLd(event, canonicalUrl)
 
+  // The first artist with an image becomes the large hero image shown top-right.
+  const heroArtist = event.artists.find((a) => a.imageUrl)
+  const heroImage = heroArtist?.imageUrl
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       {schema && <JsonLd data={schema} />}
@@ -129,7 +133,7 @@ export default async function EventPage({ params }: EventPageProps) {
       </header>
 
       <main className="container flex-1 py-8 md:py-12">
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-4xl">
           <Link
             href="/events#calendar"
             className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground"
@@ -138,7 +142,9 @@ export default async function EventPage({ params }: EventPageProps) {
             Back to all events
           </Link>
 
-          <div className="mt-6 flex flex-wrap items-center gap-2">
+          <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-start">
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
             <div
               className="flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm font-medium"
               style={typeColorStyles(event.color)}
@@ -178,10 +184,22 @@ export default async function EventPage({ params }: EventPageProps) {
               {event.location || SITE_NAME}
             </div>
           </div>
+            </div>
 
+            {heroImage && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={heroImage || "/placeholder.svg"}
+                alt={heroArtist?.name || event.name}
+                className="aspect-[4/5] w-full rounded-xl border object-cover shadow-sm lg:sticky lg:top-24"
+              />
+            )}
+          </div>
+
+          <div className="mt-8 max-w-2xl">
           {event.description && (
             <div
-              className="prose prose-neutral dark:prose-invert mt-8 max-w-none leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
+              className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80"
               dangerouslySetInnerHTML={{ __html: event.description }}
             />
           )}
@@ -193,7 +211,7 @@ export default async function EventPage({ params }: EventPageProps) {
               </h2>
               {event.artists.map((artist) => (
                 <div key={artist.id} className="flex gap-4">
-                  {artist.imageUrl && (
+                  {artist.imageUrl && artist.id !== heroArtist?.id && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={artist.imageUrl || "/placeholder.svg"}
@@ -257,6 +275,7 @@ export default async function EventPage({ params }: EventPageProps) {
               <SocialLinks links={SOCIAL_LINKS.map((url) => ({ label: labelFromUrl(url), url }))} />
             </div>
           </section>
+          </div>
         </div>
       </main>
     </div>
