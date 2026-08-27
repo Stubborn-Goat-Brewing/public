@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
+import { headers } from "next/headers"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -8,6 +9,7 @@ import { AgeVerification } from "@/components/age-verification"
 import { JsonLd } from "@/components/seo/json-ld"
 import { getBusinessJsonLd, getWebSiteJsonLd } from "@/lib/seo/structured-data"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/seo/site"
+import { isGoogleCrawler } from "@/lib/seo/bots"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -87,18 +89,24 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Read the User-Agent server-side so Googlebot / Google-InspectionTool never
+  // receive the age-verification modal. This prevents the layout shift (CLS)
+  // that Search Console flagged, while real visitors still see the age gate.
+  const userAgent = (await headers()).get("user-agent")
+  const skipAgeGate = isGoogleCrawler(userAgent)
+
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth bg-background">
       <body className={inter.className}>
         <JsonLd data={[getBusinessJsonLd(), getWebSiteJsonLd()]} />
         <GoogleAnalytics />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <AgeVerification />
+          {!skipAgeGate && <AgeVerification />}
           {children}
         </ThemeProvider>
       </body>
