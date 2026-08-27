@@ -9,7 +9,7 @@ import { AgeVerification } from "@/components/age-verification"
 import { JsonLd } from "@/components/seo/json-ld"
 import { getBusinessJsonLd, getWebSiteJsonLd } from "@/lib/seo/structured-data"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/seo/site"
-import { isGoogleCrawler } from "@/lib/seo/bots"
+import { isIndexingBot } from "@/lib/seo/bots"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -94,11 +94,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Read the User-Agent server-side so Googlebot / Google-InspectionTool never
-  // receive the age-verification modal. This prevents the layout shift (CLS)
-  // that Search Console flagged, while real visitors still see the age gate.
+  // Read the User-Agent server-side so search-engine crawlers and social
+  // link-preview bots never receive the age-verification modal. This prevents
+  // the layout shift (CLS) that Search Console flagged and keeps social
+  // previews clean, while real visitors still see the age gate.
   const userAgent = (await headers()).get("user-agent")
-  const skipAgeGate = isGoogleCrawler(userAgent)
+  const skipAgeGate = isIndexingBot(userAgent)
 
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth bg-background">
