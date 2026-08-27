@@ -10,7 +10,7 @@
  * so that regular visitors still get the legally-required age gate.
  */
 const INDEXING_BOT_PATTERN =
-  /(Googlebot|Google-InspectionTool|Google-Read-Aloud|AdsBot-Google|bingbot|DuckDuckBot|facebookexternalhit|Twitterbot|LinkedInBot)/i
+  /(Googlebot|Google-InspectionTool|Google-Read-Aloud|AdsBot-Google|bingbot|DuckDuckBot|facebookexternalhit|Twitterbot|LinkedInBot|SemrushBot)/i
 
 export function isIndexingBot(userAgent: string | null | undefined): boolean {
   if (!userAgent) return false
