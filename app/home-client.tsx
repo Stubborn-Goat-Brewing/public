@@ -138,6 +138,7 @@ export function HomeClient() {
               alt="Stubborn Goat Brewing exterior at sunset with outdoor patio"
               fill
               priority
+              sizes="100vw"
               className="object-cover object-center"
             />
             <div className="container relative z-20 flex h-full min-h-[280px] md:min-h-[340px] flex-col items-center justify-center text-center text-white px-4">
@@ -183,8 +184,9 @@ export function HomeClient() {
             alt="Your favorites now available to-go! Take home Goat Lager, Counting Sheep, Headbutt & ¡La Cabra Loca!"
             width={1920}
             height={960}
+            sizes="100vw"
             className="w-full h-auto block"
-            priority
+            loading="lazy"
           />
         </section>
 

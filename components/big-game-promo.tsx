@@ -77,6 +77,7 @@ export function BigGamePromo() {
                     src="/images/sam-mousley.png"
                     alt="Sam Mousley playing guitar"
                     fill
+                    sizes="80px"
                     className="object-cover object-top"
                   />
                 </div>
@@ -95,6 +96,7 @@ export function BigGamePromo() {
                     src="/images/chef-brunch.jpg"
                     alt="Chef-inspired brunch plate"
                     fill
+                    sizes="80px"
                     className="object-cover"
                   />
                 </div>
@@ -113,6 +115,7 @@ export function BigGamePromo() {
                     src="/images/espresso-martini.jpg"
                     alt="Espresso martini cocktail"
                     fill
+                    sizes="80px"
                     className="object-cover"
                   />
                 </div>
@@ -138,6 +141,7 @@ export function BigGamePromo() {
                       src="/images/mimosa.jpg"
                       alt="Mimosa cocktail"
                       fill
+                      sizes="64px"
                       className="object-cover"
                     />
                   </div>
@@ -149,6 +153,7 @@ export function BigGamePromo() {
                       src="/images/bloody-mary.jpg"
                       alt="Bloody mary cocktail"
                       fill
+                      sizes="64px"
                       className="object-cover"
                     />
                   </div>
@@ -160,6 +165,7 @@ export function BigGamePromo() {
                       src="/images/beermosa.jpg"
                       alt="Beermosa cocktail"
                       fill
+                      sizes="64px"
                       className="object-cover"
                     />
                   </div>
