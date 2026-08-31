@@ -167,24 +167,11 @@ export function HomeClient() {
         <FeaturedEvents />
 
         {/* Event Promos */}
-        <section className="bg-primary/5 pb-10 md:pb-14">
+        <section className="bg-primary/5">
           <EventPromoCarousel />
         </section>
 
-        {/* Cans To-Go Promo Section */}
-        <section className="w-full">
-          <Image
-            src="/images/available-cans.png"
-            alt="Your favorites now available to-go! Take home Goat Lager, Counting Sheep, Headbutt & ¡La Cabra Loca!"
-            width={1920}
-            height={960}
-            sizes="100vw"
-            className="w-full h-auto block"
-            loading="lazy"
-          />
-        </section>
-
-        <section className="py-12 md:py-16 bg-primary/5">
+        <section className="pt-2 pb-12 md:pt-4 md:pb-16 bg-primary/5">
           <div className="container px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
               {/* Follow The Herd */}

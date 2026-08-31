@@ -13,7 +13,6 @@ const TARGETS = [
   { file: "brewery-exterior-sunset.jpg", maxWidth: 1920 },
   { file: "brewery-bg-new.jpg", maxWidth: 1920 },
   { file: "big-game-promo-bg.jpg", maxWidth: 1600 },
-  { file: "available-cans.png", maxWidth: 1600 },
 
   // Event promo carousel (displayed at 960x540)
   { file: "promo-wing-tuesday.png", maxWidth: 1200 },
