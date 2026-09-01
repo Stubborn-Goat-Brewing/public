@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { isIndexingBot } from "@/lib/seo/bots"
 
 const COOKIE_NAME = "sgb_age_verified"
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365 // 1 year in seconds
@@ -35,6 +36,11 @@ export function AgeVerification() {
 
   useEffect(() => {
     if (isAdminRoute) return
+    // Search-engine crawlers and social link-preview bots should never see the
+    // 21+ interstitial. We check the User-Agent on the client (rather than in
+    // the root layout) so the layout stays statically rendered; bots that don't
+    // run JS never trigger the modal anyway.
+    if (typeof navigator !== "undefined" && isIndexingBot(navigator.userAgent)) return
     const verified = getCookie(COOKIE_NAME)
     if (verified !== "true") {
       setVisible(true)

@@ -1,9 +1,7 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { LucideBeer } from "lucide-react"
 import Image from "next/image"
+import menuData from "@/data/menu.json"
 
 interface Beer {
   name: string
@@ -16,35 +14,12 @@ interface Beer {
   canImage?: string
 }
 
-interface MenuData {
-  beers: Beer[]
-}
+// The menu is static content that only changes on redeploy, so we read it from
+// the bundled JSON instead of fetching it at runtime. This removes a network
+// request on every menu-page view.
+const beers = menuData.beers as Beer[]
 
 export function TapList() {
-  const [beers, setBeers] = useState<Beer[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch("/api/menu")
-      .then((res) => res.json())
-      .then((data: MenuData) => {
-        setBeers(data.beers)
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error("Error fetching menu data:", error)
-        setLoading(false)
-      })
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="container text-center py-12">
-        <p className="text-muted-foreground">Loading beers...</p>
-      </div>
-    )
-  }
-
   return (
     <div className="container">
       <div className="text-center mb-12">

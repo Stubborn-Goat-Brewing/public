@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { TapList } from "@/components/tap-list"
+import menuDataJson from "@/data/menu.json"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { UtensilsCrossed, Wine, MenuIcon, X, Baby } from "lucide-react"
@@ -37,39 +38,13 @@ interface MenuData {
   sauces: string[]
 }
 
+// The menu is static content that only changes on redeploy, so we read it from
+// the bundled JSON instead of fetching it at runtime. This removes the network
+// request (and its loading state) that ran on every menu-page view.
+const menuData = menuDataJson as MenuData
+
 export function MenuClient() {
-  const [menuData, setMenuData] = useState<MenuData | null>(null)
-  const [loading, setLoading] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    fetch("/api/menu")
-      .then((res) => res.json())
-      .then((data) => {
-        setMenuData(data)
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error("Error fetching menu data:", error)
-        setLoading(false)
-      })
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Loading menu...</p>
-      </div>
-    )
-  }
-
-  if (!menuData) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Error loading menu</p>
-      </div>
-    )
-  }
 
   return (
     <div className="flex min-h-screen flex-col">

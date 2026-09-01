@@ -1,8 +1,9 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 import { getAdminSession } from "@/lib/admin/guard"
+import { EVENTS_CACHE_TAG } from "@/lib/events/fetch"
 import { eventFormSchema, toEventRow, type EventFormValues } from "@/lib/admin/event-schema"
 import { sanitizeHtml } from "@/lib/sanitize-html"
 
@@ -79,6 +80,8 @@ function revalidateEventSurfaces() {
   revalidatePath("/admin/events")
   revalidatePath("/events")
   revalidatePath("/")
+  // Bust the cached homepage "Upcoming Events" feed so edits show immediately.
+  revalidateTag(EVENTS_CACHE_TAG)
 }
 
 const UNAUTHORIZED: ActionResult = {
