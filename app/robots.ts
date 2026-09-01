@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       // Keep private/admin and API surfaces out of search results.
       disallow: ["/admin", "/admin/", "/api/", "/auth/"],
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   }
 }
