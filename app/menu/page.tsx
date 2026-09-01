@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 import { pageMetadata } from "@/lib/seo/site"
+import { JsonLd } from "@/components/seo/json-ld"
+import { getMenuJsonLd } from "@/lib/seo/structured-data"
+import menuData from "@/data/menu.json"
 import { MenuClient } from "./menu-client"
 
 export const metadata: Metadata = pageMetadata({
@@ -10,5 +13,12 @@ export const metadata: Metadata = pageMetadata({
 })
 
 export default function Page() {
-  return <MenuClient />
+  const menuJsonLd = getMenuJsonLd(menuData)
+
+  return (
+    <>
+      <JsonLd data={menuJsonLd} />
+      <MenuClient />
+    </>
+  )
 }
