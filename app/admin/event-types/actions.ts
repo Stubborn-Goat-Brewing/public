@@ -1,11 +1,12 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import type { SupabaseClient } from "@supabase/supabase-js"
 import { z } from "zod"
 import { getAdminSession } from "@/lib/admin/guard"
 import { slugify } from "@/lib/admin/slug"
 import { EVENT_ICON_NAMES } from "@/lib/events/format"
+import { EVENTS_CACHE_TAG } from "@/lib/events/fetch"
 
 /**
  * These actions use `getAdminSession` rather than `requireAdmin` because they
@@ -76,6 +77,9 @@ function revalidate() {
   revalidatePath("/admin/event-types")
   revalidatePath("/admin/events")
   revalidatePath("/events")
+  // Type color/icon/name changes affect how events render publicly, so bust the
+  // cached homepage "Upcoming Events" feed too.
+  revalidateTag(EVENTS_CACHE_TAG)
 }
 
 /**

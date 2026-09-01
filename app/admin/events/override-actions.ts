@@ -1,10 +1,11 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { z } from "zod"
 
 import { getAdminSession } from "@/lib/admin/guard"
 import { sanitizeHtml } from "@/lib/sanitize-html"
+import { EVENTS_CACHE_TAG } from "@/lib/events/fetch"
 
 const UNAUTHORIZED = "Your session expired. Sign in again." as const
 
@@ -78,6 +79,7 @@ export async function saveOccurrenceOverride(input: unknown): Promise<Result> {
   revalidatePath(`/admin/events/${v.eventId}`)
   revalidatePath("/admin/events")
   revalidatePath("/")
+  revalidateTag(EVENTS_CACHE_TAG)
   return { ok: true }
 }
 
@@ -100,5 +102,6 @@ export async function clearOccurrenceOverride(
   revalidatePath(`/admin/events/${eventId}`)
   revalidatePath("/admin/events")
   revalidatePath("/")
+  revalidateTag(EVENTS_CACHE_TAG)
   return { ok: true }
 }

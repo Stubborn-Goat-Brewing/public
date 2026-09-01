@@ -37,7 +37,9 @@ export function FeaturedEvents() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const response = await fetch(`/api/events?t=${Date.now()}`, { cache: "no-store" })
+        // Cached, CDN-friendly endpoint (revalidated every 60s and on admin
+        // edits) so the homepage doesn't hit the database on every visit.
+        const response = await fetch("/api/events/featured")
         if (!response.ok) {
           setLoading(false)
           return

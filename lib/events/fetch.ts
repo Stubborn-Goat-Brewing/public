@@ -1,7 +1,15 @@
 import "server-only"
+import { unstable_cache } from "next/cache"
 import { createClient } from "@/lib/supabase/server"
 import { expandEvents, type EventRow } from "@/lib/events/recurrence"
 import type { CalendarEvent, EventType } from "@/lib/events/types"
+
+/**
+ * Cache tag for public event data. Admin mutations call `revalidateTag` with
+ * this so cached public surfaces (e.g. the homepage "Upcoming Events" strip)
+ * update immediately after an edit instead of waiting for the time-based window.
+ */
+export const EVENTS_CACHE_TAG = "events"
 
 /** How far back and forward we expand occurrences when no range is given. */
 const DEFAULT_MONTHS_BACK = 3
@@ -104,9 +112,13 @@ export function resolveRange(fromParam?: string | null, toParam?: string | null)
  * Shared by the /api/events route and the server-rendered events page (for
  * structured data), so both stay in sync.
  */
-export async function fetchCalendarData(fromParam?: string | null, toParam?: string | null): Promise<CalendarData> {
+export async function fetchCalendarData(
+  fromParam?: string | null,
+  toParam?: string | null,
+  options?: { cacheable?: boolean },
+): Promise<CalendarData> {
   const { from, to } = resolveRange(fromParam, toParam)
-  const supabase = createClient()
+  const supabase = createClient(options)
 
   const { data, error } = await supabase
     .from("events")
@@ -154,6 +166,21 @@ export async function fetchCalendarData(fromParam?: string | null, toParam?: str
  * dynamic share image. Returns null when the id is unknown or no occurrence of
  * that event falls on the requested date (e.g. a bad or tampered share URL).
  */
+/**
+ * Cached default-range calendar data for public, non-interactive surfaces like
+ * the homepage "Upcoming Events" strip. Stored in the Next Data Cache for 60s
+ * and tagged `EVENTS_CACHE_TAG`, so the homepage no longer runs a fresh Supabase
+ * query on every visit, while admin edits still revalidate it on demand.
+ *
+ * The interactive calendar keeps using the uncached `/api/events` route, so
+ * changing months/filters there always reflects the latest data.
+ */
+export const getCachedCalendarData = unstable_cache(
+  async (): Promise<CalendarData> => fetchCalendarData(undefined, undefined, { cacheable: true }),
+  ["calendar-data-default-range"],
+  { revalidate: 60, tags: [EVENTS_CACHE_TAG] },
+)
+
 export async function fetchEventOccurrence(id: string, date: string): Promise<CalendarEvent | null> {
   if (!isDateKey(date)) return null
 
