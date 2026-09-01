@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 import {
   Calendar,
   MapPin,
@@ -1006,7 +1007,7 @@ export default function EventsPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
 
-      <div className="container py-12">
+      <div className="container flex-1 py-12">
         <div className="max-w-6xl mx-auto">
           <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
             <CardContent className="p-8 md:p-12">
@@ -1097,6 +1098,7 @@ export default function EventsPage() {
           </div>
         </div>
       </div>
+      <SiteFooter />
     </div>
   )
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { pageMetadata } from "@/lib/seo/site"
 import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = pageMetadata({
   title: "Terms of Service",
@@ -166,6 +167,7 @@ export default function TermsOfService() {
         </div>
         </div>
       </main>
+      <SiteFooter />
     </div>
   )
 }

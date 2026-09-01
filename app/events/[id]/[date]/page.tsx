@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { ArrowLeft, Ban, Calendar, Clock, MapPin, Repeat } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 import { JsonLd } from "@/components/seo/json-ld"
 import { SocialLinks } from "@/components/events/social-links"
 import { fetchEventOccurrence } from "@/lib/events/fetch"
@@ -258,6 +259,7 @@ export default async function EventPage({ params }: EventPageProps) {
           </div>
         </div>
       </main>
+      <SiteFooter />
     </div>
   )
 }

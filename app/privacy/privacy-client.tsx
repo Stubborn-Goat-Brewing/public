@@ -1,9 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 
 export function PrivacyClient() {
   return (
@@ -249,61 +248,7 @@ export function PrivacyClient() {
         </div>
       </main>
 
-      <footer className="border-t bg-background">
-        <div className="container py-8 md:py-12">
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div className="flex items-center gap-2">
-              <Image
-                src="/images/goat-head-new.png"
-                alt="Stubborn Goat Brewing Logo"
-                width={40}
-                height={40}
-                className="h-10 w-auto"
-              />
-              <span className="font-bold">Stubborn Goat Brewing</span>
-            </div>
-            <div className="flex gap-4">
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_instagram.png" alt="Instagram" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Instagram</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://www.facebook.com/profile.php?id=61575081059536" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Facebook</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://untappd.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_untappd.png" alt="Untappd" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Untappd</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="mailto:tribe@stubborngoatbrewing.com">
-                  <Image src="/images/icon_email.png" alt="Email" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Email</span>
-                </Link>
-              </Button>
-            </div>
-          </div>
-          <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Stubborn Goat Brewing. All rights reserved.</p>
-            <p className="mt-1">
-              <Link href="/privacy" className="hover:underline">
-                Privacy Policy
-              </Link>{" "}
-              |
-              <Link href="/terms" className="hover:underline">
-                {" "}
-                Terms of Service
-              </Link>
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
