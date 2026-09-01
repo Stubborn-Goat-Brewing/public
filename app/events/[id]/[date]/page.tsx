@@ -4,6 +4,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, Ban, Calendar, Clock, MapPin, Repeat } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SiteHeader } from "@/components/site-header"
 import { JsonLd } from "@/components/seo/json-ld"
 import { SocialLinks } from "@/components/events/social-links"
 import { fetchEventOccurrence } from "@/lib/events/fetch"
@@ -109,28 +110,7 @@ export default async function EventPage({ params }: EventPageProps) {
     <div className="flex min-h-screen flex-col bg-background">
       {schema && <JsonLd data={schema} />}
 
-      <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between py-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/images/goat-head-new.png"
-              alt="Stubborn Goat Brewing Logo"
-              width={40}
-              height={40}
-              className="h-10 w-auto"
-            />
-            <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
-          </Link>
-          <nav className="flex items-center gap-4 sm:gap-6">
-            <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
-              Menu
-            </Link>
-            <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
-              Events
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="container flex-1 py-8 md:py-12">
         <div className="mx-auto max-w-4xl">

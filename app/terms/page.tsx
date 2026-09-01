@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { pageMetadata } from "@/lib/seo/site"
+import { SiteHeader } from "@/components/site-header"
 
 export const metadata: Metadata = pageMetadata({
   title: "Terms of Service",
@@ -10,8 +11,11 @@ export const metadata: Metadata = pageMetadata({
 
 export default function TermsOfService() {
   return (
-    <div className="container max-w-4xl py-12 md:py-16">
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Terms of Service</h1>
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <main className="flex-1">
+        <div className="container max-w-4xl py-12 md:py-16">
+          <h1 className="text-3xl font-bold tracking-tight mb-6">Terms of Service</h1>
 
       <div className="space-y-6">
         <p className="text-muted-foreground">
@@ -154,12 +158,14 @@ export default function TermsOfService() {
           </div>
         </section>
 
-        <div className="mt-8 pt-6 border-t">
-          <Link href="/" className="text-primary hover:underline">
-            Return to Homepage
-          </Link>
+          <div className="mt-8 pt-6 border-t">
+            <Link href="/" className="text-primary hover:underline">
+              Return to Homepage
+            </Link>
+          </div>
         </div>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }
