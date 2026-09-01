@@ -51,6 +51,9 @@ export function getBusinessJsonLd(): Record<string, unknown> {
       opens: spec.opens,
       closes: spec.closes,
     })),
+    // Links the venue to its menu so Google can associate the two and surface
+    // the "View menu" action in the Business Profile / knowledge panel.
+    hasMenu: `${SITE_URL}/menu#menu`,
     sameAs: SOCIAL_LINKS,
   }
 }
@@ -127,6 +130,120 @@ export function getEventJsonLd(
     },
     ...(canonicalUrl ? { url: canonicalUrl } : event.ctaUrl ? { url: event.ctaUrl } : {}),
     ...(event.ctaUrl ? { offers: { "@type": "Offer", url: event.ctaUrl, availability: "https://schema.org/InStock" } } : {}),
+  }
+}
+
+/** ---- Menu structured data --------------------------------------------- */
+
+interface MenuBeer {
+  name: string
+  style?: string
+  abv?: number
+  description?: string
+  flagship?: boolean
+}
+
+interface MenuFoodOrDrinkItem {
+  name: string
+  description?: string
+  price?: number
+}
+
+interface MenuSectionData {
+  category: string
+  items: MenuFoodOrDrinkItem[]
+}
+
+interface MenuKids {
+  title?: string
+  description?: string
+  price?: number
+  items: { name: string }[]
+}
+
+interface MenuData {
+  beers?: MenuBeer[]
+  food?: MenuSectionData[]
+  drinks?: MenuSectionData[]
+  kids?: MenuKids
+}
+
+/** A single MenuItem node, attaching an Offer only when a numeric price exists. */
+function menuItem(
+  name: string,
+  description?: string,
+  price?: number,
+  suffix?: string,
+): Record<string, unknown> {
+  return {
+    "@type": "MenuItem",
+    name,
+    ...(description ? { description: suffix ? `${description} ${suffix}` : description } : suffix ? { description: suffix } : {}),
+    ...(typeof price === "number"
+      ? { offers: { "@type": "Offer", price, priceCurrency: "USD" } }
+      : {}),
+  }
+}
+
+/**
+ * Full restaurant Menu structured data (beers, food, drinks, kids), linked back
+ * to the business node. Google uses this to understand offerings and power the
+ * menu action; it is not rendered as a standalone "beer" rich result because no
+ * such result type exists.
+ */
+export function getMenuJsonLd(menu: MenuData): Record<string, unknown> {
+  const sections: Record<string, unknown>[] = []
+
+  // Beers first, flagships on top, so the "on tap" lineup leads the menu.
+  if (menu.beers?.length) {
+    const beers = [...menu.beers].sort(
+      (a, b) => (b.flagship ? 1 : 0) - (a.flagship ? 1 : 0),
+    )
+    sections.push({
+      "@type": "MenuSection",
+      name: "On Tap",
+      hasMenuItem: beers.map((beer) => {
+        const meta = [beer.style, typeof beer.abv === "number" ? `${beer.abv}% ABV` : null]
+          .filter(Boolean)
+          .join(" · ")
+        return menuItem(beer.name, beer.description, undefined, meta ? `(${meta})` : undefined)
+      }),
+    })
+  }
+
+  for (const section of menu.food ?? []) {
+    sections.push({
+      "@type": "MenuSection",
+      name: section.category,
+      hasMenuItem: section.items.map((item) => menuItem(item.name, item.description, item.price)),
+    })
+  }
+
+  for (const section of menu.drinks ?? []) {
+    sections.push({
+      "@type": "MenuSection",
+      name: section.category,
+      hasMenuItem: section.items.map((item) => menuItem(item.name, item.description, item.price)),
+    })
+  }
+
+  if (menu.kids?.items?.length) {
+    sections.push({
+      "@type": "MenuSection",
+      name: menu.kids.title ?? "Kids Menu",
+      hasMenuItem: menu.kids.items.map((item) => menuItem(item.name, menu.kids?.description, menu.kids?.price)),
+    })
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "@id": `${SITE_URL}/menu#menu`,
+    name: "Food & Drink Menu",
+    url: `${SITE_URL}/menu`,
+    inLanguage: "en-US",
+    provider: { "@id": BUSINESS_ID },
+    hasMenuSection: sections,
   }
 }
 
