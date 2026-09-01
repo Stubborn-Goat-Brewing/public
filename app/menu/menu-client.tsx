@@ -331,6 +331,31 @@ export function MenuClient() {
                         </div>
                       ))
                   )}
+
+                {/* Nitro Cold Brew Coffee - Dript Coffee Co. */}
+                {menuData.drinks
+                  .filter((section) => section.category === "Non-Alcoholic")
+                  .flatMap((section) =>
+                    section.items
+                      .filter((item) => item.name === "Nitro Cold Brew Coffee")
+                      .map((item) => (
+                        <div key="nitro-cold-brew" className="flex flex-col">
+                          <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Nitro Cold Brew Coffee</h3>
+                          <Card className="bg-card flex-1">
+                            <CardContent className="p-6">
+                              <div className="flex flex-col items-center justify-center text-center gap-4 h-full">
+                                <div>
+                                  <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
+                                  {item.price && (
+                                    <p className="mt-3 text-sm font-bold text-primary">${item.price}</p>
+                                  )}
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      ))
+                  )}
               </div>
             </div>
           </div>
