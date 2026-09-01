@@ -16,7 +16,7 @@ export function PrivacyClient() {
 
           <div className="space-y-6">
             <p className="text-muted-foreground">
-              Last Updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              Last Updated: September 1, 2026
             </p>
 
             <section className="space-y-3">
