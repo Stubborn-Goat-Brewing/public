@@ -6,7 +6,7 @@
  * robots, and the structured-data (JSON-LD) helpers so everything stays in sync.
  */
 
-export const SITE_URL = "https://stubborngoatbrewing.com"
+export const SITE_URL = "https://www.stubborngoatbrewing.com"
 
 export const SITE_NAME = "Stubborn Goat Brewing"
 
