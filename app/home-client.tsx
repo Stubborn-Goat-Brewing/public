@@ -2,16 +2,15 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Menu, X, Mail } from "lucide-react"
+import { MapPin, Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
 import { FeaturedEvents } from "@/components/featured-events"
-import { useState } from "react"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 
 export function HomeClient() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
   return (
     <div className="flex min-h-screen flex-col">
       <style jsx global>{`
@@ -20,107 +19,7 @@ export function HomeClient() {
         }
       `}</style>
 
-      <header className="sticky top-0 z-40 w-full border-b bg-zinc-900 text-white">
-        <div className="container flex h-16 items-center justify-between py-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/images/goat-head-white.png"
-              alt="Stubborn Goat Brewing Logo"
-              width={40}
-              height={40}
-              className="h-10 w-auto"
-            />
-            <span className="hidden font-bold sm:inline-block">Stubborn Goat Brewing</span>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-4 sm:gap-6">
-            <Link href="/menu" className="text-sm font-medium hover:underline underline-offset-4">
-              Menu
-            </Link>
-            <Link href="/events" className="text-sm font-medium hover:underline underline-offset-4">
-              Events
-            </Link>
-            <Link href="#visit" className="text-sm font-medium hover:underline underline-offset-4">
-              Visit Us
-            </Link>
-            <Link href="#hours" className="text-sm font-medium hover:underline underline-offset-4">
-              Hours
-            </Link>
-            <Link href="#contact" className="text-sm font-medium hover:underline underline-offset-4">
-              Contact
-            </Link>
-            <Link
-              href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium hover:underline underline-offset-4"
-            >
-              Gift Cards
-            </Link>
-          </nav>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-zinc-900">
-            <nav className="container py-4 flex flex-col space-y-4">
-              <Link
-                href="/menu"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Menu
-              </Link>
-              <Link
-                href="/events"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Events
-              </Link>
-              <Link
-                href="#visit"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Visit Us
-              </Link>
-              <Link
-                href="#hours"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Hours
-              </Link>
-              <Link
-                href="#contact"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                href="https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium hover:underline underline-offset-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Gift Cards
-              </Link>
-            </nav>
-          </div>
-        )}
-      </header>
+      <SiteHeader />
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -365,61 +264,7 @@ export function HomeClient() {
           </div>
         </section>
       </main>
-      <footer className="border-t bg-background">
-        <div className="container py-8 md:py-12">
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div className="flex items-center gap-2">
-              <Image
-                src="/images/goat-head-new.png"
-                alt="Stubborn Goat Brewing Logo"
-                width={40}
-                height={40}
-                className="h-10 w-auto"
-              />
-              <span className="font-bold">Stubborn Goat Brewing</span>
-            </div>
-            <div className="flex gap-4">
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://instagram.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_instagram.png" alt="Instagram" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Instagram</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://www.facebook.com/profile.php?id=61575081059536" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_facebook.png" alt="Facebook" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Facebook</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="https://untappd.com/StubbornGoatBrewing" target="_blank" rel="noopener noreferrer">
-                  <Image src="/images/icon_untappd.png" alt="Untappd" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Untappd</span>
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="mailto:tribe@stubborngoatbrewing.com">
-                  <Image src="/images/icon_email.png" alt="Email" width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">Email</span>
-                </Link>
-              </Button>
-            </div>
-          </div>
-          <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Stubborn Goat Brewing. All rights reserved.</p>
-            <p className="mt-1">
-              <Link href="/privacy" className="hover:underline">
-                Privacy Policy
-              </Link>{" "}
-              |
-              <Link href="/terms" className="hover:underline">
-                {" "}
-                Terms of Service
-              </Link>
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
