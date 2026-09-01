@@ -34,11 +34,11 @@
       "canImage": "/images/can-la-cabra-loca.png"
     },
     {
-      "name": "SchwarzBomb",
-      "style": "Schwarzbier",
-      "abv": 5.0,
-      "description": "SchwarzBomb is a premium Schwarzbier (Dark German Lager) that balances intense visual drama with a surprisingly smooth drinkability. Clocking in at 5% ABV, this brew is designed for those who appreciate the depth of a dark beer without the heavy syrupy weight of a stout.",
-      "category": "malty-dark",
+      "name": "Goat Light",
+      "style": "American Light Lager",
+      "abv": 3.0,
+      "description": "Goat Light is the streamlined, ultra-refreshing version of our flagship Goat Lager. We've dialed back the gravity but kept the soul of the beer intact, resulting in a 3% ABV crusher built for the long haul. This is the beer you grab when you want peak refreshment without the heavy lifting.",
+      "category": "easy-drinking",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
@@ -50,18 +50,18 @@
       "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
     },
     {
-      "name": "Strawberry Lime Sour",
-      "style": "Sour",
-      "abv": 5.0,
-      "description": "A fruited sour ale conditioned on Strawberry puree, and Lime juice.",
-      "category": "fruity-tart",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
       "name": "Grove Refresher - Blueberry Lemonade",
       "style": "Sour",
       "abv": 5.8,
       "description": "This beer is the ultimate refresher blending the nostalgic sweetness of a backyard lemonade stand with the sophisticated complexity of a craft sour. The sweetness from the blueberries perfectly balances the sourness.",
+      "category": "fruity-tart",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Grove Refresher - Guava",
+      "style": "Sour",
+      "abv": 4.9,
+      "description": "Lush pink guava meets an electric, refreshing tartness. This tropical sour ale bursts with bright, sun-ripened fruit flavor and finishes incredibly clean and crisp.",
       "category": "fruity-tart",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
@@ -85,22 +85,6 @@
       "canImage": "/images/can-headbutt.png"
     },
     {
-      "name": "Rosehill Ram",
-      "style": "West Coast IPA",
-      "abv": 6.8,
-      "description": "Rosehill Ram is a modern, high-clarity IPA designed for ultimate drinkability. Built on a lean, light-bodied grain bill, this beer stays out of the way to let a classic trifecta of hops shine. We've utilized Cascade, Columbus, and Nugget to deliver a \"New School\" experience, refining those legendary flavors into a crisp, refreshing profile that trades heavy bitterness for pure hop saturation. It's clean, snappy, and deceptively easy-drinking.",
-      "category": "hoppy-juicy",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
-      "name": "Hazy IPA",
-      "style": "Hazy IPA",
-      "abv": 6.5,
-      "description": "On the palate, it delivers a remarkably smooth, creamy, and full-bodied mouthfeel that coats the tongue. Flavors of fresh pineapple, stone fruit, and bright grapefruit dominate, while the traditional hop bitterness is kept intentionally low and soft, allowing the lush, juice-forward character to take center stage. It finishes clean, refreshing, and incredibly drinkable with a subtle, lingering fruit sweetness.",
-      "category": "hoppy-juicy",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
       "name": "Cold IPA",
       "style": "Cold IPA",
       "abv": 4.5,
@@ -113,6 +97,14 @@
       "style": "Red IPA",
       "abv": 7.1,
       "description": "A bold red IPA with bright citrus and pine hop character layered over rich caramel and toasted malt. Smooth yet assertive, with a clean, lingering bitterness.",
+      "category": "malty-dark",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Red Ale",
+      "style": "Red Ale",
+      "abv": 4.7,
+      "description": "Smooth, malty, and dangerously easy to drink. Featuring rich notes of toasted caramel and warm biscuit with a crisp, slightly roasted dry finish, this deep amber ale is pure Irish pub classic.",
       "category": "malty-dark",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
@@ -476,9 +468,14 @@
           "name": "Soft Drinks",
           "description": "We serve a variety of Coca-Cola products. Refills are $1.50.",
           "price": 3,
-          "varieties": ["Classic Coke", "Diet Coke", "Sprite", "Root Beer", "Ginger Ale", "Lemonade", "Cranberry Juice", "Tonic Water", "Club Soda"],
+          "varieties": ["Classic Coke", "Diet Coke", "Sprite", "Root Beer", "Lemonade", "Cranberry Juice", "Club Soda", "Ginger Ale"],
           "logo": "/images/coca-cola-logo.png",
           "logoAlt": "Coca-Cola"
+        },
+        {
+          "name": "Nitro Cold Brew Coffee",
+          "description": "We proudly serve locally roasted and brewed cold brew coffee from Dript Coffee Co. Served on Nitro for a deliciously smooth and refreshing pour every time.",
+          "price": 8
         }
       ]
     }
