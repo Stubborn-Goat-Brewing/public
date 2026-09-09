@@ -38,9 +38,21 @@ function latest(a: string | Date, b: string | Date): Date {
   return da.getTime() >= db.getTime() ? da : db
 }
 
+/**
+ * Today's date as a `YYYY-MM-DD` key in the taproom's local timezone.
+ *
+ * Must be local, not UTC: `toISOString()` rolls over to tomorrow after ~8pm ET,
+ * which would drop tonight's still-upcoming events from the sitemap. `en-CA`
+ * formats as `YYYY-MM-DD`, matching the occurrence `date` keys we compare against.
+ */
+const TAPROOM_TIME_ZONE = "America/New_York"
+
+function taproomTodayKey(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: TAPROOM_TIME_ZONE })
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date()
-  const todayKey = now.toISOString().slice(0, 10)
+  const todayKey = taproomTodayKey()
 
   let eventEntries: MetadataRoute.Sitemap = []
   // Newest event edit across the fetched window, used for event-driven pages.
