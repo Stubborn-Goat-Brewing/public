@@ -64,6 +64,13 @@ export interface CalendarEvent {
   isFeatured: boolean
   isCancelled: boolean
 
+  /**
+   * ISO timestamp of when this occurrence's content last changed: the parent
+   * event's `updated_at`, or the newer of that and a per-occurrence override.
+   * Used as the sitemap `lastmod` so crawlers see a stable, truthful date.
+   */
+  updatedAt: string | null
+
   /** Populated for event types whose detail table is `artists`. */
   artists: EventArtist[]
 }

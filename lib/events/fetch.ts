@@ -37,6 +37,7 @@ const EVENT_SELECT = `
   price_text,
   is_featured,
   is_cancelled,
+  updated_at,
   event_types (
     slug,
     name,
@@ -74,7 +75,8 @@ const EVENT_SELECT = `
     override_title,
     override_description,
     override_start_time,
-    override_end_time
+    override_end_time,
+    created_at
   )
 `
 

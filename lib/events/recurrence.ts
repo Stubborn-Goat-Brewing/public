@@ -29,6 +29,7 @@ export interface EventRow {
   price_text: string | null
   is_featured: boolean
   is_cancelled: boolean
+  updated_at: string | null
   event_types: {
     slug: string
     name: string
@@ -67,7 +68,15 @@ export interface EventRow {
     override_description: string | null
     override_start_time: string | null
     override_end_time: string | null
+    created_at: string | null
   }>
+}
+
+/** Returns the later of two ISO timestamps, tolerating nulls. */
+function maxIso(a: string | null, b: string | null): string | null {
+  if (!a) return b
+  if (!b) return a
+  return new Date(a).getTime() >= new Date(b).getTime() ? a : b
 }
 
 /** `YYYY-MM-DD` -> UTC Date */
@@ -328,6 +337,9 @@ export function expandEvents(events: EventRow[], rangeStartKey: string, rangeEnd
         priceText: event.price_text,
         isFeatured: event.is_featured,
         isCancelled: event.is_cancelled,
+        // An edit to this specific occurrence (an override) is newer content
+        // than the parent row, so take whichever timestamp is later.
+        updatedAt: maxIso(event.updated_at, override?.created_at ?? null),
         artists,
       })
     }
