@@ -74,6 +74,22 @@ function toDateTime(date: string, time: string): string {
   return time ? `${date}T${time}` : date
 }
 
+/** Typical duration (hours) assumed for a timed event with no explicit end. */
+const DEFAULT_EVENT_HOURS = 3
+
+/**
+ * Adds whole hours to a `YYYY-MM-DD` + `HH:MM` pair, rolling across midnight,
+ * and returns an ISO-ish local datetime like "2026-08-15T21:00".
+ */
+function addHours(date: string, time: string, hours: number): string {
+  const [y, m, d] = date.split("-").map(Number)
+  const [hh, mm] = time.split(":").map(Number)
+  const dt = new Date(y, (m ?? 1) - 1, d ?? 1, hh ?? 0, mm ?? 0)
+  dt.setHours(dt.getHours() + hours)
+  const pad = (n: number) => String(n).padStart(2, "0")
+  return `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}-${pad(dt.getDate())}T${pad(dt.getHours())}:${pad(dt.getMinutes())}`
+}
+
 /**
  * Event structured data for a single occurrence. Returns null for occurrences
  * that should not be surfaced (e.g. missing a name).
@@ -88,23 +104,52 @@ export function getEventJsonLd(
   if (!event.name) return null
 
   const startDate = toDateTime(event.date, event.startTime)
-  const endDate = event.endTime ? toDateTime(event.date, event.endTime) : undefined
+
+  // endDate is a recommended field, so always emit one. Prefer the real end
+  // time; then a multi-day span's final day; then a typical duration for timed
+  // events; otherwise the same calendar day for all-day events.
+  let endDate: string
+  if (event.endTime) {
+    endDate = toDateTime(event.date, event.endTime)
+  } else if (event.spanEndDate && event.spanEndDate !== event.date) {
+    endDate = event.spanEndDate
+  } else if (event.startTime) {
+    endDate = addHours(event.date, event.startTime, DEFAULT_EVENT_HOURS)
+  } else {
+    endDate = event.date
+  }
 
   const performers = event.artists
     .filter((a) => a.name)
     .map((a) => ({ "@type": "PerformingGroup", name: a.name }))
+
+  // performer is recommended; when an event has no booked artist (trivia,
+  // wings night, etc.) the brewery itself is the performing host.
+  const performer = performers.length
+    ? performers
+    : [{ "@type": "Organization", name: SITE_NAME }]
+
+  // description is recommended; synthesize a concise one when the source has none.
+  const description = event.description?.trim()
+    ? event.description
+    : `Join us for ${event.name}${event.type ? ` (${event.type})` : ""} at ${SITE_NAME} in ${BUSINESS.addressLocality}, ${BUSINESS.addressRegion}.`
+
+  // offers is recommended; always emit one. Use the event's CTA link when
+  // present, else its detail page (or the events listing as a last resort).
+  // Taproom events are free to attend unless a paid CTA says otherwise.
+  const offerUrl = event.ctaUrl || canonicalUrl || `${SITE_URL}/events`
 
   return {
     "@context": "https://schema.org",
     "@type": "Event",
     name: event.name,
     startDate,
-    ...(endDate ? { endDate } : {}),
+    endDate,
     eventStatus: event.isCancelled
       ? "https://schema.org/EventCancelled"
       : "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    ...(event.description ? { description: event.description } : {}),
+    description,
     // Prefer the event's own photo; otherwise fall back to its branded share
     // image so every event has a valid schema image for rich results.
     image: [event.imageUrl ?? (canonicalUrl ? `${canonicalUrl}/opengraph-image` : absoluteUrl(BUSINESS_IMAGE_PATH))],
@@ -122,14 +167,21 @@ export function getEventJsonLd(
         addressCountry: BUSINESS.addressCountry,
       },
     },
-    ...(performers.length ? { performer: performers } : {}),
+    performer,
     organizer: {
       "@type": "Organization",
       name: SITE_NAME,
       url: SITE_URL,
     },
     ...(canonicalUrl ? { url: canonicalUrl } : event.ctaUrl ? { url: event.ctaUrl } : {}),
-    ...(event.ctaUrl ? { offers: { "@type": "Offer", url: event.ctaUrl, availability: "https://schema.org/InStock" } } : {}),
+    offers: {
+      "@type": "Offer",
+      url: offerUrl,
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      validFrom: startDate,
+    },
   }
 }
 
