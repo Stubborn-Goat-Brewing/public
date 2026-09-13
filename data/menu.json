@@ -417,7 +417,9 @@
           "name": "Stateside Super Lyte",
           "description": "A crisp, light vodka + ade ready-to-drink canned cocktail from Stateside. Multiple flavors available.",
           "price": 9,
-          "varieties": ["Vodka + Ade (4.5%)"]
+          "varieties": ["Vodka + Ade (4.5%)"],
+          "logo": "/images/stateside-logo.jpg",
+          "logoAlt": "Stateside"
         }
       ]
     },
