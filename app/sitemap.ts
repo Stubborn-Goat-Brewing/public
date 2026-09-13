@@ -26,7 +26,9 @@ const STATIC_ROUTES: Array<{
 }> = [
   { path: "/", changeFrequency: "weekly", priority: 1, eventDriven: true, lastContentUpdate: STATIC_CONTENT_UPDATED },
   { path: "/events", changeFrequency: "daily", priority: 0.9, eventDriven: true, lastContentUpdate: STATIC_CONTENT_UPDATED },
-  { path: "/menu", changeFrequency: "weekly", priority: 0.8, lastContentUpdate: STATIC_CONTENT_UPDATED },
+  { path: "/drinks", changeFrequency: "weekly", priority: 0.8, lastContentUpdate: STATIC_CONTENT_UPDATED },
+  { path: "/food", changeFrequency: "weekly", priority: 0.8, lastContentUpdate: STATIC_CONTENT_UPDATED },
+  { path: "/private-events", changeFrequency: "monthly", priority: 0.6, lastContentUpdate: STATIC_CONTENT_UPDATED },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2, lastContentUpdate: STATIC_CONTENT_UPDATED },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2, lastContentUpdate: STATIC_CONTENT_UPDATED },
 ]

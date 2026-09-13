@@ -53,7 +53,7 @@ export function getBusinessJsonLd(): Record<string, unknown> {
     })),
     // Links the venue to its menu so Google can associate the two and surface
     // the "View menu" action in the Business Profile / knowledge panel.
-    hasMenu: `${SITE_URL}/menu#menu`,
+    hasMenu: `${SITE_URL}/drinks#menu`,
     sameAs: SOCIAL_LINKS,
   }
 }
@@ -290,9 +290,9 @@ export function getMenuJsonLd(menu: MenuData): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Menu",
-    "@id": `${SITE_URL}/menu#menu`,
+    "@id": `${SITE_URL}/drinks#menu`,
     name: "Food & Drink Menu",
-    url: `${SITE_URL}/menu`,
+    url: `${SITE_URL}/drinks`,
     inLanguage: "en-US",
     provider: { "@id": BUSINESS_ID },
     hasMenuSection: sections,
