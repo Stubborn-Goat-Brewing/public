@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Mail } from "lucide-react"
+import { MapPin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
@@ -236,30 +236,6 @@ export function HomeClient() {
 
                 <HoursCard />
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-8 md:py-12 scroll-mt-32">
-          <div className="container">
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
-            <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
-              Have questions or want to book an event? Reach out to us!
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <a href="tel:6106799017" className="flex items-center gap-2">
-                  <Phone className="h-5 w-5" />
-                  Call Us Now
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <a href="mailto:tribe@stubborngoatbrewing.com" className="flex items-center gap-2">
-                  <Image src="/images/icon_email.png" alt="" width={20} height={20} className="h-5 w-5" />
-                  Email Us Now
-                </a>
-              </Button>
             </div>
           </div>
         </section>
