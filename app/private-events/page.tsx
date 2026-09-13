@@ -31,8 +31,7 @@ export default function PrivateEventsPage() {
               <span>122 Rosehill Ave, West Grove, PA</span>
             </div>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-pretty">
-              Whatever you&apos;re celebrating, we&apos;ll help you make it happen. A few of the gatherings we love to
-              host:
+              Whatever you&apos;re celebrating, we&apos;ll help you make it happen.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {[
