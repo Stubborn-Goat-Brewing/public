@@ -115,7 +115,7 @@ export function HomeClient() {
                         alt="Instagram"
                         width={20}
                         height={20}
-                        className="h-4 w-4 md:h-5 md:w-5"
+                        className="h-4 w-4 md:h-5 md:w-5 brightness-0 invert"
                       />
                       Instagram
                     </Link>
@@ -136,9 +136,30 @@ export function HomeClient() {
                         alt="Facebook"
                         width={20}
                         height={20}
-                        className="h-4 w-4 md:h-5 md:w-5"
+                        className="h-4 w-4 md:h-5 md:w-5 brightness-0 invert"
                       />
                       Facebook
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
+                  >
+                    <Link
+                      href="https://untappd.com/StubbornGoatBrewing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <Image
+                        src="/images/icon_untappd.png"
+                        alt="Untappd"
+                        width={20}
+                        height={20}
+                        className="h-4 w-4 md:h-5 md:w-5 brightness-0 invert"
+                      />
+                      Untappd
                     </Link>
                   </Button>
                 </div>
