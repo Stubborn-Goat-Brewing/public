@@ -1013,10 +1013,6 @@ export default function EventsPage() {
               Join us for live music, special tastings, community gatherings, and more. There's always something
               happening at Stubborn Goat Brewing!
             </p>
-            <div className="flex items-center justify-center gap-2 mt-4 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              <span>122 Rosehill Ave, West Grove, PA</span>
-            </div>
           </div>
 
           {/* Anchor target so "Back to all events" lands on the calendar.
