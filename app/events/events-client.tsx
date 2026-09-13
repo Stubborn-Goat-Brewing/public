@@ -40,6 +40,20 @@ import {
 } from "@/lib/events/format"
 import { SocialLinks } from "@/components/events/social-links"
 
+/**
+ * Returns the current date, but only after the component has mounted on the
+ * client. During SSR and the first client render it returns null so both render
+ * identical markup (no "today" highlight), avoiding a hydration mismatch caused
+ * by the server (UTC) and browser (local timezone) resolving a different day.
+ */
+function useClientToday() {
+  const [today, setToday] = useState<Date | null>(null)
+  useEffect(() => {
+    setToday(new Date())
+  }, [])
+  return today
+}
+
 /** Renders the event type icon in its type color, driven by the database. */
 function EventTypeIcon({ event, className = "h-4 w-4" }: { event: Event; className?: string }) {
   const Icon = getEventIcon(event.icon)
@@ -460,7 +474,7 @@ function CalendarView({
   onNextMonth,
   isFetching,
 }: MonthNavProps) {
-  const today = new Date()
+  const today = useClientToday()
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -538,6 +552,7 @@ function CalendarView({
             {calendarDays.map((day, index) => {
               const isToday =
                 day !== null &&
+                today !== null &&
                 day === today.getDate() &&
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
@@ -644,19 +659,18 @@ function CompactCalendarView({
   onNextMonth,
   isFetching,
 }: MonthNavProps) {
-  const today = new Date()
-  const [selectedDay, setSelectedDay] = useState<number | null>(() => {
-    const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
-    return isCurrentMonth ? today.getDate() : null
-  })
+  const today = useClientToday()
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
 
   // The month is controlled by the parent now; reset the selected day whenever
-  // it changes, defaulting to today when the current month is in view.
+  // it changes, defaulting to today when the current month is in view. `today`
+  // is null until after mount (to avoid a hydration mismatch), so this also runs
+  // once it becomes available.
   useEffect(() => {
+    if (!today) return
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
     setSelectedDay(isCurrentMonth ? today.getDate() : null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewingMonth, viewingYear])
+  }, [viewingMonth, viewingYear, today])
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -750,6 +764,7 @@ function CompactCalendarView({
             {calendarDays.map((day, index) => {
               const isToday =
                 day !== null &&
+                today !== null &&
                 day === today.getDate() &&
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
