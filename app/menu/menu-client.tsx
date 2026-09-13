@@ -174,37 +174,43 @@ export function MenuClient() {
                 {menuData.drinks
                   .filter((section) => section.category === "Canned Cocktails")
                   .map((section) => (
-                    <div key="canned-cocktails" className="flex flex-col">
-                      <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">Canned Cocktails</h3>
-                      <Card className="bg-card flex-1">
-                        <CardContent className="p-6">
-                          <div className="flex flex-col items-center text-center gap-4">
-                            <Image
-                              src={section.items[0]?.logo || "/images/boardroom-spirits-logo.png"}
-                              alt={section.items[0]?.logoAlt || "Boardroom Spirits"}
-                              width={100}
-                              height={100}
-                              className="rounded-lg"
-                            />
-                            <div>
-                              <p className="text-sm text-muted-foreground mb-3">{section.items[0]?.description}</p>
-                              <div className="flex flex-wrap justify-center gap-2">
-                                {section.items[0]?.varieties?.map((variety, varietyIdx) => (
-                                  <span
-                                    key={varietyIdx}
-                                    className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
-                                  >
-                                    {variety}
-                                  </span>
-                                ))}
-                              </div>
-                              {section.items[0]?.price && (
-                                <p className="mt-3 text-sm font-bold text-primary">${section.items[0].price} each</p>
+                    <div key="canned-cocktails" className="flex flex-col gap-4">
+                      <h3 className="text-xl md:text-2xl font-bold text-center">Canned Cocktails</h3>
+                      {section.items.map((item, itemIdx) => (
+                        <Card key={itemIdx} className="bg-card flex-1">
+                          <CardContent className="p-6">
+                            <div className="flex flex-col items-center text-center gap-4">
+                              {item.logo && (
+                                <Image
+                                  src={item.logo || "/placeholder.svg"}
+                                  alt={item.logoAlt || item.name}
+                                  width={100}
+                                  height={100}
+                                  className="rounded-lg"
+                                />
                               )}
+                              <div>
+                                {/* Show the brand name when there's no logo to identify it. */}
+                                {!item.logo && <p className="font-bold mb-1">{item.name}</p>}
+                                <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
+                                <div className="flex flex-wrap justify-center gap-2">
+                                  {item.varieties?.map((variety, varietyIdx) => (
+                                    <span
+                                      key={varietyIdx}
+                                      className="px-3 py-1 bg-primary/10 rounded-full text-xs font-medium"
+                                    >
+                                      {variety}
+                                    </span>
+                                  ))}
+                                </div>
+                                {item.price && (
+                                  <p className="mt-3 text-sm font-bold text-primary">${item.price} each</p>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
                   ))}
 
