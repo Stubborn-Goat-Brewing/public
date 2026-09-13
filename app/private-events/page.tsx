@@ -43,6 +43,7 @@ export default function PrivateEventsPage() {
                 "Rehearsal Dinners",
                 "Bridal & Baby Showers",
                 "Retirement Parties",
+                "Class Reunions",
                 "Holiday Gatherings",
                 "Fundraisers",
               ].map((occasion) => (
