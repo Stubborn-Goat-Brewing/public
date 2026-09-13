@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { Calendar, Utensils, Beer, Mail, MapPin } from "lucide-react"
 import { pageMetadata } from "@/lib/seo/site"
 import { SiteHeader } from "@/components/site-header"
@@ -52,17 +51,6 @@ export default function PrivateEventsPage() {
                 </span>
               ))}
             </div>
-            <p className="text-sm text-muted-foreground mt-8">
-              Prefer to browse first? Check out our{" "}
-              <Link href="/food" className="text-primary underline underline-offset-2 hover:text-primary/80">
-                food
-              </Link>{" "}
-              and{" "}
-              <Link href="/drinks" className="text-primary underline underline-offset-2 hover:text-primary/80">
-                drinks
-              </Link>{" "}
-              menus.
-            </p>
           </div>
 
           <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
