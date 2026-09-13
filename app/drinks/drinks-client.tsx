@@ -172,7 +172,15 @@ export function DrinksClient() {
               {classics && (
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">{classics.category}</h3>
-                  <DrinkCardGrid items={classics.items} />
+                  <div className="grid gap-6">
+                    {classics.items.map((item, itemIdx) => (
+                      <Card key={itemIdx} className="bg-card">
+                        <CardContent className="p-6">
+                          <CardDescription className="text-base leading-relaxed">{item.description}</CardDescription>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
