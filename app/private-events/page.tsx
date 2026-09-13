@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Calendar, Utensils, Beer, Mail, Users, MapPin } from "lucide-react"
+import { Calendar, Utensils, Beer, Mail, MapPin } from "lucide-react"
 import { pageMetadata } from "@/lib/seo/site"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
@@ -24,16 +24,43 @@ export default function PrivateEventsPage() {
 
       <main className="container flex-1 py-12">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">Private Events</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              From birthday parties and showers to corporate gatherings and celebrations of life, The Goat is a warm,
-              welcoming space to bring your people together.
-            </p>
-            <div className="flex items-center justify-center gap-2 mt-4 text-muted-foreground">
+          <div className="text-center mb-10 max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-3">Private Events at The Goat</h1>
+            <p className="text-xl text-primary font-medium mb-4">Perfect for any occasion</p>
+            <div className="flex items-center justify-center gap-2 mb-8 text-muted-foreground">
               <MapPin className="h-4 w-4" />
               <span>122 Rosehill Ave, West Grove, PA</span>
             </div>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-pretty">
+              Whatever you&apos;re celebrating, we&apos;ll help you make it happen. A few of the gatherings we love to
+              host:
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {[
+                "Birthday Parties",
+                "Corporate Events & Meetings",
+                "Rehearsal Dinners",
+                "Bridal & Baby Showers",
+                "Retirement Parties",
+                "Holiday Gatherings",
+                "Fundraisers",
+              ].map((occasion) => (
+                <span key={occasion} className="px-4 py-2 bg-primary/10 rounded-full text-sm font-medium">
+                  {occasion}
+                </span>
+              ))}
+            </div>
+            <p className="text-sm text-muted-foreground mt-8">
+              Prefer to browse first? Check out our{" "}
+              <Link href="/food" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                food
+              </Link>{" "}
+              and{" "}
+              <Link href="/drinks" className="text-primary underline underline-offset-2 hover:text-primary/80">
+                drinks
+              </Link>{" "}
+              menus.
+            </p>
           </div>
 
           <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
@@ -99,45 +126,6 @@ export default function PrivateEventsPage() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Occasions — editable starter copy; refine as needed. */}
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex flex-col items-center mb-6">
-              <Users className="h-10 w-10 text-primary mb-3" />
-              <h2 className="text-2xl md:text-3xl font-bold">Perfect for Any Occasion</h2>
-            </div>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-pretty">
-              Whatever you&apos;re celebrating, we&apos;ll help you make it happen. A few of the gatherings we love to
-              host:
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {[
-                "Birthday Parties",
-                "Corporate Events & Meetings",
-                "Rehearsal Dinners",
-                "Bridal & Baby Showers",
-                "Retirement Parties",
-                "Holiday Gatherings",
-                "Fundraisers",
-                "Celebrations of Life",
-              ].map((occasion) => (
-                <span key={occasion} className="px-4 py-2 bg-primary/10 rounded-full text-sm font-medium">
-                  {occasion}
-                </span>
-              ))}
-            </div>
-            <p className="text-sm text-muted-foreground mt-8">
-              Prefer to browse first? Check out our{" "}
-              <Link href="/food" className="text-primary underline underline-offset-2 hover:text-primary/80">
-                food
-              </Link>{" "}
-              and{" "}
-              <Link href="/drinks" className="text-primary underline underline-offset-2 hover:text-primary/80">
-                drinks
-              </Link>{" "}
-              menus.
-            </p>
-          </div>
         </div>
       </main>
 
