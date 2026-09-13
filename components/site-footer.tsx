@@ -48,7 +48,7 @@ export function SiteFooter() {
               />
               <span className="font-bold">Stubborn Goat Brewing</span>
             </div>
-            <div className="flex gap-4">
+            <div className="flex w-full justify-center gap-4">
               {SOCIAL_LINKS.map((social) => (
                 <Button key={social.label} variant="ghost" size="icon" asChild>
                   <Link

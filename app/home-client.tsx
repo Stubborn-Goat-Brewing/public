@@ -115,7 +115,7 @@ export function HomeClient() {
                         alt="Instagram"
                         width={20}
                         height={20}
-                        className="h-4 w-4 md:h-5 md:w-5 brightness-0 invert"
+                        className="h-4 w-4 md:h-5 md:w-5"
                       />
                       Instagram
                     </Link>
@@ -136,7 +136,7 @@ export function HomeClient() {
                         alt="Facebook"
                         width={20}
                         height={20}
-                        className="h-4 w-4 md:h-5 md:w-5 brightness-0 invert"
+                        className="h-4 w-4 md:h-5 md:w-5"
                       />
                       Facebook
                     </Link>
@@ -157,7 +157,7 @@ export function HomeClient() {
                         alt="Untappd"
                         width={20}
                         height={20}
-                        className="h-4 w-4 md:h-5 md:w-5 brightness-0 invert"
+                        className="h-4 w-4 md:h-5 md:w-5"
                       />
                       Untappd
                     </Link>
