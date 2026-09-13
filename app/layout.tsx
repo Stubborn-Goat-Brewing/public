@@ -4,6 +4,7 @@ import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { GoogleAnalytics } from "@/components/google-analytics"
+import { MetaPixel } from "@/components/meta-pixel"
 import { AgeVerification } from "@/components/age-verification"
 import { JsonLd } from "@/components/seo/json-ld"
 import { getBusinessJsonLd, getWebSiteJsonLd } from "@/lib/seo/structured-data"
@@ -97,6 +98,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <JsonLd data={[getBusinessJsonLd(), getWebSiteJsonLd()]} />
         <GoogleAnalytics />
+        <MetaPixel />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {/* The age gate self-hides for bots and verified visitors on the
               client, so the layout no longer reads request headers and every
