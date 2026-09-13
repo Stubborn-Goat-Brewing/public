@@ -39,6 +39,7 @@ export default function PrivateEventsPage() {
               {[
                 "Birthday Parties",
                 "Corporate Events & Meetings",
+                "Wedding Receptions",
                 "Rehearsal Dinners",
                 "Bridal & Baby Showers",
                 "Retirement Parties",
