@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -67,8 +68,37 @@ const NAV_LINKS: NavLink[] = [
   },
 ]
 
+/**
+ * Handles clicks on category sub-items. When the user is already on the target
+ * page (e.g. clicking "Cocktails" while on `/drinks`), a hash-only URL change
+ * inside the dropdown does not reliably scroll, so we prevent the default and
+ * scroll to the section ourselves. Cross-page clicks fall through to the normal
+ * Link navigation, which scrolls to the hash on load.
+ */
+function useAnchorNavigate() {
+  const pathname = usePathname()
+
+  return (event: React.MouseEvent, href: string) => {
+    const hashIndex = href.indexOf("#")
+    if (hashIndex === -1) return
+
+    const targetPath = href.slice(0, hashIndex)
+    const targetId = href.slice(hashIndex + 1)
+    if (pathname !== targetPath) return
+
+    const element = document.getElementById(targetId)
+    if (!element) return
+
+    event.preventDefault()
+    element.scrollIntoView({ behavior: "smooth" })
+    window.history.replaceState(null, "", href)
+  }
+}
+
 /** Desktop dropdown for a top-level menu (Drinks / Food). */
 function NavDropdown({ menu }: { menu: NavMenu }) {
+  const handleAnchorNavigate = useAnchorNavigate()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium outline-none hover:underline underline-offset-4 data-[state=open]:underline">
@@ -81,7 +111,9 @@ function NavDropdown({ menu }: { menu: NavMenu }) {
         </DropdownMenuItem>
         {menu.items.map((item) => (
           <DropdownMenuItem key={item.href} asChild>
-            <Link href={item.href}>{item.label}</Link>
+            <Link href={item.href} onClick={(event) => handleAnchorNavigate(event, item.href)}>
+              {item.label}
+            </Link>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -92,6 +124,7 @@ function NavDropdown({ menu }: { menu: NavMenu }) {
 /** Mobile expandable group for a top-level menu (Drinks / Food). */
 function MobileNavGroup({ menu, onNavigate }: { menu: NavMenu; onNavigate: () => void }) {
   const [isOpen, setIsOpen] = useState(false)
+  const handleAnchorNavigate = useAnchorNavigate()
 
   return (
     <div className="flex flex-col">
@@ -118,7 +151,10 @@ function MobileNavGroup({ menu, onNavigate }: { menu: NavMenu; onNavigate: () =>
               key={item.href}
               href={item.href}
               className="text-sm text-white/80 hover:underline underline-offset-4"
-              onClick={onNavigate}
+              onClick={(event) => {
+                handleAnchorNavigate(event, item.href)
+                onNavigate()
+              }}
             >
               {item.label}
             </Link>
