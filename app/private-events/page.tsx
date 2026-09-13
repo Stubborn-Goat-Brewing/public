@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Calendar, Utensils, Beer, Mail, MapPin } from "lucide-react"
+import { Calendar, Utensils, Beer, Mail } from "lucide-react"
 import { pageMetadata } from "@/lib/seo/site"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
@@ -26,10 +26,6 @@ export default function PrivateEventsPage() {
           <div className="text-center mb-10 max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-3">Private Events at The Goat</h1>
             <p className="text-xl text-primary font-medium mb-4">Perfect for any occasion</p>
-            <div className="flex items-center justify-center gap-2 mb-8 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              <span>122 Rosehill Ave, West Grove, PA</span>
-            </div>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8 text-pretty">
               Whatever you&apos;re celebrating, we&apos;ll help you make it happen.
             </p>
