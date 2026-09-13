@@ -50,10 +50,10 @@
       "pricing": "16oz - $8 / 10oz - $6 / 5oz - $4"
     },
     {
-      "name": "Grove Refresher - Blueberry Lemonade",
-      "style": "Sour",
-      "abv": 5.8,
-      "description": "This beer is the ultimate refresher blending the nostalgic sweetness of a backyard lemonade stand with the sophisticated complexity of a craft sour. The sweetness from the blueberries perfectly balances the sourness.",
+      "name": "Goat Seltzer",
+      "style": "Hard Seltzer",
+      "abv": 4.6,
+      "description": "Crisp, light, and endlessly refreshing. Juicy, real watermelon sweetens up a sharp splash of fresh lime for a clean, bubbly seltzer that tastes like summer in a glass.",
       "category": "fruity-tart",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
@@ -85,14 +85,6 @@
       "canImage": "/images/can-headbutt.png"
     },
     {
-      "name": "Cold IPA",
-      "style": "Cold IPA",
-      "abv": 4.5,
-      "description": "This Cold IPA pours brilliantly clear and straw-gold with a crisp, effervescent white head. The aroma is sharp and punchy, blasting out a vibrant mix of bright citrus, dank pine, and tropical notes like passionfruit and blueberries.",
-      "category": "hoppy-juicy",
-      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
-    },
-    {
       "name": "Minotaur",
       "style": "Red IPA",
       "abv": 7.1,
@@ -101,10 +93,18 @@
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
     {
-      "name": "Red Ale",
-      "style": "Red Ale",
-      "abv": 4.7,
-      "description": "Smooth, malty, and dangerously easy to drink. Featuring rich notes of toasted caramel and warm biscuit with a crisp, slightly roasted dry finish, this deep amber ale is pure Irish pub classic.",
+      "name": "Maple Stout",
+      "style": "Stout",
+      "abv": 6.5,
+      "description": "Rich, dark, and decadent. Velvety dark roast espresso and chocolate notes meet a smooth drizzle of real maple syrup for a warm, comforting finish with just the right amount of sweetness.",
+      "category": "malty-dark",
+      "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
+    },
+    {
+      "name": "Autumn Kölsch",
+      "style": "Kölsch",
+      "abv": 4.8,
+      "description": "The best of two classic German styles in one crisp glass. Built on a rich, nutty Oktoberfest malt base but fermented with clean Kölsch yeast, this autumn ale delivers smooth notes of toasted bread and subtle caramel with a light, snappy finish.",
       "category": "malty-dark",
       "pricing": "16oz - $7 / 10oz - $5 / 5oz - $3"
     },
@@ -407,11 +407,19 @@
       "items": [
         {
           "name": "Boardroom Spirits",
-          "description": "Light, crisp, and refreshing ready-to-drink cocktails crafted by Boardroom Spirits in Lansdale, PA. Vodka Soda available in Grapefruit Citrus, Pineapple Mango, Cherry Berry, Orange Citrus, and Cranberry Lime.",
+          "description": "Light, crisp, and refreshing ready-to-drink cocktails crafted by Boardroom Spirits in Lansdale, PA. Vodka Soda available in Pineapple Mango, Cherry Berry, Orange Citrus, and Cranberry Lime.",
           "price": 9,
           "varieties": ["Vodka Soda (4.5%)", "Iced Tea & Vodka (4.5%)", "Crimson Crush Lemonade (5%)"],
           "logo": "/images/boardroom-spirits-logo.png",
           "logoAlt": "Boardroom Spirits"
+        },
+        {
+          "name": "Stateside Super Lyte",
+          "description": "A crisp, light vodka + ade ready-to-drink canned cocktail from Stateside. Multiple flavors available.",
+          "price": 9,
+          "varieties": ["Vodka + Ade (4.5%)"],
+          "logo": "/images/stateside-logo.jpg",
+          "logoAlt": "Stateside"
         }
       ]
     },
@@ -468,7 +476,7 @@
           "name": "Soft Drinks",
           "description": "We serve a variety of Coca-Cola products. Refills are $1.50.",
           "price": 3,
-          "varieties": ["Classic Coke", "Diet Coke", "Sprite", "Root Beer", "Lemonade", "Cranberry Juice", "Club Soda", "Ginger Ale"],
+          "varieties": ["Classic Coke", "Diet Coke", "Sprite", "Root Beer", "Iced Tea (Unsweetened)", "Lemonade", "Cranberry Juice", "Club Soda", "Ginger Ale"],
           "logo": "/images/coca-cola-logo.png",
           "logoAlt": "Coca-Cola"
         },
