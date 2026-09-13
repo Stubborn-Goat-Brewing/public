@@ -305,6 +305,15 @@ export function DrinksClient() {
                     <Card className="bg-card flex-1">
                       <CardContent className="p-6">
                         <div className="flex flex-col items-center justify-center text-center gap-4 h-full">
+                          {nitroColdBrew.logo && (
+                            <Image
+                              src={nitroColdBrew.logo || "/placeholder.svg"}
+                              alt={nitroColdBrew.logoAlt || nitroColdBrew.name}
+                              width={100}
+                              height={100}
+                              className="rounded-lg"
+                            />
+                          )}
                           <div>
                             <p className="text-sm text-muted-foreground mb-3">{nitroColdBrew.description}</p>
                             {nitroColdBrew.price && (

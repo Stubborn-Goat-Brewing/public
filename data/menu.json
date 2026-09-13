@@ -481,10 +481,12 @@
           "logoAlt": "Coca-Cola"
         },
         {
-          "name": "Nitro Cold Brew Coffee",
-          "description": "We proudly serve locally roasted and brewed cold brew coffee from Dript Coffee Co. Served on Nitro for a deliciously smooth and refreshing pour every time.",
-          "price": 8
-        }
+  "name": "Nitro Cold Brew Coffee",
+      "description": "We proudly serve locally roasted and brewed cold brew coffee from Dript Coffee Co. Served on Nitro for a deliciously smooth and refreshing pour every time.",
+      "price": 8,
+      "logo": "/images/dript-coffee-logo.webp",
+      "logoAlt": "Dript Coffee Company"
+      }
       ]
     }
   ],
