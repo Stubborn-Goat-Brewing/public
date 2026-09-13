@@ -54,7 +54,7 @@ export function HomeClient() {
                 </p>
                 <div className="flex justify-center">
                   <Button asChild size="lg">
-                    <Link href="#visit">Visit Us</Link>
+                    <Link href="/visit">Visit Us</Link>
                   </Button>
                 </div>
               </div>
