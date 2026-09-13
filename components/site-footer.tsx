@@ -37,7 +37,7 @@ export function SiteFooter() {
     <footer className="border-t bg-background">
       <div className="container py-8 md:py-12">
         <div className="grid gap-8 md:grid-cols-3">
-          <div className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
+          <div className="flex flex-col items-start gap-4">
             <div className="flex items-center gap-2">
               <Image
                 src="/images/goat-head-new.png"
@@ -48,7 +48,7 @@ export function SiteFooter() {
               />
               <span className="font-bold">Stubborn Goat Brewing</span>
             </div>
-            <div className="flex w-full justify-center gap-4">
+            <div className="flex gap-4">
               {SOCIAL_LINKS.map((social) => (
                 <Button key={social.label} variant="ghost" size="icon" asChild>
                   <Link
