@@ -1,6 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { BUSINESS } from "@/lib/seo/site"
+import { WEEKLY_HOURS } from "@/lib/hours"
 
 const SOCIAL_LINKS = [
   {
@@ -33,29 +36,61 @@ export function SiteFooter() {
   return (
     <footer className="border-t bg-background">
       <div className="container py-8 md:py-12">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/images/goat-head-new.png"
-              alt="Stubborn Goat Brewing Logo"
-              width={40}
-              height={40}
-              className="h-10 w-auto"
-            />
-            <span className="font-bold">Stubborn Goat Brewing</span>
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/images/goat-head-new.png"
+                alt="Stubborn Goat Brewing Logo"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+              />
+              <span className="font-bold">Stubborn Goat Brewing</span>
+            </div>
+            <div className="flex gap-4">
+              {SOCIAL_LINKS.map((social) => (
+                <Button key={social.label} variant="ghost" size="icon" asChild>
+                  <Link
+                    href={social.href}
+                    {...(social.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    <Image src={social.icon || "/placeholder.svg"} alt={social.label} width={24} height={24} className="h-6 w-6" />
+                    <span className="sr-only">{social.label}</span>
+                  </Link>
+                </Button>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-4">
-            {SOCIAL_LINKS.map((social) => (
-              <Button key={social.label} variant="ghost" size="icon" asChild>
-                <Link
-                  href={social.href}
-                  {...(social.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  <Image src={social.icon || "/placeholder.svg"} alt={social.label} width={24} height={24} className="h-6 w-6" />
-                  <span className="sr-only">{social.label}</span>
-                </Link>
-              </Button>
-            ))}
+
+          <div className="flex flex-col items-center gap-3 text-center md:items-start md:text-left">
+            <h2 className="text-sm font-semibold uppercase tracking-wide">Get in Touch</h2>
+            <Link
+              href={`tel:${BUSINESS.phone.replace(/[^0-9+]/g, "")}`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground hover:underline underline-offset-4"
+            >
+              <Phone className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+              (610) 679-9017
+            </Link>
+            <Link
+              href={`mailto:${BUSINESS.email}`}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground hover:underline underline-offset-4"
+            >
+              <Mail className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+              {BUSINESS.email}
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center gap-3 text-center md:items-start md:text-left">
+            <h2 className="text-sm font-semibold uppercase tracking-wide">Hours</h2>
+            <dl className="w-full max-w-xs space-y-1 text-sm text-muted-foreground">
+              {WEEKLY_HOURS.map((item) => (
+                <div key={item.day} className="flex justify-between gap-4">
+                  <dt>{item.day}</dt>
+                  <dd className={item.time === "Closed" ? "text-red-600" : ""}>{item.time}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">

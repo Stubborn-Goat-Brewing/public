@@ -59,7 +59,6 @@ const NAV_LINKS: NavLink[] = [
   { href: "/events", label: "Calendar" },
   { href: "/private-events", label: "Private Events" },
   { href: "/visit", label: "Visit" },
-  { href: "/#contact", label: "Contact" },
   {
     href: "https://www.toasttab.com/stubborn-goat-brewing-122-rosehill-ave/giftcards",
     label: "Gift Cards",
