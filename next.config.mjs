@@ -10,6 +10,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      // The single /menu page was split into /drinks and /food. Preserve the
+      // old URL (indexed by Google, linked externally) by pointing it at the
+      // new drinks page, which carries the full menu structured data.
+      { source: "/menu", destination: "/drinks", permanent: true },
+    ]
+  },
   async headers() {
     return [
       {

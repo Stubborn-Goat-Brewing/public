@@ -2,13 +2,14 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Mail } from "lucide-react"
+import { MapPin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { HoursCard } from "@/components/hours-card"
 import { EventPromoCarousel } from "@/components/event-promo-carousel"
 import { FeaturedEvents } from "@/components/featured-events"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { InstagramIcon, FacebookIcon, UntappdIcon } from "@/components/brand-icons"
 
 export function HomeClient() {
   return (
@@ -54,7 +55,7 @@ export function HomeClient() {
                 </p>
                 <div className="flex justify-center">
                   <Button asChild size="lg">
-                    <Link href="#visit">Visit Us</Link>
+                    <Link href="/visit">Visit Us</Link>
                   </Button>
                 </div>
               </div>
@@ -76,20 +77,9 @@ export function HomeClient() {
               {/* Follow The Herd */}
               <div className="bg-background rounded-lg shadow-lg p-6 md:p-8 lg:p-10 text-center border-2 border-primary/20">
                 <div className="flex justify-center gap-4 mb-4 md:mb-6">
-                  <Image
-                    src="/images/icon_instagram.png"
-                    alt="Instagram"
-                    width={64}
-                    height={64}
-                    className="h-12 w-12 md:h-16 md:w-16"
-                  />
-                  <Image
-                    src="/images/icon_facebook.png"
-                    alt="Facebook"
-                    width={64}
-                    height={64}
-                    className="h-12 w-12 md:h-16 md:w-16"
-                  />
+                  <InstagramIcon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                  <FacebookIcon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                  <UntappdIcon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
                 </div>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-3 md:mb-4">
                   Follow The Herd!
@@ -98,7 +88,7 @@ export function HomeClient() {
                   Follow us on Instagram and Facebook for the latest photos, events, and behind-the-scenes content. Join our
                   community and see what's brewing at The Goat!
                 </p>
-                <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
+                <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4 justify-center">
                   <Button
                     asChild
                     size="lg"
@@ -110,13 +100,7 @@ export function HomeClient() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2"
                     >
-                      <Image
-                        src="/images/icon_instagram.png"
-                        alt="Instagram"
-                        width={20}
-                        height={20}
-                        className="h-4 w-4 md:h-5 md:w-5"
-                      />
+                      <InstagramIcon className="h-5 w-5 md:h-6 md:w-6" />
                       Instagram
                     </Link>
                   </Button>
@@ -131,14 +115,23 @@ export function HomeClient() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2"
                     >
-                      <Image
-                        src="/images/icon_facebook.png"
-                        alt="Facebook"
-                        width={20}
-                        height={20}
-                        className="h-4 w-4 md:h-5 md:w-5"
-                      />
+                      <FacebookIcon className="h-5 w-5 md:h-6 md:w-6" />
                       Facebook
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="text-sm md:text-base lg:text-lg px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-6 w-full md:w-auto"
+                  >
+                    <Link
+                      href="https://untappd.com/StubbornGoatBrewing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <UntappdIcon className="h-5 w-5 md:h-6 md:w-6" />
+                      Untappd
                     </Link>
                   </Button>
                 </div>
@@ -236,30 +229,6 @@ export function HomeClient() {
 
                 <HoursCard />
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-8 md:py-12 scroll-mt-32">
-          <div className="container">
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
-            <p className="mx-auto mt-4 max-w-[700px] text-center text-muted-foreground">
-              Have questions or want to book an event? Reach out to us!
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <a href="tel:6106799017" className="flex items-center gap-2">
-                  <Phone className="h-5 w-5" />
-                  Call Us Now
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <a href="mailto:tribe@stubborngoatbrewing.com" className="flex items-center gap-2">
-                  <Image src="/images/icon_email.png" alt="" width={20} height={20} className="h-5 w-5" />
-                  Email Us Now
-                </a>
-              </Button>
             </div>
           </div>
         </section>

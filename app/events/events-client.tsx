@@ -14,8 +14,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  Utensils,
-  Beer,
   Mail,
   Repeat,
   CalendarRange,
@@ -41,6 +39,20 @@ import {
   typeColorStyles,
 } from "@/lib/events/format"
 import { SocialLinks } from "@/components/events/social-links"
+
+/**
+ * Returns the current date, but only after the component has mounted on the
+ * client. During SSR and the first client render it returns null so both render
+ * identical markup (no "today" highlight), avoiding a hydration mismatch caused
+ * by the server (UTC) and browser (local timezone) resolving a different day.
+ */
+function useClientToday() {
+  const [today, setToday] = useState<Date | null>(null)
+  useEffect(() => {
+    setToday(new Date())
+  }, [])
+  return today
+}
 
 /** Renders the event type icon in its type color, driven by the database. */
 function EventTypeIcon({ event, className = "h-4 w-4" }: { event: Event; className?: string }) {
@@ -462,7 +474,7 @@ function CalendarView({
   onNextMonth,
   isFetching,
 }: MonthNavProps) {
-  const today = new Date()
+  const today = useClientToday()
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -540,6 +552,7 @@ function CalendarView({
             {calendarDays.map((day, index) => {
               const isToday =
                 day !== null &&
+                today !== null &&
                 day === today.getDate() &&
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
@@ -646,19 +659,18 @@ function CompactCalendarView({
   onNextMonth,
   isFetching,
 }: MonthNavProps) {
-  const today = new Date()
-  const [selectedDay, setSelectedDay] = useState<number | null>(() => {
-    const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
-    return isCurrentMonth ? today.getDate() : null
-  })
+  const today = useClientToday()
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
 
   // The month is controlled by the parent now; reset the selected day whenever
-  // it changes, defaulting to today when the current month is in view.
+  // it changes, defaulting to today when the current month is in view. `today`
+  // is null until after mount (to avoid a hydration mismatch), so this also runs
+  // once it becomes available.
   useEffect(() => {
+    if (!today) return
     const isCurrentMonth = viewingMonth === today.getMonth() && viewingYear === today.getFullYear()
     setSelectedDay(isCurrentMonth ? today.getDate() : null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewingMonth, viewingYear])
+  }, [viewingMonth, viewingYear, today])
 
   const firstDayOfMonth = new Date(viewingYear, viewingMonth, 1)
   const lastDayOfMonth = new Date(viewingYear, viewingMonth + 1, 0)
@@ -752,6 +764,7 @@ function CompactCalendarView({
             {calendarDays.map((day, index) => {
               const isToday =
                 day !== null &&
+                today !== null &&
                 day === today.getDate() &&
                 viewingMonth === today.getMonth() &&
                 viewingYear === today.getFullYear()
@@ -1009,84 +1022,12 @@ export default function EventsPage() {
 
       <div className="container flex-1 py-12">
         <div className="max-w-6xl mx-auto">
-          <Card className="mb-12 border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background">
-            <CardContent className="p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Host Your Event at The Goat</h2>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Looking to host a memorable event? We offer private and semi-private on-site spaces perfect for your
-                  celebration, meeting, or gathering.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50">
-                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <Calendar className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Private & Semi-Private Events</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Reserve our space for your next party, corporate event, or special occasion
-                  </p>
-                </div>
-
-                <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50">
-                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <Utensils className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Full Catering Services</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Enjoy our complete menu with catering options for both on-site and off-site events
-                  </p>
-                </div>
-
-                <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50">
-                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <Beer className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Craft Beer & Cocktails</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Feature our craft beers and specialty cocktails at your event
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-center space-y-4">
-                <p className="text-muted-foreground">
-                  Ready to plan your event? Our events team is here to help make it unforgettable.
-                </p>
-                <div className="flex items-center justify-center gap-2 mt-4 text-muted-foreground">
-                  <Button asChild size="lg" className="gap-2">
-                    <a
-                      href="https://www.toasttab.com/invoice/lead?rx=8be4c691-2b25-4588-8823-9e8f7cb3f600&ot=f579e56b-2f56-404a-9da3-9507554ce832"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Calendar className="h-4 w-4" />
-                      Submit Event Inquiry
-                    </a>
-                  </Button>
-                  <Button asChild variant="outline" size="lg" className="gap-2 bg-transparent">
-                    <a href="mailto:events@stubborngoatbrewing.com">
-                      <Mail className="h-4 w-4" />
-                      Email Our Events Team
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold tracking-tight mb-4">Events at The Goat</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Join us for live music, special tastings, community gatherings, and more. There's always something
               happening at Stubborn Goat Brewing!
             </p>
-            <div className="flex items-center justify-center gap-2 mt-4 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              <span>122 Rosehill Ave, West Grove, PA</span>
-            </div>
           </div>
 
           {/* Anchor target so "Back to all events" lands on the calendar.
