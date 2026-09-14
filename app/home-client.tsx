@@ -100,7 +100,7 @@ export function HomeClient() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2"
                     >
-                      <InstagramIcon className="h-4 w-4 md:h-5 md:w-5" />
+                      <InstagramIcon className="h-5 w-5 md:h-6 md:w-6" />
                       Instagram
                     </Link>
                   </Button>
@@ -115,7 +115,7 @@ export function HomeClient() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2"
                     >
-                      <FacebookIcon className="h-4 w-4 md:h-5 md:w-5" />
+                      <FacebookIcon className="h-5 w-5 md:h-6 md:w-6" />
                       Facebook
                     </Link>
                   </Button>
@@ -130,7 +130,7 @@ export function HomeClient() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2"
                     >
-                      <UntappdIcon className="h-4 w-4 md:h-5 md:w-5" />
+                      <UntappdIcon className="h-5 w-5 md:h-6 md:w-6" />
                       Untappd
                     </Link>
                   </Button>
