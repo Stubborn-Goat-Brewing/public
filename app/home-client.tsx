@@ -79,6 +79,7 @@ export function HomeClient() {
                 <div className="flex justify-center gap-4 mb-4 md:mb-6">
                   <InstagramIcon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
                   <FacebookIcon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                  <UntappdIcon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
                 </div>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter mb-3 md:mb-4">
                   Follow The Herd!
@@ -87,7 +88,7 @@ export function HomeClient() {
                   Follow us on Instagram and Facebook for the latest photos, events, and behind-the-scenes content. Join our
                   community and see what's brewing at The Goat!
                 </p>
-                <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
+                <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4 justify-center">
                   <Button
                     asChild
                     size="lg"

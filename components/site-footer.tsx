@@ -58,7 +58,7 @@ export function SiteFooter() {
                       href={social.href}
                       {...(social.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     >
-                      <Icon className="h-6 w-6" />
+                      <Icon className="h-8 w-8" />
                       <span className="sr-only">{social.label}</span>
                     </Link>
                   </Button>
