@@ -4,30 +4,31 @@ import { Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { BUSINESS } from "@/lib/seo/site"
 import { WEEKLY_HOURS } from "@/lib/hours"
+import { InstagramIcon, FacebookIcon, UntappdIcon } from "@/components/brand-icons"
 
 const SOCIAL_LINKS = [
   {
     href: "https://instagram.com/StubbornGoatBrewing",
     label: "Instagram",
-    icon: "/images/icon_instagram.png",
+    Icon: InstagramIcon,
     external: true,
   },
   {
     href: "https://www.facebook.com/profile.php?id=61575081059536",
     label: "Facebook",
-    icon: "/images/icon_facebook.png",
+    Icon: FacebookIcon,
     external: true,
   },
   {
     href: "https://untappd.com/StubbornGoatBrewing",
     label: "Untappd",
-    icon: "/images/icon_untappd.png",
+    Icon: UntappdIcon,
     external: true,
   },
   {
     href: "mailto:tribe@stubborngoatbrewing.com",
     label: "Email",
-    icon: "/images/icon_email.png",
+    Icon: Mail,
     external: false,
   },
 ]
@@ -49,17 +50,20 @@ export function SiteFooter() {
               <span className="font-bold">Stubborn Goat Brewing</span>
             </div>
             <div className="flex gap-4">
-              {SOCIAL_LINKS.map((social) => (
-                <Button key={social.label} variant="ghost" size="icon" asChild>
-                  <Link
-                    href={social.href}
-                    {...(social.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  >
-                    <Image src={social.icon || "/placeholder.svg"} alt={social.label} width={24} height={24} className="h-6 w-6" />
-                    <span className="sr-only">{social.label}</span>
-                  </Link>
-                </Button>
-              ))}
+              {SOCIAL_LINKS.map((social) => {
+                const Icon = social.Icon
+                return (
+                  <Button key={social.label} variant="ghost" size="icon" asChild>
+                    <Link
+                      href={social.href}
+                      {...(social.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    >
+                      <Icon className="h-6 w-6" />
+                      <span className="sr-only">{social.label}</span>
+                    </Link>
+                  </Button>
+                )
+              })}
             </div>
           </div>
 
