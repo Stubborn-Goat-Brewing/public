@@ -53,12 +53,18 @@ export function SiteFooter() {
               {SOCIAL_LINKS.map((social) => {
                 const Icon = social.Icon
                 return (
-                  <Button key={social.label} variant="ghost" size="icon" asChild>
+                  <Button
+                    key={social.label}
+                    variant="ghost"
+                    size="icon"
+                    className="h-11 w-11 [&_svg]:size-7"
+                    asChild
+                  >
                     <Link
                       href={social.href}
                       {...(social.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     >
-                      <Icon className="h-8 w-8" />
+                      <Icon />
                       <span className="sr-only">{social.label}</span>
                     </Link>
                   </Button>
