@@ -30,10 +30,11 @@ export function GiftCardPromoBanner() {
           <div className="flex flex-col gap-1">
             <p className="text-sm leading-relaxed text-pretty md:text-base">
               <span className="font-bold">Holiday Gift Card Special:</span> Buy $50 or more in gift cards and receive a{" "}
-              <span className="font-bold">10% bonus card free</span>. Through Dec 24.
+              <span className="font-bold">10% bonus voucher free</span>. Through Dec 24.
             </p>
             <p className="text-xs leading-relaxed text-promo-foreground/80 text-pretty">
-              All sales are final. Gift cards are redeemable at all Stubborn Goat Brewing locations.
+              Bonus is a discount voucher, not a gift card, and is redeemable 12/25/26 through 3/30/27. All sales are
+              final. Gift cards and bonus vouchers are redeemable at all Stubborn Goat Brewing locations.
             </p>
           </div>
         </div>
