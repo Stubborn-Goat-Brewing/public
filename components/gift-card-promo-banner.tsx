@@ -33,8 +33,7 @@ export function GiftCardPromoBanner() {
               <span className="font-bold">10% bonus card free</span>. Through Dec 24.
             </p>
             <p className="text-xs leading-relaxed text-promo-foreground/80 text-pretty">
-              Bonus gift cards are good for 90 days following the end of the offer period. All sales are final. Gift
-              cards are redeemable at all Stubborn Goat Brewing locations.
+              All sales are final. Gift cards are redeemable at all Stubborn Goat Brewing locations.
             </p>
           </div>
         </div>
