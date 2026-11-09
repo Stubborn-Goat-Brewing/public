@@ -7,6 +7,7 @@ const GIFT_CARD_URL = "https://order.toasttab.com/egiftcards/stubborn-goat-brewi
 
 /** Last moment of the offer: end of day Dec 24, 2026, Eastern time. */
 const PROMO_END = new Date("2026-12-25T00:00:00-05:00")
+const MAX_TIMEOUT_MS = 2_147_483_647
 
 /**
  * Holiday gift card promo shown directly beneath the site header. Pages are
@@ -17,7 +18,15 @@ export function GiftCardPromoBanner() {
   const [isActive, setIsActive] = useState(true)
 
   useEffect(() => {
-    if (Date.now() >= PROMO_END.getTime()) setIsActive(false)
+    const msRemaining = PROMO_END.getTime() - Date.now()
+    if (msRemaining <= 0) {
+      setIsActive(false)
+      return
+    }
+    // setTimeout overflows past ~24.8 days, so only schedule once the deadline is within range.
+    if (msRemaining > MAX_TIMEOUT_MS) return
+    const timer = setTimeout(() => setIsActive(false), msRemaining)
+    return () => clearTimeout(timer)
   }, [])
 
   if (!isActive) return null
