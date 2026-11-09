@@ -6,6 +6,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { GiftCardPromoBanner } from "@/components/gift-card-promo-banner"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -169,6 +170,7 @@ export function SiteHeader() {
   const closeMobileMenu = () => setIsMobileMenuOpen(false)
 
   return (
+    <>
     <header className="sticky top-0 z-40 w-full border-b bg-zinc-900 text-white">
       <div className="container flex h-16 items-center justify-between py-4">
         <Link href="/" className="flex items-center space-x-2">
@@ -228,5 +230,7 @@ export function SiteHeader() {
         </div>
       )}
     </header>
+    <GiftCardPromoBanner />
+    </>
   )
 }
