@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Gift } from "lucide-react"
+import { ChevronDown, Gift } from "lucide-react"
 
 const GIFT_CARD_URL = "https://order.toasttab.com/egiftcards/stubborn-goat-brewing-122-rosehill-ave"
 
@@ -32,10 +32,16 @@ export function GiftCardPromoBanner() {
               <span className="font-bold">Holiday Gift Card Special:</span> Buy $50 or more in gift cards and receive a{" "}
               <span className="font-bold">10% bonus voucher free</span>. Through Dec 24.
             </p>
-            <p className="text-xs leading-relaxed text-promo-foreground/80 text-pretty">
-              Bonus is a discount voucher, not a gift card, and is redeemable 12/25/26 through 3/30/27. All sales are
-              final. Gift cards and bonus vouchers are redeemable at all Stubborn Goat Brewing locations.
-            </p>
+            <details className="group text-xs">
+              <summary className="mx-auto inline-flex w-fit cursor-pointer list-none items-center gap-1 rounded-sm font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-promo-foreground md:mx-0 [&::-webkit-details-marker]:hidden">
+                Details
+                <ChevronDown className="h-3 w-3 transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+              <p className="mt-1 leading-relaxed text-promo-foreground/80 text-pretty">
+                Bonus is a discount voucher, not a gift card, and is redeemable 12/25/26 through 3/30/27. All sales are
+                final. Gift cards and bonus vouchers are redeemable at all Stubborn Goat Brewing locations.
+              </p>
+            </details>
           </div>
         </div>
 
